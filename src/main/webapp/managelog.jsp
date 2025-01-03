@@ -12,7 +12,7 @@
 		<script src="static/element-ui-2.14.0/index.js"></script>
 		<script src="static/database.js" type="text/javascript"></script>
 		<script src="static/jquery-3.5.1.min.js"></script>
-		<title>欢迎来到管理系统</title>
+		<title>历史员工</title>
 	</head>
 	<body>
 		<%@ page import="bean.User" %>
@@ -22,7 +22,7 @@
 		<%} %>
 
 		<div id="app">
-			<el-dialog title="添加员工" :visible.sync="dialogFormVisible">
+			<!-- <el-dialog title="添加员工" :visible.sync="dialogFormVisible">
 				<el-form ref="form" :model="form" :rules="rules">
 					<el-form-item label="员工姓名" prop="name" :label-width="formLabelWidth">
 						<el-input v-model="form.name" autocomplete="off"></el-input>
@@ -51,10 +51,10 @@
 					<el-button @click="cancel()">取 消</el-button>
 					<el-button type="primary" @click="submitForm('form')">确 定</el-button>
 				</div>
-			</el-dialog>
+			</el-dialog> -->
 			
 			
-			<el-dialog title="修改员工信息" :visible.sync="EditFormVisible">
+			<!-- <el-dialog title="修改员工信息" :visible.sync="EditFormVisible">
 				<el-form ref="editform" :model="editform" :rules="rules">
 					<el-form-item label="员工编号" prop="id" :label-width="formLabelWidth">
 						<el-input :disabled="true" v-model="editform.id" autocomplete="off"></el-input>
@@ -89,9 +89,7 @@
 					<el-button @click="editcancel()">取 消</el-button>
 					<el-button type="primary" @click="submitUpdate('editform')">确 定</el-button>
 				</div>
-			</el-dialog>
-			
-			
+			</el-dialog> -->
 			
 			<div class="container">
 				<div class="row">
@@ -100,11 +98,11 @@
 							<%=user.getName() %>
 						</h1>
 					</div>
-					<div class="col-md-7">
+					<!-- <div class="col-md-7">
 						<el-button type="primary" @click="goToManageLog()" class="mt-5" round>查看历史员工</el-button>
-					</div>
+					</div> -->
 					<div class="col-md-2">
-						<el-button type="primary" @click="addUser()" class="mt-5" round>添加员工</el-button>
+						<el-button type="primary" @click="goToManager()" class="mt-5" round>返回上页</el-button>
 					</div>
 				</div>
 				<el-table :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">
@@ -122,12 +120,14 @@
 					</el-table-column>
 					<el-table-column label="性别" prop="gender">
 					</el-table-column>
+					<el-table-column label="离职时间" prop="logtime">
+					</el-table-column>
 					<el-table-column align="right">
 						<template slot="header" slot-scope="scope">
 							<el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
 						</template>
 						<template slot-scope="scope">
-							<el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+							<el-button size="mini" @click="handleEdit(scope.$index, scope.row)">恢复</el-button>
 							<el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
 						</template>
 					</el-table-column>
@@ -158,45 +158,45 @@
 						account: '',
 						password:''
 					},
-					rules: {
-						name: [{
-							required: true,
-							message: '姓名不可为空',
-							trigger: 'blur'
-						}],
-						account: [{
-							required: true,
-							message: '账号不可为空',
-							trigger: 'blur'
-						}],
-						password: [{
-							required: true,
-							message: '密码不可为空',
-							trigger: 'blur'
-						}],
-						idcard: [{
-								required: true,
-								message: '身份证号码不可为空',
-								trigger: 'blur'
-							},
-							{
-								min: 18,
-								max: 18,
-								message: '身份证号码必须为18位',
-								trigger: 'blur'
-							}
-						],
-						gender: [{
-							required: true,
-							message: '请选择性别',
-							trigger: 'blur'
-						}],
-						role: [{
-							required: true,
-							message: '请选择角色',
-							trigger: 'blur'
-						}]
-					},
+					// rules: {
+					// 	name: [{
+					// 		required: true,
+					// 		message: '姓名不可为空',
+					// 		trigger: 'blur'
+					// 	}],
+					// 	account: [{
+					// 		required: true,
+					// 		message: '账号不可为空',
+					// 		trigger: 'blur'
+					// 	}],
+					// 	password: [{
+					// 		required: true,
+					// 		message: '密码不可为空',
+					// 		trigger: 'blur'
+					// 	}],
+					// 	idcard: [{
+					// 			required: true,
+					// 			message: '身份证号码不可为空',
+					// 			trigger: 'blur'
+					// 		},
+					// 		{
+					// 			min: 18,
+					// 			max: 18,
+					// 			message: '身份证号码必须为18位',
+					// 			trigger: 'blur'
+					// 		}
+					// 	],
+					// 	gender: [{
+					// 		required: true,
+					// 		message: '请选择性别',
+					// 		trigger: 'blur'
+					// 	}],
+					// 	role: [{
+					// 		required: true,
+					// 		message: '请选择角色',
+					// 		trigger: 'blur'
+					// 	}]
+					// },
 				}
 			},
 			methods: {
@@ -254,55 +254,59 @@
 				goToManageLog() {
 					window.location.href = '<%=request.getContextPath()%>/managelog.jsp'; 
 				},
+				//进入管理员界面
+				goToManager() {
+					window.location.href = '<%=request.getContextPath()%>/manager.jsp'; 
+				},
 				//打开增加用户窗口
 				addUser() {
 					this.dialogFormVisible = true;
 				},
 				//获取所有用户
-				getUsers() {
+				getEmployeelog() {
 					var self = this;
 					$.ajax({
 						type: 'get',
 						async: false,
 						dataType: 'JSON',
-						url: serve_url + "listall_user",
+						url: serve_url + "listall_deployeelog",
 						success: function(res) {
 							self.receive_users(res);
 						}
 					})
 				},
 				//提交新用户信息
-				submitForm(formName) {
-					this.$refs[formName].validate((valid) => {
-						if (valid) {
-							var self = this;
-							$.ajax({
-								type: 'POST',
-								async: false,
-								url: serve_url + "adduser",
-								data: JSON.stringify(this.form),
-								success: function(res) {
-									console.log(res)
-									self.getUsers();
-									if (res == "true") {
-										self.$message({
-											message: '添加成功',
-											type: 'success'
-										});
-									} else {
-										self.$message.error('添加失败');
-									}
+				// submitForm(formName) {
+				// 	this.$refs[formName].validate((valid) => {
+				// 		if (valid) {
+				// 			var self = this;
+				// 			$.ajax({
+				// 				type: 'POST',
+				// 				async: false,
+				// 				url: serve_url + "adduser",
+				// 				data: JSON.stringify(this.form),
+				// 				success: function(res) {
+				// 					console.log(res)
+				// 					self.getUsers();
+				// 					if (res == "true") {
+				// 						self.$message({
+				// 							message: '添加成功',
+				// 							type: 'success'
+				// 						});
+				// 					} else {
+				// 						self.$message.error('添加失败');
+				// 					}
 
-									self.resetForm('form');
-									self.dialogFormVisible = false;
-								}
-							})
-						} else {
-							console.log('error submit!!');
-							return false;
-						}
-					});
-				},
+				// 					self.resetForm('form');
+				// 					self.dialogFormVisible = false;
+				// 				}
+				// 			})
+				// 		} else {
+				// 			console.log('error submit!!');
+				// 			return false;
+				// 		}
+				// 	});
+				// },
 				//关闭弹出窗口
 				cancel() {
 					this.dialogFormVisible = false;
@@ -312,40 +316,40 @@
 					this.$refs[formName].resetFields();
 				},
 				//提交用户修改信息
-				submitUpdate(formName){
-					this.$refs[formName].validate((valid) => {
-						if (valid) {
-							var self = this;
-							$.ajax({
-								type: 'POST',
-								async: false,
-								url: serve_url + "updateuser",
-								data: JSON.stringify(this.editform),
-								success: function(res) {
-									console.log(res)
-									self.getUsers();
-									if (res == "true") {
-										self.$message({
-											message: '修改成功',
-											type: 'success'
-										});
-									} else {
-										self.$message.error('修改失败');
-									}
+				// submitUpdate(formName){
+				// 	this.$refs[formName].validate((valid) => {
+				// 		if (valid) {
+				// 			var self = this;
+				// 			$.ajax({
+				// 				type: 'POST',
+				// 				async: false,
+				// 				url: serve_url + "updateuser",
+				// 				data: JSON.stringify(this.editform),
+				// 				success: function(res) {
+				// 					console.log(res)
+				// 					self.getUsers();
+				// 					if (res == "true") {
+				// 						self.$message({
+				// 							message: '修改成功',
+				// 							type: 'success'
+				// 						});
+				// 					} else {
+				// 						self.$message.error('修改失败');
+				// 					}
 
-									self.resetForm('editform');
-									self.EditFormVisible = false;
-								}
-							})
-						} else {
-							console.log('error submit!!');
-							return false;
-						}
-					});
-				},
+				// 					self.resetForm('editform');
+				// 					self.EditFormVisible = false;
+				// 				}
+				// 			})
+				// 		} else {
+				// 			console.log('error submit!!');
+				// 			return false;
+				// 		}
+				// 	});
+				// },
 			},
 			created() {
-				this.getUsers();
+				this.getEmployeelog();
 			}
 		})
 	</script>
