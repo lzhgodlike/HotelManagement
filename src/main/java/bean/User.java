@@ -14,6 +14,7 @@ public class User {
 	private String role;
 	private int id;
 	private String name;
+	private String gender;
 	private String idcard;
 	
 	public int getId() {
@@ -53,10 +54,16 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 	public User() {
 
 	}
-	public User(int id,String account, String password, String role, String name, String idcard) {
+	public User(int id,String account, String password, String role, String name, String idcard, String gender) {
 		super();
 		this.id = id;
 		this.account = account;
@@ -64,6 +71,7 @@ public class User {
 		this.role = role;
 		this.name = name;
 		this.idcard = idcard;
+		this.gender = gender;
 	}
 	public User(String account,String password,String role){
 		this.account = account;
@@ -75,7 +83,7 @@ public class User {
 		ResultSet rs = null;
 		try{
 			conn = DBConnection.getConnection();
-			String sql = "select * from `user` where `user_account` = ? and `user_password` = ? and `role` = ?";
+			String sql = "select * from `user` where `user_account` = ? and `password` = ? and `role` = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, this.account);
 			ps.setString(2, this.password);
@@ -85,7 +93,7 @@ public class User {
 				return "error";
 			}else{
 				this.idcard = rs.getString("user_idcard");
-				this.name = rs.getString("user_name");
+				this.name = rs.getString("username");
 				this.id = rs.getInt("user_id");
 				return "pass";
 			}
@@ -103,7 +111,7 @@ public class User {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while(rs.next()){
-				User temp = new User(rs.getInt("user_id"),rs.getString("user_account"),rs.getString("user_password"),rs.getString("role"),rs.getString("user_name"),rs.getString("user_idcard"));
+				User temp = new User(rs.getInt("user_id"),rs.getString("user_account"),rs.getString("password"),rs.getString("role"),rs.getString("username"),rs.getString("user_idcard"),rs.getString("gender"));
 				allusers.add(temp);
 			}
 			//System.out.println(rs.next());
@@ -118,7 +126,7 @@ public class User {
 		int rs = 0;
 		try{
 			conn = DBConnection.getConnection();
-			String sql = "insert into `user` (user_account,user_password,user_name,user_idcard,role) values(?,?,?,?,?)";
+			String sql = "insert into `user` (user_account,password,username,user_idcard,gender,role) values(?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, this.account);
 			String psw = this.idcard.substring(this.idcard.length()-6);
@@ -127,7 +135,8 @@ public class User {
 			ps.setString(2, psw);
 			ps.setString(3, this.name);
 			ps.setString(4, this.idcard);
-			ps.setString(5, role);
+			ps.setString(5, gender);
+			ps.setString(6, role);
 			rs = ps.executeUpdate();
 			System.out.println(rs);
 			if(rs==1){
@@ -165,14 +174,15 @@ public class User {
 		int rs = 0;
 		try{
 			conn = DBConnection.getConnection();
-			String sql = "update `user` set `user_account`=?,`user_password`=?,`user_name`=?,`user_idcard`=?,`role`=? where `user_id` = ?";
+			String sql = "update `user` set `user_account`=?,`password`=?,`username`=?,`user_idcard`=?,`gender`=?,`role`=? where `user_id` = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, this.account);
 			ps.setString(2, this.password);
 			ps.setString(3, this.name);
 			ps.setString(4, this.idcard);
-			ps.setString(5, this.role);
-			ps.setInt(6, this.id);
+			ps.setString(5, gender);
+			ps.setString(6, this.role);
+			ps.setInt(7, this.id);
 			rs = ps.executeUpdate();
 			System.out.println(rs);
 			if(rs==1){

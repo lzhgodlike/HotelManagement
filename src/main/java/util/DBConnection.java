@@ -13,7 +13,7 @@ public class DBConnection {
 			+ "characterEncoding=utf8&useSSL=false&serverTimezone=UTC"
 			+ "&rewriteBatchedStatements=true";
 	private static final String user = "root";
-	private static final String password = "1234";
+	private static final String password = "123456";
 
 	private DBConnection() {
 	}

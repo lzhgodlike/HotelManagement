@@ -33,6 +33,12 @@
 					<el-form-item label="员工身份证号" prop="idcard" :label-width="formLabelWidth">
 						<el-input v-model="form.idcard" autocomplete="off"></el-input>
 					</el-form-item>
+					<el-form-item label="员工性别" prop="gender" :label-width="formLabelWidth">
+ 					   <el-radio-group v-model="form.gender">
+ 					       <el-radio label="男">男</el-radio>
+ 					       <el-radio label="女">女</el-radio>
+ 					   </el-radio-group>
+					</el-form-item>
 					<el-form-item label="员工职务" prop="role" :label-width="formLabelWidth">
 						<el-select v-model="form.role" placeholder="请选择员工职务">
 							<el-option label="管理员" value="管理员"></el-option>
@@ -48,7 +54,7 @@
 			</el-dialog>
 			
 			
-			<el-dialog title="添加员工" :visible.sync="EditFormVisible">
+			<el-dialog title="修改员工信息" :visible.sync="EditFormVisible">
 				<el-form ref="editform" :model="editform" :rules="rules">
 					<el-form-item label="员工编号" prop="id" :label-width="formLabelWidth">
 						<el-input :disabled="true" v-model="editform.id" autocomplete="off"></el-input>
@@ -62,8 +68,14 @@
 					<el-form-item label="员工密码" prop="password" :label-width="formLabelWidth">
 						<el-input v-model="editform.password" autocomplete="off"></el-input>
 					</el-form-item>
-					<el-form-item label="员工身份证号" prop="idcard" :label-width="formLabelWidth">
+					<el-form-item label="员工身份证号" prop="idcard" :label-width="formLabelWidth1">
 						<el-input v-model="editform.idcard" autocomplete="off"></el-input>
+					</el-form-item>
+					<el-form-item label="员工性别" prop="gender" :label-width="formLabelWidth">
+					    <el-radio-group v-model="editform.gender">
+							<el-radio label="男">男</el-radio>
+					        <el-radio label="女">女</el-radio>
+ 					   </el-radio-group>
 					</el-form-item>
 					<el-form-item label="员工职务" prop="role" :label-width="formLabelWidth">
 						<el-select v-model="editform.role" placeholder="请选择员工职务">
@@ -106,6 +118,8 @@
 					</el-table-column>
 					<el-table-column label="职务" prop="role">
 					</el-table-column>
+					<el-table-column label="性别" prop="gender">
+					</el-table-column>
 					<el-table-column align="right">
 						<template slot="header" slot-scope="scope">
 							<el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
@@ -142,7 +156,8 @@
 						account: '',
 						password:''
 					},
-					formLabelWidth: '120px',
+					//formLabelWidth: '100px',
+					//formLabelWidth1: '180px',
 					rules: {
 						name: [{
 							required: true,
@@ -171,6 +186,11 @@
 								trigger: 'blur'
 							}
 						],
+						gender: [{
+							required: true,
+							message: '请选择性别',
+							trigger: 'blur'
+						}],
 						role: [{
 							required: true,
 							message: '请选择角色',
