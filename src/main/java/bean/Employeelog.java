@@ -108,25 +108,6 @@ public class Employeelog {
 			conn.close();
 		}
 	}
-//	public static List<User> getUsers() throws SQLException{
-//		Connection conn = null;
-//		ResultSet rs = null;
-//		List<User> allusers = new ArrayList<User>();
-//		try{
-//			conn = DBConnection.getConnection();
-//			String sql = "select * from `user`";
-//			PreparedStatement ps = conn.prepareStatement(sql);
-//			rs = ps.executeQuery();
-//			while(rs.next()){
-//				User temp = new User(rs.getInt("user_id"),rs.getString("user_account"),rs.getString("password"),rs.getString("role"),rs.getString("username"),rs.getString("user_idcard"),rs.getString("gender"));
-//				allusers.add(temp);
-//			}
-//			//System.out.println(rs.next());
-//		}finally{
-//			conn.close();
-//		}
-//		return allusers;
-//	}
 	public static List<Employeelog> getEmployeelog() throws SQLException{
 		Connection conn = null;
 		ResultSet rs = null;
@@ -145,34 +126,6 @@ public class Employeelog {
 		}
 		return userlogs;
 	}
-//	public boolean addUser() throws SQLException{
-//		Connection conn = null;
-//		int rs = 0;
-//		try{
-//			conn = DBConnection.getConnection();
-//			String sql = "insert into `user` (user_account,password,username,user_idcard,gender,role) values(?,?,?,?,?,?)";
-//			PreparedStatement ps = conn.prepareStatement(sql);
-//			ps.setString(1, this.account);
-//			String psw = this.idcard.substring(this.idcard.length()-6);
-//			this.password = psw;
-//			System.out.println(psw);
-//			ps.setString(2, psw);
-//			ps.setString(3, this.name);
-//			ps.setString(4, this.idcard);
-//			ps.setString(5, gender);
-//			ps.setString(6, role);
-//			rs = ps.executeUpdate();
-//			System.out.println(rs);
-//			if(rs==1){
-//				return true;
-//			}else{
-//				return false;
-//			}
-//			//System.out.println(rs.next());
-//		}finally{
-//			conn.close();
-//		}
-//	}
 	public boolean deleteEmployeelog() throws SQLException{
 		Connection conn = null;
 		int rs = 0;
@@ -232,16 +185,6 @@ public class Employeelog {
 			else {
 				return false;
 			}
-			
-//			ps.setString(1, this.account);
-//			ps.setString(2, this.password);
-//			ps.setString(3, this.name);
-//			ps.setString(4, this.idcard);
-//			ps.setString(5, gender);
-//			ps.setString(6, this.role);
-//			ps.setInt(7, this.id);
-//			rs = ps.executeUpdate();
-			//System.out.println(rs.next());
 		}finally{
 			if (rs != null) {
 				rs.close();
