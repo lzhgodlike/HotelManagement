@@ -16,7 +16,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/F-_Java_apache-tomcat-9.0.83-windows-x64_apache-tomcat-9.0.83"/>
-	<classpathentry kind="lib" path="D:/12257/Desktop/垃圾/javaweb/mysql-connector-java-8.0.15/mysql-connector-java-8.0.15.jar"/>
-	<classpathentry kind="lib" path="D:/Program Files (x86)/apache-tomcat-9.0.96/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/apache-tomcat-9.0.96/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mysql-connector-java-8.0.15.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
