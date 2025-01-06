@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import bean.Employeelog;
-
+//
 /**
  * Servlet implementation class deleteuser
  */
