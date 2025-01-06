@@ -138,6 +138,9 @@ public class sub1 {
 //			ps.setDate(5, sub_get_date);
 //			java.sql.Date sub_return_date = java.sql.Date.valueOf(this.sub_return_date); //(Date) simpleDateFormat.parse(this.sub_return_date);
 //			ps.setDate(6, sub_return_date);
+			ps.setDate(4, sub_date);
+			ps.setDate(5, sub_get_date);
+			ps.setDate(6, sub_return_date);
 			ps.setString(7, this.sub_status);
 //			ps.setString(8, this.car_number);
 //			ps.setString(9, this.rent_type);
