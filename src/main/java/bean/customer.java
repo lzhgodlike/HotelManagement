@@ -11,7 +11,7 @@ import java.util.List;
 
 import util.DBConnection;
 
-//修改客户信息表6
+//修改客户信息表
 public class customer {
     private String customer_id;
     private String customer_idcard;
