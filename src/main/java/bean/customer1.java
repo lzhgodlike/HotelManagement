@@ -272,7 +272,7 @@ public class customer1 {
 
     /*添加客户信息*/
 
-    public int AddKehu(customer customer){
+    public int AddKehu(customer1 customer){
 
         int i = 0;
         Connection conn = null;
