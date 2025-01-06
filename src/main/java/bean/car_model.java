@@ -87,6 +87,7 @@ public class car_model {
 		}
 		return allcars;
 	}
+	
 	public static car getCar(String num)throws SQLException{
 		Connection conn = null;
 		ResultSet rs = null;
