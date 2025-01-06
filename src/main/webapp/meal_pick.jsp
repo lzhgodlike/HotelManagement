@@ -11,6 +11,13 @@
   <script>
     tailwind.config={theme:{extend:{colors:{primary:'#4A90E2'},borderRadius:{'none':'0px','sm':'2px',DEFAULT:'4px','md':'8px','lg':'12px','xl':'16px','2xl':'20px','3xl':'24px','full':'9999px','button':'4px'}}}}
   </script>
+  <script src="static/vue/vue.js"></script>
+	<script src="static/vue/vue-router.js"></script>
+	<link rel="stylesheet" type="text/css" href="static/bootstrap/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="static/element-ui-2.14.0/index.css" />
+	<script src="static/element-ui-2.14.0/index.js"></script>
+	<script src="static/database.js" type="text/javascript"></script>
+	<script src="static/jquery-3.5.1.min.js"></script>
   <script>
     function selectMeal(packageId, mealName, mealPrice) {
       document.getElementById('selectedMealName').value = mealName;
@@ -20,7 +27,7 @@
   </script>
 </head>
 <body class="bg-gray-50">
-  <div class="min-h-[1024px] w-[1440px] mx-auto px-8 py-10">
+  <div class="min-h-[1024px] w-[1440px] mx-auto px-8 py-10" id="app">
     <h1 class="text-3xl font-bold text-gray-900 mb-8">酒店餐饮服务</h1>
     
     <div class="flex gap-8">
@@ -136,4 +143,34 @@
     </div>
   </div>
 </body>
+<script>
+	new Vue({
+		el: '#app',
+		data() {
+			return {
+				tableData: [],
+				search: '123',
+				
+			}
+		},
+		methods: {
+			//获取套餐信息
+			getPackages() {
+				var self = this;
+				$.ajax({
+					type: 'get',
+					async: false,
+					dataType: 'JSON',
+					url: serve_url + "listall_user",
+					success: function(res) {
+						self.receive_users(res);
+					}
+				})
+			},
+		},
+		created() {
+			this.getPackages();
+		}
+	})
+</script>
 </html>

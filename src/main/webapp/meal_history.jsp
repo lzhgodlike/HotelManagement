@@ -8,6 +8,14 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 <link href="https://ai-public.mastergo.com/gen_page/tailwind-custom.css" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+			<script src="static/vue/vue.js"></script>
+			<script src="static/vue/vue-router.js"></script>
+			<link rel="stylesheet" type="text/css" href="static/bootstrap/bootstrap.min.css" />
+			<link rel="stylesheet" type="text/css" href="static/element-ui-2.14.0/index.css" />
+			<script src="static/element-ui-2.14.0/index.js"></script>
+			<script src="static/database.js" type="text/javascript"></script>
+			<script src="static/jquery-3.5.1.min.js"></script>
 <script>
 tailwind.config = {
 theme: {
@@ -62,7 +70,7 @@ color: #4F46E5;
 </style>
 </head>
 <body>
-<div class="max-w-[1440px] mx-auto bg-white min-h-screen">
+<div class="max-w-[1440px] mx-auto bg-white min-h-screen" id="app">
 <header class="px-8 py-6 border-b">
 <div class="flex items-center mb-6">
 <button class="text-gray-600 hover:text-gray-900 !rounded-button whitespace-nowrap">
@@ -185,4 +193,21 @@ color: #4F46E5;
 </footer>
 </div>
 </body>
+<script>
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					tableData: [],
+					search: '123',
+					
+				}
+			},
+			methods: {
+				
+			},
+			created() {
+			}
+		})
+	</script>
 </html>
