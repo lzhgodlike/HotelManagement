@@ -18,13 +18,7 @@
 	<script src="static/element-ui-2.14.0/index.js"></script>
 	<script src="static/database.js" type="text/javascript"></script>
 	<script src="static/jquery-3.5.1.min.js"></script>
-  <script>
-    function selectMeal(packageId, mealName, mealPrice) {
-      document.getElementById('selectedMealName').value = mealName;
-      document.getElementById('selectedMealPrice').value = mealPrice;
-      document.getElementById('packageId').value = packageId;
-    }
-  </script>
+  
 </head>
 <body class="bg-gray-50">
   <div class="min-h-[1024px] w-[1440px] mx-auto px-8 py-10" id="app">
@@ -33,58 +27,16 @@
     <div class="flex gap-8">
       <div class="w-2/3">
         <div class="grid grid-cols-2 gap-6">
-          <div class="bg-white rounded shadow-sm overflow-hidden">
+          <div class="bg-white rounded shadow-sm overflow-hidden" v-for="(meal, index) in meals">
             <div class="h-[240px] w-full overflow-hidden">
-              <img src="https://ai-public.mastergo.com/ai/img_res/a7399150458548bd566e87b0017796d5.jpg" class="w-full h-full object-cover object-top" alt="标准早餐"/>
+              <img :src=meal.pictureSrc class="w-full h-full object-cover object-top" alt=meal.packageName/>
             </div>
             <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">标准早餐</h3>
-              <p class="text-gray-600 mb-4">含美式炒蛋、培根、新鲜面包、水果拼盘及咖啡或茶</p>
+              <h3 class="text-xl font-semibold mb-2" >{{ meal.packageName }}</h3>
+              <p class="text-gray-600 mb-4">{{ meal.description }}</p>
               <div class="flex justify-between items-center">
-                <span class="text-xl font-bold text-primary">¥ 68</span>
-                <button class="bg-primary text-white px-6 py-2 !rounded-button whitespace-nowrap" onclick="selectMeal(1, '标准早餐', '68')">选择套餐</button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="bg-white rounded shadow-sm overflow-hidden">
-            <div class="h-[240px] w-full overflow-hidden">
-              <img src="https://ai-public.mastergo.com/ai/img_res/a3215c7f3bd505906b7caa8cc86caa27.jpg" class="w-full h-full object-cover object-top" alt="豪华晚餐"/>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">豪华晚餐</h3>
-              <p class="text-gray-600 mb-4">含和牛牛排、龙虾、精选红酒及精致甜点</p>
-              <div class="flex justify-between items-center">
-                <span class="text-xl font-bold text-primary">¥ 388</span>
-                <button class="bg-primary text-white px-6 py-2 !rounded-button whitespace-nowrap" onclick="selectMeal(2, '豪华晚餐', '388')">选择套餐</button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="bg-white rounded shadow-sm overflow-hidden">
-            <div class="h-[240px] w-full overflow-hidden">
-              <img src="https://ai-public.mastergo.com/ai/img_res/4448d6a1f1e8d1db21f0f03b1f1abbce.jpg" class="w-full h-full object-cover object-top" alt="素食套餐"/>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">健康素食</h3>
-              <p class="text-gray-600 mb-4">含藜麦沙拉、烤时蔬、坚果及鲜榨果汁</p>
-              <div class="flex justify-between items-center">
-                <span class="text-xl font-bold text-primary">¥ 88</span>
-                <button class="bg-primary text-white px-6 py-2 !rounded-button whitespace-nowrap" onclick="selectMeal(3, '健康素食', '88')">选择套餐</button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="bg-white rounded shadow-sm overflow-hidden">
-            <div class="h-[240px] w-full overflow-hidden">
-              <img src="https://ai-public.mastergo.com/ai/img_res/94eb6f5b5fd71ae1afc31e92b14210e0.jpg" class="w-full h-full object-cover object-top" alt="圣诞节套餐"/>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">圣诞节特供</h3>
-              <p class="text-gray-600 mb-4">含烤火鸡、圣诞布丁、红酒及节日小食</p>
-              <div class="flex justify-between items-center">
-                <span class="text-xl font-bold text-primary">¥ 298</span>
-                <button class="bg-primary text-white px-6 py-2 !rounded-button whitespace-nowrap" onclick="selectMeal(4, '圣诞节特供', '298')">选择套餐</button>
+                <span class="text-xl font-bold text-primary">¥ {{ meal.price }}</span>
+                <button class="bg-primary text-white px-6 py-2 !rounded-button whitespace-nowrap" @click="selectMeal(index)">选择套餐</button>
               </div>
             </div>
           </div>
@@ -148,12 +100,16 @@
 		el: '#app',
 		data() {
 			return {
-				tableData: [],
+				meals: [],
 				search: '123',
-				
 			}
 		},
 		methods: {
+			
+			receive_packages(msg) {
+				this.meals = msg;
+				console.log(this.meals);
+			},
 			//获取套餐信息
 			getPackages() {
 				var self = this;
@@ -161,12 +117,20 @@
 					type: 'get',
 					async: false,
 					dataType: 'JSON',
-					url: serve_url + "listall_user",
+					url: serve_url + "listAllPackages",
 					success: function(res) {
-						self.receive_users(res);
+						self.receive_packages(res);
 					}
 				})
 			},
+	      // 选中套餐
+	      selectMeal(index) {
+	        console.log(index);
+	        
+	        document.getElementById('selectedMealName').value = this.meals[index].packageName;
+	        document.getElementById('selectedMealPrice').value = this.meals[index].price;
+	        document.getElementById('packageId').value = this.meals[index].packageId;
+	      }
 		},
 		created() {
 			this.getPackages();

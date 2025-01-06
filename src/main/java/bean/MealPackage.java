@@ -46,7 +46,7 @@ public class MealPackage {
 	public void setPictureSrc(String pictureSrc) {
 		this.pictureSrc = pictureSrc;
 	}
-	public List<MealPackage> getAllPackages(){
+	public static List<MealPackage> getAllPackages(){
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
