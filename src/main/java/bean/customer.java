@@ -11,19 +11,20 @@ import java.util.List;
 
 import util.DBConnection;
 
+//修改客户信息表6
 public class customer {
-    private int customer_id;
+    private String customer_id;
     private String customer_idcard;
     private String customer_name;
     private String customer_unit;
     private String customer_phone;
-    private String rgin_date;
+    
 
-    public int getCustomer_id() {
+    public String getCustomer_id() {
         return customer_id;
     }
 
-    public void setCustomer_id(int customer_id) {
+    public void setCustomer_id(String customer_id) {
         this.customer_id = customer_id;
     }
 
@@ -59,23 +60,16 @@ public class customer {
         this.customer_phone = customer_phone;
     }
 
-    public String getRgin_date() {
-        return rgin_date;
-    }
 
-    public void setRgin_date(String rgin_date) {
-        this.rgin_date = rgin_date;
-    }
-
-    public customer(int customer_id, String customer_idcard, String customer_name, String customer_unit,
-                    String customer_phone, String rgin_date) {
+    public customer(String customer_id, String customer_idcard, String customer_name, String customer_unit,
+                    String customer_phone) {
         super();
         this.customer_id = customer_id;
         this.customer_idcard = customer_idcard;
         this.customer_name = customer_name;
         this.customer_unit = customer_unit;
         this.customer_phone = customer_phone;
-        this.rgin_date = rgin_date;
+        
     }
 
     public customer() {
@@ -94,14 +88,13 @@ public class customer {
             if (rs.next() == true) {
                 return false;
             } else {
-                String addsql = "insert into `customer` (customer_idcard,customer_name,customer_unit,customer_phone,regin_date) values(?,?,?,?,?)";
+                String addsql = "insert into `customer` (customer_idcard,customer_name,customer_unit,customer_phone) values(?,?,?,?)";
                 PreparedStatement addps = conn.prepareStatement(addsql);
                 addps.setString(1, this.customer_idcard);
                 addps.setString(2, this.customer_name);
                 addps.setString(3, this.customer_unit);
                 addps.setString(4, this.customer_phone);
-                Date date = new Date(System.currentTimeMillis());
-                addps.setDate(5, date);
+      
                 int addrs = addps.executeUpdate();
                 return true;
             }
@@ -122,14 +115,13 @@ public class customer {
             if (rs.next() == true) {
                 return false;
             } else {
-                String addsql = "insert into `customer` (customer_idcard,customer_name,customer_unit,customer_phone,regin_date) values(?,?,?,?,?)";
+                String addsql = "insert into `customer` (customer_idcard,customer_name,customer_unit,customer_phone) values(?,?,?,?)";
                 PreparedStatement addps = conn.prepareStatement(addsql);
                 addps.setString(1, this.customer_idcard);
                 addps.setString(2, this.customer_name);
                 addps.setString(3, this.customer_unit);
                 addps.setString(4, this.customer_phone);
-                Date date = new Date(System.currentTimeMillis());
-                addps.setDate(5, date);
+              
                 int addrs = addps.executeUpdate();
                 return true;
             }
@@ -150,14 +142,13 @@ public class customer {
             if (rs.next() == true) {
                 return false;
             } else {
-                String addsql = "insert into `customer` (customer_idcard,customer_name,customer_unit,customer_phone,regin_date) values(?,?,?,?,?)";
+                String addsql = "insert into `customer` (customer_idcard,customer_name,customer_unit,customer_phone) values(?,?,?,?)";
                 PreparedStatement addps = conn.prepareStatement(addsql);
                 addps.setString(1, this.customer_idcard);
                 addps.setString(2, this.customer_name);
                 addps.setString(3, this.customer_unit);
                 addps.setString(4, this.customer_phone);
-                Date date = new Date(System.currentTimeMillis());
-                addps.setDate(5, date);
+              
                 int addrs = addps.executeUpdate();
                 return true;
             }
@@ -178,14 +169,13 @@ public class customer {
             if (rs.next() == true) {
                 return false;
             } else {
-                String addsql = "insert into `customer` (customer_idcard,customer_name,customer_unit,customer_phone,regin_date) values(?,?,?,?,?)";
+                String addsql = "insert into `customer` (customer_idcard,customer_name,customer_unit,customer_phone) values(?,?,?,?)";
                 PreparedStatement addps = conn.prepareStatement(addsql);
                 addps.setString(1, this.customer_idcard);
                 addps.setString(2, this.customer_name);
                 addps.setString(3, this.customer_unit);
                 addps.setString(4, this.customer_phone);
-                Date date = new Date(System.currentTimeMillis());
-                addps.setDate(5, date);
+               
                 int addrs = addps.executeUpdate();
                 return true;
             }
@@ -209,12 +199,12 @@ public class customer {
 
                 customer customer = new customer();
 
-                customer.setCustomer_id(rs.getInt("customer_id"));
+                customer.setCustomer_id(rs.getString("customer_id"));
                 customer.setCustomer_idcard(rs.getString("customer_idcard"));
                 customer.setCustomer_name(rs.getString("customer_name"));
                 customer.setCustomer_unit(rs.getString("customer_unit"));
                 customer.setCustomer_phone(rs.getString("customer_phone"));
-                customer.setRgin_date(String.valueOf(rs.getDate("regin_date")));
+//                customer.setRgin_date(String.valueOf(rs.getDate("regin_date")));
                 customers.add(customer);
 
             }
@@ -235,11 +225,11 @@ public class customer {
         Connection conn = null;
         PreparedStatement ps = null;
 
-        String rgin_date = customer.getRgin_date();
-        Date date = Date.valueOf(rgin_date);
+//        String rgin_date = customer.getRgin_date();
+//        Date date = Date.valueOf(rgin_date);
         try {
             conn = DBConnection.getConnection();
-            String sql = " update customer set customer_idcard =?, customer_name=?,customer_unit=?,customer_phone=?,regin_date=? where customer_id=?";
+            String sql = " update customer set customer_idcard =?, customer_name=?,customer_unit=?,customer_phone=? where customer_id=?";
 
             ps = conn.prepareStatement(sql);
 
@@ -247,8 +237,8 @@ public class customer {
             ps.setString(2, customer.getCustomer_name());
             ps.setString(3, customer.getCustomer_unit());
             ps.setString(4, customer.getCustomer_phone());
-            ps.setDate(5, date);
-            ps.setInt(6, customer.getCustomer_id());
+//            ps.setDate(5, date);
+            ps.setString(5, customer.getCustomer_id());
             i = ps.executeUpdate();
 
         } catch (SQLException throwables) {
@@ -288,11 +278,11 @@ public class customer {
         Connection conn = null;
         PreparedStatement ps = null;
 
-        String rgin_date = customer.getRgin_date();
-        Date date = Date.valueOf(rgin_date);
+//        String rgin_date = customer.getRgin_date();
+//        Date date = Date.valueOf(rgin_date);
         try {
             conn = DBConnection.getConnection();
-            String sql = " insert into customer values (?,?,?,?,?,?)";
+            String sql = " insert into customer values (?,?,?,?,?)";
 
             ps = conn.prepareStatement(sql);
             ps.setInt(1, 0);
@@ -300,7 +290,7 @@ public class customer {
             ps.setString(3, customer.getCustomer_name());
             ps.setString(4, customer.getCustomer_unit());
             ps.setString(5, customer.getCustomer_phone());
-            ps.setDate(6, date);
+//            ps.setDate(6, date);
             i = ps.executeUpdate();
 
         } catch (SQLException throwables) {
