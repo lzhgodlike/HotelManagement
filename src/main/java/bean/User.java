@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.CallableStatement;
+//import com.mysql.cj.jdbc.CallableStatement;
+
 import util.DBConnection;
 
 public class User {
@@ -101,74 +104,78 @@ public class User {
 			conn.close();
 		}
 	}
-	public static List<User> getUsers() throws SQLException{
-		Connection conn = null;
-		ResultSet rs = null;
-		List<User> allusers = new ArrayList<User>();
-		try{
-			conn = DBConnection.getConnection();
-			String sql = "select * from `user`";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			while(rs.next()){
-				User temp = new User(rs.getInt("user_id"),rs.getString("user_account"),rs.getString("password"),rs.getString("role"),rs.getString("username"),rs.getString("user_idcard"),rs.getString("gender"));
-				allusers.add(temp);
-			}
-			//System.out.println(rs.next());
-		}finally{
-			conn.close();
-		}
-		return allusers;
-		
+	public static List<User> getUsers() throws SQLException {
+	    Connection conn = null;
+	    ResultSet rs = null;
+	    List<User> allusers = new ArrayList<User>();
+	    try {
+	        conn = DBConnection.getConnection();
+	        String sql = "SELECT * FROM ActiveUsers";
+	        PreparedStatement ps = conn.prepareStatement(sql);
+	        rs = ps.executeQuery();
+	        while (rs.next()) {
+	            User temp = new User(
+	                rs.getInt("user_id"),
+	                rs.getString("user_account"),
+	                rs.getString("password"),
+	                rs.getString("role"),
+	                rs.getString("username"),
+	                rs.getString("user_idcard"),
+	                rs.getString("gender")
+	            );
+	            allusers.add(temp);
+	        }
+	    } finally {
+	        if (rs != null) {
+	            rs.close();
+	        }
+	        if (conn != null) {
+	            conn.close();
+	        }
+	    }
+	    return allusers;
 	}
-	public boolean addUser() throws SQLException{
-		Connection conn = null;
-		int rs = 0;
-		try{
-			conn = DBConnection.getConnection();
-			String sql = "insert into `user` (user_account,password,username,user_idcard,gender,role) values(?,?,?,?,?,?)";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, this.account);
-			String psw = this.idcard.substring(this.idcard.length()-6);
-			this.password = psw;
-			System.out.println(psw);
-			ps.setString(2, psw);
-			ps.setString(3, this.name);
-			ps.setString(4, this.idcard);
-			ps.setString(5, gender);
-			ps.setString(6, role);
-			rs = ps.executeUpdate();
-			System.out.println(rs);
-			if(rs==1){
-				return true;
-			}else{
-				return false;
-			}
-			//System.out.println(rs.next());
-		}finally{
-			conn.close();
-		}
+	public boolean addUser() throws SQLException {
+	    Connection conn = null;
+	    int rs = 0;
+	    try {
+	        conn = DBConnection.getConnection();
+	        String sql = "{CALL AddEmployeeWithDefaultPassword(?, ?, ?, ?, ?, ?)}";
+	        CallableStatement cs = conn.prepareCall(sql);
+	        cs.setString(1, this.idcard);
+	        cs.setString(2, this.name);
+	        cs.setString(3, this.gender);
+	        cs.setString(4, this.account);
+	        cs.setString(5, this.password);
+	        cs.setString(6, this.role);
+	        rs = cs.executeUpdate();
+	        System.out.println(rs);
+	        return rs == 1;
+	    } finally {
+	        if (conn != null) {
+	            conn.close();
+	        }
+	    }
 	}
-	public boolean deleteUser() throws SQLException{
-		Connection conn = null;
-		int rs = 0;
-		try{
-			conn = DBConnection.getConnection();
-			String sql = "delete from `user` where `user_id` = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, this.id);
-			rs = ps.executeUpdate();
-			System.out.println(rs);
-			if(rs==1){
-				return true;
-			}else{
-				return false;
-			}
-			//System.out.println(rs.next());
-		}finally{
-			conn.close();
-		}
+
+	public boolean deleteUser() throws SQLException {
+	    Connection conn = null;
+	    int rs = 0;
+	    try {
+	        conn = DBConnection.getConnection();
+	        String sql = "UPDATE `user` SET flag_state = 0 WHERE user_id = ?";
+	        PreparedStatement ps = conn.prepareStatement(sql);
+	        ps.setInt(1, this.id);
+	        rs = ps.executeUpdate();
+	        System.out.println(rs);
+	        return rs == 1;
+	    } finally {
+	        if (conn != null) {
+	            conn.close();
+	        }
+	    }
 	}
+
 	public boolean updateUser()throws SQLException{
 		Connection conn = null;
 		int rs = 0;

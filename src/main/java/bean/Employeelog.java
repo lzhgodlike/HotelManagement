@@ -69,7 +69,7 @@ public class Employeelog {
 	public Employeelog() {
 
 	}
-	public Employeelog(int id,String account, String password, String role, String name, String idcard, String gender,String logtime) {
+	public Employeelog(int id,String account, String password, String role, String name, String idcard, String gender) {
 		super();
 		this.id = id;
 		this.account = account;
@@ -114,11 +114,11 @@ public class Employeelog {
 		List<Employeelog> userlogs = new ArrayList<Employeelog>();
 		try{
 			conn = DBConnection.getConnection();
-			String sql = "select * from `employeelog`";
+			String sql = "select * from `inactiveusers`";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while(rs.next()){
-				Employeelog temp = new Employeelog(rs.getInt("user_id"),rs.getString("user_account"),rs.getString("password"),rs.getString("role"),rs.getString("username"),rs.getString("user_idcard"),rs.getString("gender"),rs.getString("logtime"));
+				Employeelog temp = new Employeelog(rs.getInt("user_id"),rs.getString("user_account"),rs.getString("password"),rs.getString("role"),rs.getString("username"),rs.getString("user_idcard"),rs.getString("gender"));
 				userlogs.add(temp);
 			}
 		}finally{

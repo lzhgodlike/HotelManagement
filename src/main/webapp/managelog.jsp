@@ -124,8 +124,6 @@
 										</el-table-column>
 										<el-table-column label="性别" prop="gender">
 										</el-table-column>
-										<el-table-column label="离职时间" prop="logtime">
-										</el-table-column>
 										<el-table-column align="right">
 											<template slot="header" slot-scope="scope">
 												<el-input v-model="search" size="mini" placeholder="输入关键字搜索" />

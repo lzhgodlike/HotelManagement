@@ -33,6 +33,9 @@
 					<el-form-item label="员工身份证号" prop="idcard" :label-width="formLabelWidth">
 						<el-input v-model="form.idcard" autocomplete="off"></el-input>
 					</el-form-item>
+					<el-form-item label="员工密码" prop="userpassword" :label-width="formLabelWidth">
+						<el-input v-model="form.password" autocomplete="off"></el-input>
+					</el-form-item>
 					<el-form-item label="员工性别" prop="gender" :label-width="formLabelWidth">
  					   <el-radio-group v-model="form.gender">
  					       <el-radio label="男">男</el-radio>
@@ -212,7 +215,7 @@
 				handleDelete(index, row) {
 					console.log(row.id);
 
-					this.$confirm('此操作将永久删除用户' + row.name + '的信息是否继续?', '提示', {
+					this.$confirm('是否将用户' + row.name + '离职?', '提示', {
 						confirmButtonText: '确定',
 						cancelButtonText: '取消',
 						type: 'warning'
