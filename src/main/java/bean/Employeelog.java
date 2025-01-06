@@ -126,12 +126,13 @@ public class Employeelog {
 		}
 		return userlogs;
 	}
-	public boolean deleteEmployeelog() throws SQLException{
+
+	public boolean deleteUser() throws SQLException{
 		Connection conn = null;
 		int rs = 0;
 		try{
 			conn = DBConnection.getConnection();
-			String sql = "delete from `employeelog` where `user_id` = ?";
+			String sql = "delete from `user` where `user_id` = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, this.id);
 			rs = ps.executeUpdate();
