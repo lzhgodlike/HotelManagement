@@ -12,6 +12,7 @@ import java.util.List;
 
 import util.DBConnection;
 
+//房间预约
 public class sub1 {
 	private String sub_id;
 	private String customer_idcard;
