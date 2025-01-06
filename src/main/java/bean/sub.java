@@ -99,7 +99,7 @@ public class sub {
 		this.rent_type = rent_type;
 	}
 	
-	//»ñµÃËùÓÐÔ¤Ô¼ÐÅÏ¢
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤Ô¼ï¿½ï¿½Ï¢
 	public static List<sub> getSubs() throws SQLException{
 		Connection conn = null;
 		ResultSet rs = null;
@@ -120,7 +120,7 @@ public class sub {
 		return allsubs;
 		
 	}
-	//ÏòÔ¤Ô¼±íÖÐ²åÈëÐÅÏ¢
+	//ï¿½ï¿½Ô¤Ô¼ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	public boolean add() throws ParseException, SQLException{
 		Connection conn = null;
 		int rs = 0;
@@ -131,7 +131,7 @@ public class sub {
 			ps.setString(1, this.customer_idcard);
 			ps.setString(2, this.customer_name);
 			ps.setString(3, this.car_model);
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//×¢ÒâÔÂ·ÝÊÇMM
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//×¢ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½MM
 	        java.util.Date subdate = simpleDateFormat.parse(this.sub_date);
 			ps.setDate(4, new java.sql.Date (subdate.getTime()));
 			java.sql.Date sub_get_date = java.sql.Date.valueOf(this.sub_get_date); //(Date) simpleDateFormat.parse(this.sub_get_date);
@@ -153,7 +153,7 @@ public class sub {
 			conn.close();
 		}
 	}
-	//ÏòÔ¤Ô¼±íÖÐÉ¾³ýÐÅÏ¢
+	//ï¿½ï¿½Ô¤Ô¼ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Ï¢
 	public boolean deleteSub() throws SQLException{
 		Connection conn = null;
 		int rs = 0;
