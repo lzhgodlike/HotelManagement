@@ -63,15 +63,20 @@
                     <div v-show="box===1">
                         <el-dialog title="添加房间类型" :visible.sync="dialogFormVisible">
                         <el-form ref="addform" :model="addform" :rules="rules">
-                        <el-form-item label="房间类型" prop="room_model"
-                            :label-width="formLabelWidth"> <el-input
-                            v-model="addform.room_model" autocomplete="off"></el-input> </el-form-item> <el-form-item
-                            label="一晚租金" prop="one_night_rent" :label-width="formLabelWidth">
-                        <el-input v-model="addform.one_night_rent" autocomplete="off"></el-input>
-                        </el-form-item> 
-                        <el-form-item label="一月租金" prop="one_month_rent"
-                            :label-width="formLabelWidth"> <el-input
-                            v-model="addform.one_month_rent" autocomplete="off"></el-input> </el-form-item> </el-form>
+                        
+                        	<el-form-item label="房间类型" prop="room_model":label-width="formLabelWidth"> 
+                        		<el-input v-model="addform.room_model" autocomplete="off"></el-input> 
+                        	</el-form-item> 
+                        
+                        	<el-form-item label="一晚租金" prop="one_night_rent" :label-width="formLabelWidth">
+                        		<el-input v-model="addform.one_night_rent" autocomplete="off"></el-input>
+                        	</el-form-item> 
+                        
+                        	<el-form-item label="一月租金" prop="one_month_rent" :label-width="formLabelWidth"> 
+                        		<el-input v-model="addform.one_month_rent" autocomplete="off"></el-input> 
+                        	</el-form-item> 
+                        
+                        </el-form>
                         <div slot="footer" class="dialog-footer">
                             <el-button @click="cancel()">取 消</el-button>
                             <el-button type="primary" @click="submitForm('addform')">确
@@ -82,15 +87,20 @@
 						<!-- 这里是点击编辑按钮后的修改房间类型信息出现的页面 -->
                         <el-dialog title="修改房间类型信息" :visible.sync="EditFormVisible">
                         <el-form ref="editform" :model="editform" :rules="rules">
-                        <el-form-item label="房间类型" prop="room_model"
-                            :label-width="formLabelWidth"> <el-input
-                            :disabled="true" v-model="editform.room_model" autocomplete="off"></el-input>
-                        </el-form-item> <el-form-item label="一晚租金" prop="one_night_rent"
-                            :label-width="formLabelWidth"> <el-input
-                            v-model="editform.one_night_rent" autocomplete="off"></el-input> </el-form-item> <el-form-item
-                            label="一月租金" prop="one_month_rent" :label-width="formLabelWidth">
-                        <el-input v-model="editform.one_month_rent" autocomplete="off"></el-input>
-                        </el-form-item> </el-form>
+                        
+                        	<el-form-item label="房间类型" prop="room_model" :label-width="formLabelWidth"> 
+                        		<el-input :disabled="true" v-model="editform.room_model" autocomplete="off"></el-input>
+                        	</el-form-item> 
+                        	
+                        	<el-form-item label="一晚租金" prop="one_night_rent" :label-width="formLabelWidth"> 
+                        		<el-input v-model="editform.one_night_rent" autocomplete="off"></el-input> 
+                        	</el-form-item> 
+                        	
+                        	<el-form-item label="一月租金" prop="one_month_rent" :label-width="formLabelWidth">
+                        		<el-input v-model="editform.one_month_rent" autocomplete="off"></el-input>
+                        	</el-form-item> 
+                        	
+                        </el-form>
                         <div slot="footer" class="dialog-footer">
                             <el-button @click="cancel()">取 消</el-button>
                             <el-button type="primary" @click="submitUpdate('editform')">确
@@ -119,20 +129,25 @@
                     
                     <!-- 这里是点击添加房间信息后出现的页面 -->
                     <div v-show="box===2">
-                        <el-dialog title="添加房间" :visible.sync="roomFormVisible">
+                        <el-dialog title="添加房间信息" :visible.sync="roomFormVisible">
                         <el-form ref="addroomform" :model="addroomform"> 
+                        
                             <el-form-item label="房间号码" prop="room_id" :label-width="formLabelWidth">
                                 <el-input v-model="addroomform.room_id" autocomplete="off"></el-input>
                             </el-form-item> 
+                            
                             <el-form-item label="房间类型" prop="room_model" :label-width="formLabelWidth"> 
                                 <el-input v-model="addroomform.room_model" autocomplete="off"></el-input> 
                             </el-form-item>
+                            
                             <el-form-item label="房间总数量" prop="Room_total_number" :label-width="formLabelWidth">
                                 <el-input type="number" v-model="addroomform.Room_total_number" autocomplete="off"></el-input>
                             </el-form-item>
+                            
                             <el-form-item label="房间剩余数量" prop="Room_s_number" :label-width="formLabelWidth">
                                 <el-input type="number" v-model="addroomform.Room_s_number" autocomplete="off"></el-input>
                             </el-form-item>
+                            
                             <el-form-item label="照片" :label-width="formLabelWidth">
                             <div class="block">
                                 <el-upload
@@ -160,9 +175,57 @@
                             <el-button type="primary" @click="addnewroom">确 定</el-button>
                         </div>
                         </el-dialog>
+                        
+                        <!-- 这里是修改房间信息的页面 -->
+                        <el-dialog title="修改房间信息" :visible.sync="EditroomFormVisible">
+                        <el-form ref="editroomform" :model="editroomform"> 
+                        
+                            <el-form-item label="房间号码" prop="room_id" :label-width="formLabelWidth">
+                                <el-input v-model="editroomform.room_id" autocomplete="off"></el-input>
+                            </el-form-item> 
+                            
+                            <el-form-item label="房间类型" prop="room_model" :label-width="formLabelWidth"> 
+                                <el-input v-model="editroomform.room_model" autocomplete="off"></el-input> 
+                            </el-form-item>
+                            
+                            <el-form-item label="房间总数量" prop="Room_total_number" :label-width="formLabelWidth">
+                                <el-input type="number" v-model="editroomform.Room_total_number" autocomplete="off"></el-input>
+                            </el-form-item>
+                            
+                            <el-form-item label="房间剩余数量" prop="Room_s_number" :label-width="formLabelWidth">
+                                <el-input type="number" v-model="editroomform.Room_s_number" autocomplete="off"></el-input>
+                            </el-form-item>
+                            
+                            <el-form-item label="照片" :label-width="formLabelWidth">
+                            <div class="block">
+                                <el-upload
+                                  class="avatar-uploader"
+                                  action="fileUpload"
+                                  :show-file-list="false"
+                                  :on-success="handleAvatarSuccess"
+                                  :with-credentials="true"
+                                  enctype="multipart/form-data">
+                                  <img v-if="editroomform.room_img" :src="imgPath(editroomform.room_img)" class="avatar">
+                                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                </el-upload>
+                            </div>
+                            </el-form-item> 
+                            <el-form-item label="目前状态" prop="current_status"
+                                :label-width="formLabelWidth"> 
+                                <el-select v-model="editroomform.current_status" placeholder="请选择目前状态">
+                                <el-option value="在租"></el-option> 
+                                <el-option value="空闲"></el-option>
+                                </el-select> 
+                            </el-form-item> 
+                        </el-form>
+                        <div slot="footer" class="dialog-footer">
+                            <el-button @click="cancel()">取 消</el-button>
+                            <el-button type="primary" @click="addnewroom">确 定</el-button>
+                        </div>
+                        </el-dialog>
 
                         <!-- 这里是页面中显示列表属性的部分 -->
-                        <el-table :data="roomData.filter(data => !search || data.room_id.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">                   
+                        <el-table :data="roomData.filter(data => !search || data.room_model.toLowerCase().includes(search.toLowerCase()) || data.room_id.toLowerCase().includes(search.toLowerCase()) || data.current_status.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">                   
                             <el-table-column label="房间ID" prop="room_id"> </el-table-column> 
                             <el-table-column label="房间类型" prop="room_model"> </el-table-column> 
                             <el-table-column label="房间总数量" prop="Room_total_number"> </el-table-column> 
@@ -173,8 +236,8 @@
                             		<el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
                         		</template>
                         		<template slot-scope="scope">
-                            		<el-button :disabled="scope.row.current_status!='空闲'" size="mini"
-                                		type="danger" @click="deleteroom(scope.$index, scope.row)">删除</el-button>
+                        			<el-button :disabled="scope.row.current_status!='空闲'" size="mini" type="danger" @click="EditRoom(scope.$index, scope.row)">编辑</el-button>
+                            		<el-button :disabled="scope.row.current_status!='空闲'" size="mini" type="danger" @click="deleteroom(scope.$index, scope.row)">删除</el-button>
                         		</template>
                         	</el-table-column> 
                         </el-table>
@@ -221,9 +284,18 @@
                         current_status:'',
                         room_img:''
                     },
+                    editroomform:{
+                        room_id:'',
+                        room_model:'',
+                        Room_total_number: 0,
+                        Room_s_number: 0,
+                        current_status:'',
+                        room_img:''
+                    },
                     dialogFormVisible: false,
                     EditFormVisible: false,
                     roomFormVisible:false,
+                    EditroomFormVisible:false,
                     form: [],
                     addform: {
                         room_model: '',
@@ -311,6 +383,11 @@
                     this.editform = row;
                     
                 },
+                EditRoom(index, row) {
+                	console.log(row);
+                	this.EditroomFormVisible = true;
+                	this.editroomform = row;
+                },
                 //关闭所有的窗口
                 cancel() {
                     this.EditFormVisible = false;
@@ -337,7 +414,7 @@
                     const property = column['property'];
                     return row[property] === value;
                 },
-                //提交修改信息
+                //提交修改房间类型信息
                 submitUpdate(formName){
                     this.$refs[formName].validate((valid) => {
                         if (valid) {
@@ -369,6 +446,39 @@
                         }
                     });
                 },
+                //提交修改房间信息
+                submitUpdateRoom(formName) {
+                	this.$refs[formName].validate((valid) => {
+                		if(valid) {
+                			var self = this;
+                			$.ajax({
+                				type: 'POST',
+                				async: false,
+                				url: serve_url + "updateroom",
+                				data: JSON.stringify(this.editform),
+                				success: function(res) {
+                					console.log(res)
+                					self.getallRooms();
+                					if (res == "true") {
+                						self.$message({
+                							message: '修改成功',
+                							type: 'success'
+                						});
+                					} else {
+                						self.$message.error('修改失败');
+                					}
+                					
+                					self.resetForm('editroomform');
+                					self.EditroomFormVisible = false;
+                				}
+                			})
+                		} else {
+                			console.log('error submit!!!');
+                			return false;
+                		}
+                	});
+                },
+                
               //提交新房间类型信息
                 submitForm(formName) {
                     this.$refs[formName].validate((valid) => {
