@@ -110,6 +110,14 @@
                     <el-button type="primary" @click="changto(4)" style="width:100%" class="button mt-1">客户管理
                     </el-button>
                 </el-card>
+                <el-card class="col-md-3" shadow="hover">
+                    <el-button type="primary" @click="changto(5)" style="width:100%" class="button mt-1">餐饮服务
+                    </el-button>
+                </el-card>
+                <el-card class="col-md-3" shadow="hover">
+                    <el-button type="primary" @click="changto(6)" style="width:100%" class="button mt-1">出行服务
+                    </el-button>
+                </el-card>
             </div>
             <div class="row">
                 <!--预约表  -->
@@ -558,6 +566,12 @@
                     case 4:
                         this.getkehuall();
                         break;
+                    case 5:
+                    	window.location.href = "/z-index/meal_pick.jsp";
+                    	break;
+                    case 6:
+                    	window.location.href = "/z-index/travel.jsp";
+                    	break;
                 }
                 this.box = index;
             },
