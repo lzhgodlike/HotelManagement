@@ -68,7 +68,7 @@ public class login_check extends HttpServlet {
 				session.setAttribute("user", user);
 				switch (user.getRole()) {
 				case "管理员":
-					response.getWriter().append("/z-index/admin.jsp");
+					response.getWriter().append("/z-index/admin1.jsp");
 					break;
 				case "普通业务员":
 					response.getWriter().append("/z-index/business.jsp");

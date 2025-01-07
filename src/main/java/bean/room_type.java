@@ -50,11 +50,11 @@ public class room_type {
         Connection conn = null;
         ResultSet rs = null;
         List<room_type> allmodels = new ArrayList<room_type>();
-        
+        PreparedStatement ps = null;
         try {
             conn = DBConnection.getConnection();
             String sql = "select * from `room_type`";
-            PreparedStatement ps = conn.prepareStatement(sql);
+            ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()) {
                 room_type temp = new room_type(rs.getString("room_model"),rs.getFloat("one_night_rent"),rs.getFloat("one_month_rent"));
@@ -62,6 +62,8 @@ public class room_type {
             }
         }finally {
             conn.close();
+            ps.close();
+            rs.close();
         }
         return allmodels;
     }
@@ -72,10 +74,11 @@ public class room_type {
 		Connection conn = null;
 		ResultSet rs = null;
 		List<room> allRooms = new ArrayList<room>();
+		PreparedStatement ps = null;
 		try{
 			conn = DBConnection.getConnection();
 			String sql = "select * from `room` where `room_model` = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql);
 			ps.setString(1, mode);
 			rs = ps.executeQuery();
 			while(rs.next()){
@@ -85,6 +88,8 @@ public class room_type {
 			//System.out.println(rs.next());
 		}finally{
 			conn.close();
+			ps.close();
+			rs.close();
 		}
 		return allRooms;
 	}
@@ -95,10 +100,11 @@ public class room_type {
     	Connection conn = null;
     	ResultSet rs = null;
     	room troom = new room();
+    	PreparedStatement ps = null;
     	try {
     		conn = DBConnection.getConnection();
     		String sql = "select * from `room` where `room_id` = ?";
-    		PreparedStatement ps = conn.prepareStatement(sql);
+    		ps = conn.prepareStatement(sql);
     		ps.setString(1, id);
     		rs = ps.executeQuery();
     		while (rs.next()) {
@@ -110,6 +116,8 @@ public class room_type {
     		}
     	}finally {
     		conn.close();
+    		ps.close();
+    		rs.close();
     	}
     	return troom;
     }
@@ -118,10 +126,11 @@ public class room_type {
     public boolean addRoom_model() throws SQLException {
     	Connection conn = null;
     	int rs = 0;
+    	PreparedStatement ps = null;
 		try{
 			conn = DBConnection.getConnection();
 			String sql = "insert into `room_type` (room_model,one_night_rent,one_month_rent) values(?,?,?)";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql);
 			ps.setString(1, this.room_model);
 			ps.setFloat(2, this.one_night_rent);
 			ps.setFloat(3, this.one_month_rent);
@@ -134,6 +143,33 @@ public class room_type {
 			}
 		}finally{
 			conn.close();
+			ps.close();
+		}
+    }
+    
+    //更新房间类型
+    public boolean updateRoom_model() throws SQLException {
+    	Connection conn = null;
+		int rs = 0;
+		PreparedStatement ps = null;
+		try{
+			conn = DBConnection.getConnection();
+			String sql = "update `room_type` set `one_night_rent`=?,`one_month_rent`=? where `room_model` = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setFloat(1, this.one_night_rent);
+			ps.setFloat(2, this.one_month_rent);
+			ps.setString(3, this.room_model);
+			rs = ps.executeUpdate();
+			System.out.println(rs);
+			if(rs==1){
+				return true;
+			}else{
+				return false;
+			}
+			//System.out.println(rs.next());
+		}finally{
+			conn.close();
+			ps.close();
 		}
     }
 }

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,10 +75,11 @@ public class room {
 		Connection conn = null;
 		ResultSet rs = null;
 		List<room> allRooms = new ArrayList<room>();
+		PreparedStatement ps = null;
 		try{
 			conn = DBConnection.getConnection();
 			String sql = "select * from `room`";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while(rs.next()){
 				room temp = new room(rs.getString("room_id"),rs.getInt("Room_total_number"),rs.getInt("Room_s_number"),rs.getString("room_model"),rs.getString("current_status"),rs.getString("room_img"));
@@ -86,9 +88,62 @@ public class room {
 			//System.out.println(rs.next());
 		}finally{
 			conn.close();
+			ps.close();
+			rs.close();
 		}
 		return allRooms;
 	}
 	
+	//新增房间
+	public boolean addRoom() throws SQLException, ParseException{
+		Connection conn = null;
+		int rs = 0;
+		PreparedStatement ps = null;
+		try{
+			conn = DBConnection.getConnection();
+			String sql = "insert into `room` (room_id,Room_total_number,Room_s_number,room_model,current_status,room_img) values(?,?,?,?,?,?)";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, this.room_id);
+			ps.setInt(2, this.Room_total_number);
+			ps.setInt(3, this.Room_s_number);
+			ps.setString(4, this.room_model);
+			ps.setString(5, this.current_status);
+			ps.setString(6, this.room_img);
+			rs = ps.executeUpdate();
+			System.out.println(rs);
+			if(rs==1){
+				return true;
+			}else{
+				return false;
+			}
+		}finally{
+			conn.close();
+			ps.close();
+		}
+	}
 	
+	
+	//删除房间信息
+	public static boolean deleteRoom(int id) throws SQLException, ParseException{
+		Connection conn = null;
+		int rs = 0;
+		System.out.println(id);
+		PreparedStatement ps = null;
+		try{
+			conn = DBConnection.getConnection();
+			String sql = "delete from `room` where `room_id` = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			rs = ps.executeUpdate();
+			System.out.println(rs);
+			if(rs==1){
+				return true;
+			}else{
+				return false;
+			}
+		}finally{
+			conn.close();
+			ps.close();
+		}
+	}
 }
