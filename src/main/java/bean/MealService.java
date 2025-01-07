@@ -111,6 +111,7 @@ public class MealService {
 				mealService.setDeliveryAddress(deliveryAddress);
 				mealService.setCreateTime(createTime);
 				mealService.setStatus(status);
+				mealHistories.add(mealService);
 			}
 			
 			
