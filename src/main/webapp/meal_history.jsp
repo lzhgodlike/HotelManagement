@@ -81,7 +81,7 @@
 	<div class="max-w-[1440px] mx-auto bg-white min-h-screen" id="app">
 		<header class="px-8 py-6 border-b">
 			<div class="flex items-center mb-6">
-				<button class="text-gray-600 hover:text-gray-900 !rounded-button whitespace-nowrap">
+				<button class="text-gray-600 hover:text-gray-900 !rounded-button whitespace-nowrap" onclick="window.history.back()">
 					<i class="fas fa-arrow-left mr-2"></i>返回
 				</button>
 				<h1 class="text-2xl font-bold ml-4">餐饮订单记录</h1>

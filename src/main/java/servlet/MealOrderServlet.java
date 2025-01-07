@@ -19,7 +19,7 @@ public class MealOrderServlet extends HttpServlet {
         // 从会话中获取用户信息
         User user = (User) request.getSession().getAttribute("user");
         int customerId = user != null ? user.getId() : 1011; // 如果用户未登录，使用默认值1011
-        
+        System.out.println("customerId " + customerId);
         // 获取请求参数
         int packageId = Integer.valueOf(request.getParameter("packageId"));
         String deliveryTime = request.getParameter("deliveryTime");
