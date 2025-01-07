@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import bean.car;
 import bean.room;
 
 @WebServlet("/addnewroom")
@@ -39,7 +39,7 @@ public class addnewroom extends HttpServlet {
 			String res = null;	
 			Gson gson = new Gson();	
 			try {
-				res = gson.toJson(car.deleteCar(name));
+				res = gson.toJson(room.deleteRoom(name));
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

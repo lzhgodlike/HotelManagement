@@ -57,8 +57,9 @@
                     </el-card>
                 </div>
                 
-                
                 <div class="col-md-9">
+                
+                	<!-- 这里是点击添加房间按钮后的页面 -->
                     <div v-show="box===1">
                         <el-dialog title="添加房间类型" :visible.sync="dialogFormVisible">
                         <el-form ref="addform" :model="addform" :rules="rules">
@@ -78,6 +79,7 @@
                         </div>
                         </el-dialog>
 
+						<!-- 这里是点击编辑按钮后的修改房间类型信息出现的页面 -->
                         <el-dialog title="修改房间类型信息" :visible.sync="EditFormVisible">
                         <el-form ref="editform" :model="editform" :rules="rules">
                         <el-form-item label="房间类型" prop="room_model"
@@ -96,16 +98,14 @@
                         </div>
                         </el-dialog>
                         
-                        
+                        <!-- 这里是列表中显示房间类型的属性 -->
                         <div class="container">
                             <div class="row"></div>
-                            <el-table
-                                :data="form.filter(form => !search || form.room_model.toLowerCase().includes(search.toLowerCase()))"
-                                style="width: 100%"> <el-table-column label="房间类型"
-                                prop="room_model"> </el-table-column> <el-table-column
-                                label="一晚租金" prop="one_night_rent"> </el-table-column> <el-table-column
-                                label="一月租金" prop="one_month_rent"> </el-table-column> <el-table-column
-                                align="right">
+                            <el-table :data="form.filter(form => !search || form.room_model.toLowerCase().includes(search.toLowerCase()))" style="width: 100%"> 
+                            <el-table-column label="房间类型" prop="room_model"> </el-table-column> 
+                            <el-table-column label="一晚租金" prop="one_night_rent"> </el-table-column> 
+                            <el-table-column label="一月租金" prop="one_month_rent"> </el-table-column> 
+                            <el-table-column align="right">
                             <template slot="header" slot-scope="scope">
                                 <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
                             </template>
@@ -117,7 +117,7 @@
                         </div>
                     </div>
                     
-                    
+                    <!-- 这里是点击添加房间信息后出现的页面 -->
                     <div v-show="box===2">
                         <el-dialog title="添加房间" :visible.sync="roomFormVisible">
                         <el-form ref="addroomform" :model="addroomform"> 
@@ -127,11 +127,11 @@
                             <el-form-item label="房间类型" prop="room_model" :label-width="formLabelWidth"> 
                                 <el-input v-model="addroomform.room_model" autocomplete="off"></el-input> 
                             </el-form-item>
-                            <el-form-item label="房间总数量" prop="room_total_number" :label-width="formLabelWidth">
-                                <el-input type="number" v-model="addroomform.room_total_number" autocomplete="off"></el-input>
+                            <el-form-item label="房间总数量" prop="Room_total_number" :label-width="formLabelWidth">
+                                <el-input type="number" v-model="addroomform.Room_total_number" autocomplete="off"></el-input>
                             </el-form-item>
-                            <el-form-item label="房间剩余数量" prop="room_s_number" :label-width="formLabelWidth">
-                                <el-input type="number" v-model="addroomform.room_s_number" autocomplete="off"></el-input>
+                            <el-form-item label="房间剩余数量" prop="Room_s_number" :label-width="formLabelWidth">
+                                <el-input type="number" v-model="addroomform.Room_s_number" autocomplete="off"></el-input>
                             </el-form-item>
                             <el-form-item label="照片" :label-width="formLabelWidth">
                             <div class="block">
@@ -160,25 +160,24 @@
                             <el-button type="primary" @click="addnewroom">确 定</el-button>
                         </div>
                         </el-dialog>
-                        
-                        
-                        <el-table
-                            :data="roomData.filter(data => !search || data.room_id.toLowerCase().includes(search.toLowerCase()))"
-                            style="width: 100%"> <el-table-column label="房间ID"
-                            prop="room_id"> </el-table-column> <el-table-column label="房间类型"
-                            prop="room_model"> </el-table-column> <el-table-column
-                            label="房间总数量" prop="room_total_number"> </el-table-column> <el-table-column
-                            label="房间剩余数量" prop="room_s_number"> </el-table-column> <el-table-column
-                            label="目前状态" prop="current_status"> </el-table-column> <el-table-column
-                            align="right">
-                        <template slot="header" slot-scope="scope">
-                            <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
-                        </template>
-                        <template slot-scope="scope">
-                            <el-button :disabled="scope.row.current_status!='空闲'" size="mini"
-                                type="danger" @click="deleteroom(scope.$index, scope.row)">删除</el-button>
-                        </template>
-                        </el-table-column> </el-table>
+
+                        <!-- 这里是页面中显示列表属性的部分 -->
+                        <el-table :data="roomData.filter(data => !search || data.room_id.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">                   
+                            <el-table-column label="房间ID" prop="room_id"> </el-table-column> 
+                            <el-table-column label="房间类型" prop="room_model"> </el-table-column> 
+                            <el-table-column label="房间总数量" prop="Room_total_number"> </el-table-column> 
+                            <el-table-column label="房间剩余数量" prop="Room_s_number"> </el-table-column> 
+                            <el-table-column label="目前状态" prop="current_status"> </el-table-column> 
+                            <el-table-column align="right">
+                        		<template slot="header" slot-scope="scope">
+                            		<el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
+                        		</template>
+                        		<template slot-scope="scope">
+                            		<el-button :disabled="scope.row.current_status!='空闲'" size="mini"
+                                		type="danger" @click="deleteroom(scope.$index, scope.row)">删除</el-button>
+                        		</template>
+                        	</el-table-column> 
+                        </el-table>
                     </div>
                     
                     
@@ -217,8 +216,8 @@
                     addroomform:{
                         room_id:'',
                         room_model:'',
-                        room_total_number: 0,
-                        room_s_number: 0,
+                        Room_total_number: 0,
+                        Room_s_number: 0,
                         current_status:'',
                         room_img:''
                     },
@@ -462,8 +461,9 @@
                     })
                 },
                 receive_rooms(res){
+                    console.log("Received rooms data:", res); // 添加日志
                     this.roomData = res;
-                    console.log(this.roomData)
+                    console.log("roomData:", this.roomData); // 添加日志
                 },
                 //打开增加房间窗口
                 addRoom(){
