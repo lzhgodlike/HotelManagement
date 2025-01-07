@@ -211,9 +211,10 @@
 			},
 			// 发送订单状态到后端，同步到数据库
 			sendOrderStatusToBackend(serviceId, newStatus) {
+				console.log("发送到后端");
 				var self = this;
 				$.ajax({
-					type: 'post',
+					type: 'POST',
 					async: false,
 					dataType: 'JSON',
 					url: serve_url + "UpdateMealHistoryStatus",

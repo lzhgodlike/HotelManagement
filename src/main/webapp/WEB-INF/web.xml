@@ -27,4 +27,13 @@
 		<servlet-name>travelService</servlet-name>
 		<url-pattern>/travelService</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>UpdateMealHistoryStatus</servlet-name>
+		<servlet-class>servlet.UpdateMealHistoryStatus</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateMealHistoryStatus</servlet-name>
+		<url-pattern>/UpdateMealHistoryStatus</url-pattern>
+	</servlet-mapping>
 </web-app>

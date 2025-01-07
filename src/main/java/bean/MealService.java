@@ -126,4 +126,21 @@ public class MealService {
 		}
 		return mealHistories;
 	}
+	public boolean updateMealServiceStatus(int serviceId, String newStatus) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "update meal_service set status = ? where service_id = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, newStatus);
+			ps.setInt(2, serviceId);
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
