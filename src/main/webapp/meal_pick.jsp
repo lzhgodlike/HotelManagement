@@ -64,7 +64,7 @@
             
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">送餐时间</label>
-              <input type="time" class="form-control" id="deliveryTime" name="deliveryTime" required>
+              <input type="datetime-local" class="form-control" id="deliveryTime" name="deliveryTime" required>
             </div>
             
             <div>
