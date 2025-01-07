@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -68,14 +70,15 @@ public class MealService {
         PreparedStatement pstmt = null;
         try {
             conn = DBConnection.getConnection();
-
+            String createTime = LocalDate.now().toString() + LocalTime.now().toString().substring(0, 5);
             // 插入或更新订单信息
-            String sql = "insert into meal_service(customer_id, package_id, delivery_time, delivery_address) values (?, ?, ?, ?)";
+            String sql = "insert into meal_service(customer_id, package_id, delivery_time, delivery_address, create_time) values (?, ?, ?, ?, ?)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, customerId);
             pstmt.setInt(2, packageId);
             pstmt.setString(3, deliveryTime);
             pstmt.setString(4, deliveryAddress);
+            pstmt.setString(5, createTime);
             pstmt.executeUpdate();
 			return true;
         } catch (SQLException e) {

@@ -142,52 +142,6 @@
 						</div>
 					</div>
 				</div>
-				<!-- <div class="order-card bg-white p-6 rounded-lg border">
-					<div class="flex justify-between items-start mb-4">
-						<div>
-							<p class="text-gray-600 text-sm">订单号：SO20240314002</p>
-							<p class="text-gray-600 text-sm">2024-03-14 12:45</p>
-						</div>
-						<span class="status-processing px-3 py-1 rounded-full text-sm">待配送</span>
-					</div>
-					<div class="space-y-2 mb-4">
-						<div class="flex justify-between">
-							<span>意大利肉酱面 × 1</span>
-							<span>¥ 88</span>
-						</div>
-						<div class="flex justify-between">
-							<span>凯撒沙拉 × 1</span>
-							<span>¥ 48</span>
-						</div>
-					</div>
-					<div class="flex justify-between items-center pt-4 border-t">
-						<span class="text-gray-600">共2件商品</span>
-						<div class="flex items-center gap-4">
-							<button
-								class="px-4 py-2 border border-red-500 text-red-500 hover:bg-red-50 !rounded-button whitespace-nowrap">取消订单</button>
-							<span class="font-bold">合计：¥ 136</span>
-						</div>
-					</div>
-				</div> -->
-				<!-- <div class="order-card bg-white p-6 rounded-lg border">
-					<div class="flex justify-between items-start mb-4">
-						<div>
-							<p class="text-gray-600 text-sm">订单号：SO20240313003</p>
-							<p class="text-gray-600 text-sm">2024-03-13 19:15</p>
-						</div>
-						<span class="status-cancelled px-3 py-1 rounded-full text-sm">已取消</span>
-					</div>
-					<div class="space-y-2 mb-4">
-						<div class="flex justify-between">
-							<span>黑松露牛排 × 1</span>
-							<span>¥ 388</span>
-						</div>
-					</div>
-					<div class="flex justify-between items-center pt-4 border-t">
-						<span class="text-gray-600">共1件商品</span>
-						<span class="font-bold">合计：¥ 388</span>
-					</div>
-				</div> -->
 			</div>
 		</main>
 		<footer class="fixed bottom-0 left-0 right-0 bg-white border-t px-8 py-4">
