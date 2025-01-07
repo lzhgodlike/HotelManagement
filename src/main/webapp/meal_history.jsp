@@ -114,11 +114,11 @@
 			</header>
 			<main class="p-8">
 				<div class="space-y-4">
-					<div class="order-card bg-white p-6 rounded-lg border">
+					<div class="order-card bg-white p-6 rounded-lg border" v-for="item in items">
 						<div class="flex justify-between items-start mb-4">
 							<div>
-								<p class="text-gray-600 text-sm">订单号：SO20240315001</p>
-								<p class="text-gray-600 text-sm">2024-03-15 18:30</p>
+								<p class="text-gray-600 text-sm">订单号：{{ item.serviceId }}</p>
+								<p class="text-gray-600 text-sm">创建时间：2024-03-15 18:30</p>
 							</div>
 							<span class="status-completed px-3 py-1 rounded-full text-sm">已完成</span>
 						</div>
@@ -220,9 +220,22 @@
 				}
 			},
 			methods: {
-
+				//获取套餐信息
+				getMealHistories() {
+					var self = this;
+					$.ajax({
+						type: 'get',
+						async: false,
+						dataType: 'JSON',
+						url: serve_url + "listAllPackages",
+						success: function(res) {
+							self.receive_packages(res);
+						}
+					})
+				},
 			},
 			created() {
+				this.getMealHistories();
 			}
 		})
 	</script>

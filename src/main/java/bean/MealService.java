@@ -2,8 +2,11 @@ package bean;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import util.DBConnection;
 
@@ -11,9 +14,11 @@ public class MealService {
 	private int serviceId;
 	private int customerId;
 	private int packageId;
-	private Date deliveryTime;
+	private String deliveryTime;
 	private String deliveryAddress;
 	private String status;
+	private String createTime;
+	
 	public int getServiceId() {
 		return serviceId;
 	}
@@ -32,10 +37,10 @@ public class MealService {
 	public void setPackageId(int packageId) {
 		this.packageId = packageId;
 	}
-	public Date getDeliveryTime() {
+	public String getDeliveryTime() {
 		return deliveryTime;
 	}
-	public void setDeliveryTime(Date deliveryTime) {
+	public void setDeliveryTime(String deliveryTime) {
 		this.deliveryTime = deliveryTime;
 	}
 	public String getDeliveryAddress() {
@@ -51,6 +56,12 @@ public class MealService {
 		this.status = status;
 	}
 	
+	public String getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
 	public boolean addMealOrder(int customerId, int packageId, String deliveryTime, String deliveryAddress) {
 		// 连接数据库
         Connection conn = null;
@@ -59,7 +70,7 @@ public class MealService {
             conn = DBConnection.getConnection();
 
             // 插入或更新订单信息
-            String sql = "INSERT INTO meal_service (customer_id, package_id, delivery_time, delivery_address) VALUES (?, ?, ?, ?) ";
+            String sql = "insert into meal_service(customer_id, package_id, delivery_time, delivery_address) values (?, ?, ?, ?)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, customerId);
             pstmt.setInt(2, packageId);
@@ -73,5 +84,42 @@ public class MealService {
         } finally {
             DBConnection.close(null, pstmt, conn);
         }
+	}
+	public static List<MealService> getAllMealHistories() {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<MealService> mealHistories = new ArrayList<>();
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "select * from meal_service";
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				int serviceId = rs.getInt("service_id");
+				int customerId = rs.getInt("customer_id");
+				int packageId = rs.getInt("package_id");
+				String deliveryTime = rs.getString("delivery_time");
+				String deliveryAddress = rs.getString("delivery_address");
+				String status = rs.getString("status");
+				String createTime = rs.getString("create_time");
+				MealService mealService = new MealService();
+				mealService.setServiceId(serviceId);
+				mealService.setCustomerId(customerId);
+				mealService.setPackageId(packageId);
+				mealService.setDeliveryTime(deliveryTime);
+				mealService.setDeliveryAddress(deliveryAddress);
+				mealService.setCreateTime(createTime);
+				mealService.setStatus(status);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, null, conn);
+		}
+		return mealHistories;
 	}
 }
