@@ -158,6 +158,7 @@ public class Employeelog {
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				//获取数据
+				//注释
 				int user_id = rs.getInt("user_id");
 				String user_idcard = rs.getString("user_idcard");
 				String username = rs.getString("username");
