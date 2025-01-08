@@ -28,10 +28,9 @@ public class MealOrderServlet extends HttpServlet {
             BufferedReader reader = request.getReader();
             String line;
             while ((line = reader.readLine()) != null) {
-            sb.append(line);
+                sb.append(line);
             }
             String requestBody = sb.toString();
-            System.out.println("Received Request Body: " + requestBody); // 打印接收到的请求体
 
             // 使用 Jackson 解析 JSON 数据
             ObjectMapper objectMapper = new ObjectMapper();
@@ -40,7 +39,17 @@ public class MealOrderServlet extends HttpServlet {
             // 获取请求参数
             User user = (User) request.getSession().getAttribute("user");
             int customerId = user != null ? user.getId() : 1011; // 如果用户未登录，使用默认值1011
-            int packageId = Integer.valueOf(data.get("packageId"));
+
+            // 获取并转换 packageId
+            String packageIdString = data.get("packageId");
+            if (packageIdString == null || !packageIdString.matches("\\d+")) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write("{\"status\":\"error\", \"message\":\"无效的套餐ID\"}");
+                return;
+            }
+            int packageId = Integer.parseInt(packageIdString);
+
+            // 获取其他参数
             String deliveryTime = data.get("deliveryTime");
             String deliveryAddress = data.get("deliveryAddress");
 
@@ -52,9 +61,9 @@ public class MealOrderServlet extends HttpServlet {
             response.setContentType("application/json;charset=UTF-8");
             // 响应客户端
             if (orderSuccess) {
-            response.getWriter().write("{\"status\":\"success\", \"message\":\"出行信息已成功记录\"}");
+                response.getWriter().write("{\"status\":\"success\", \"message\":\"餐饮订单提交成功\"}");
             } else {
-            response.getWriter().write("{\"status\":\"error\", \"message\":\"记录出行信息失败\"}");
+                response.getWriter().write("{\"status\":\"error\", \"message\":\"餐饮订单提交失败\"}");
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

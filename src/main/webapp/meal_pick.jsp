@@ -90,14 +90,14 @@
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">选定套餐</label>
-                <input type="text" v-model="form.selectedMealName"
+                <input type="text"
                   class="w-full px-4 py-2 border border-gray-300 !rounded-button focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
                   placeholder="选定套餐" name="selectedMealName" id="selectedMealName" readonly />
               </div>
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">套餐价格</label>
-                <input type="text" v-model="form.selectedMealPrice"
+                <input type="text"
                   class="w-full px-4 py-2 border border-gray-300 !rounded-button focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
                   placeholder="套餐价格" name="selectedMealPrice" id="selectedMealPrice" readonly />
               </div>
@@ -127,8 +127,6 @@
             deliveryAddress: '',
             phoneNumber: '',
             deliveryTime: '',
-            selectedMealName: '',
-            selectedMealPrice: '',
             packageId: '',
             remarks: ''
           },
@@ -147,7 +145,7 @@
             contentType: 'application/json', // 设置请求头
             success: function(res) {
               console.log('Server Response:', res); // 打印服务器响应
-              if(res.status === "success"){
+              if(res.status == "success"){
                 alert(res.message);
               } else {
                 alert("预约失败,预约信息有误");
@@ -182,7 +180,7 @@
 
           document.getElementById('selectedMealName').value = this.meals[index].packageName;
           document.getElementById('selectedMealPrice').value = this.meals[index].price;
-          document.getElementById('packageId').value = this.meals[index].packageId;
+          this.form.packageId = this.meals[index].packageId+"";
         }
       },
       created() {
