@@ -243,18 +243,32 @@
                     
                     
                     <div v-show="box===3">
-                        <el-card class="box-card">
-                            <h2>租金统计</h2>
-                            <br>
-                            起始日期：<input type="text" v-model="d1" placeholder="请输入起始日期" />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                            终止日期：<input type="text" v-model="d2" placeholder="请输入终止日期" />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                            <el-table :data="allrent" style="width: 100%" v-if="computed"> 
-                                <el-table-column prop="room_model" label="类型" width="180"> </el-table-column> 
-                                <el-table-column prop="rent" label="租金" width="180"> </el-table-column> 
-                            </el-table>
-                            <el-button type="success" v-on:click="onSum()">计算租金</el-button>
-                            <p v-if="computed">共计:{{total}}元</p>
-                        </el-card>
+						<el-table :data="rentCase.filter(data => !search || data.constomer_id.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">
+							<el-table-column label="消费编号" prop="case_id"> </el-table-column>
+							<el-table-column label="客户编号" prop="customer_id"> </el-table-column>
+							<el-table-column label="客户身份证号" prop="customer_idcard"> </el-table-column>
+							<el-table-column label="客户姓名" prop="customer_name"> </el-table-column>
+							<el-table-column label="工作单位" prop="customer_unit"> </el-table-column>
+							<el-table-column label="客户电话" prop="customer_phone"> </el-table-column>
+							<el-table-column label="状态" prop="pick_status"> </el-table-column>
+							<el-table-column label="押金" prop="deposit"> </el-table-column>
+							<el-table-column label="餐饮服务" prop="food_services">
+    							<template slot-scope="scope">
+        							<span>{{ scope.row.food_services ? '是' : '否' }}</span>
+    							</template>
+							</el-table-column>
+							<el-table-column label="出行服务" prop="mobility_services">
+    							<template slot-scope="scope">
+        							<span>{{ scope.row.mobility_services ? '是' : '否' }}</span>
+    							</template>
+							</el-table-column>
+							<el-table-column label="消费金额" prop="amount_spent"> </el-table-column>
+							<el-table-column align="right">
+								<template slot="header" slot-scope="scope">
+                            		<el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
+                        		</template>
+                        	</el-table-column>
+						</el-table>
                     </div>
                 </div>
             </div>
@@ -323,6 +337,7 @@
                             trigger: 'blur'
                         }],
                     },
+                    rentCase: [],
                 }
             },
             methods: {
@@ -346,7 +361,7 @@
                             this.getallRooms();
                             break;
                         case 3:
-                            //this.getRentCash();
+                            this.getRentCase();
                             break;
                     }
                     this.box = index;
@@ -597,7 +612,24 @@
                 },
                 searchModel(){
                     this.form = this.form.filter((e) => e.room_model.startWith(search))
-                }
+                },
+                getRentCase() {
+                	var self = this;
+                	$.ajax({
+                		type: 'get',
+                		async: false,
+                		dataType: 'JSON',
+                		url: serve_url + "getRentCase",
+                		success: function(res) {
+                			self.receive_case(res);
+                		}
+                	})
+                },
+                receive_case(res) {
+                	console.log("Received rent_case data:", res);
+                	this.rentCase = res;
+                	console.log("rentCase:", this.rentCase);
+                }                
 			},
 			mounted() {
 				this.getallModels();
