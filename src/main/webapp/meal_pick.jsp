@@ -81,12 +81,12 @@
                 <input v-model="form.deliveryTime" type="datetime-local" class="form-control" id="deliveryTime" name="deliveryTime" required>
               </div>
 
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">备注</label>
-                <textarea v-model="form.remarks"
-                  class="w-full px-4 py-2 border border-gray-300 !rounded-button focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                  rows="3" placeholder="如有特殊要求请备注" name="remarks"></textarea>
-              </div>
+<!--               <div> -->
+<!--                 <label class="block text-sm font-medium text-gray-700 mb-2">备注</label> -->
+<!--                 <textarea v-model="form.remarks" -->
+<!--                   class="w-full px-4 py-2 border border-gray-300 !rounded-button focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50" -->
+<!--                   rows="3" placeholder="如有特殊要求请备注" name="remarks"></textarea> -->
+<!--               </div> -->
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">选定套餐</label>
@@ -134,6 +134,7 @@
         }
       },
       methods: {
+    	// 使用Ajax提交表单信息到路径为mealOrder的Servlet，并弹窗返回信息
         submitForm() {
           var self = this;
           const formInfo = self.form;
@@ -156,7 +157,7 @@
             }
           });
         },
-
+		// 接收套餐信息，同步到meals数组中
         receive_packages(msg) {
           this.meals = msg;
           console.log(this.meals);

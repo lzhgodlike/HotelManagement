@@ -26,7 +26,11 @@
     <body>
         <div class="min-h-[1024px] w-[1440px] mx-auto">
             <header class="h-16 flex items-center px-8 border-b">
-                <h1 class="text-2xl font-bold text-gray-800">中国旅游出行服务</h1>
+            	<button class="mr-12 text-gray-600 hover:text-gray-900 !rounded-button whitespace-nowrap"
+		          onclick="window.history.back()">
+		          <i class="fas fa-arrow-left mr-2"></i>返回
+		        </button>
+                <h1 class="text-2xl font-bold text-gray-800">酒店出行服务</h1>
                 <nav class="ml-12">
                     <ul class="flex gap-8">
                         <li><a href="#" class="text-gray-600 hover:text-primary">首页</a></li>
@@ -115,6 +119,7 @@
             </div>
         </div>
         <script>
+        	// 获取id为map的元素，并用echarts初始化
             const chart = echarts.init(document.getElementById('map'));
             const modal = document.getElementById('modal');
             const modalTitle = document.getElementById('modalTitle');
@@ -163,6 +168,7 @@
                 '澳门特别行政区': ['花地玛堂区', '圣安多尼堂区', '大堂区', '望德堂区', '风顺堂区', '嘉模堂区', '圣方济各堂区']
             };
             // let province = "";
+            // 出行方式按钮点击效果的js实现
             transportModes.forEach(btn => {
                 btn.addEventListener('click', () => {
                     transportModes.forEach(b => b.classList.remove('border-primary', 'text-primary'));
@@ -175,6 +181,7 @@
                 isDestinationListOpen = !isDestinationListOpen;
                 destinationList.classList.toggle('hidden');
             }
+            // 联动菜单：显示省份对应的地市
             function updateDestinationList(province) {
                 const cities = cityData[province] || [];
                 console.log("cities", cities);
@@ -199,12 +206,14 @@
                 });
             }
             destinationBtn.addEventListener('click', toggleDestinationList);
+            // 点击表单区域之外的部分将会隐藏表单
             document.addEventListener('click', (e) => {
                 if (!destinationBtn.contains(e.target) && !destinationList.contains(e.target)) {
                     destinationList.classList.add('hidden');
                     isDestinationListOpen = false;
                 }
             });
+            // 获取阿里云的地图效果
             fetch('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json')
                 .then(res => res.json())
                 .then(geoJson => {
@@ -268,6 +277,7 @@
                             }
                         }]
                     };
+                    // 设置版图的效果选项
                     chart.setOption(option);
                     chart.on('click', params => {
                         console.log("params", params);
@@ -280,6 +290,7 @@
             function closeModal() {
                 modal.classList.add('hidden');
             }
+            // 提交表单的回调函数，将表单数据发送到TravelServiceServlet，并弹窗返回的响应信息
             travelForm.onsubmit = (e) => {
                 e.preventDefault();
                 console.log("travelForm", travelForm);
