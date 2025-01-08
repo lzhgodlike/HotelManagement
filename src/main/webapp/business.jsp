@@ -38,11 +38,11 @@
             <el-form-item label="客户身份证号码" prop="customer_idcard" :label-width="formLabelWidth">
                 <el-input :disabled="true" v-model="pickifo.customer_idcard" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="房间类型" prop="car_model" :label-width="formLabelWidth">
-                <el-input :disabled="true" v-model="pickifo.car_model" autocomplete="off"></el-input>
+            <el-form-item label="房间类型" prop="room_model" :label-width="formLabelWidth">
+                <el-input :disabled="true" v-model="pickifo.room_model" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="房间号" prop="car_number" :label-width="formLabelWidth">
-                <el-input :disabled="true" v-model="pickifo.car_number" autocomplete="off"></el-input>
+                <el-input :disabled="true" v-model="pickifo.room_id" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="租借类型" prop="rent_type" :label-width="formLabelWidth">
                 <el-input :disabled="true" v-model="pickifo.rent_type" autocomplete="off"></el-input>
@@ -132,10 +132,9 @@
                               style="width: 100%">
                         <el-table-column prop="sub_id" label="编号" width="60">
                         </el-table-column>
-                        <el-table-column prop="car_model" label="房型">
+                        <el-table-column prop="room_model" label="房型">
                         </el-table-column>
-                        <el-table-column prop="car_number" label="房间号" width="130">
-                        </el-table-column>
+                       
                         <el-table-column prop="customer_name" label="客户姓名">
                         </el-table-column>
                         <el-table-column prop="customer_idcard" label="身份证号码">
@@ -174,9 +173,9 @@
                               style="width: 100%">
                         <el-table-column prop="pick_id" label="编号" width="60">
                         </el-table-column>
-                        <el-table-column prop="car_model" label="房型" width="60">
+                        <el-table-column prop="room_model" label="房型" width="60">
                         </el-table-column>
-                        <el-table-column prop="car_number" label="房间号" width="130">
+                        <el-table-column prop="room_id" label="房间号" width="130">
                         </el-table-column>
                         <el-table-column prop="customer_name" label="客户姓名">
                         </el-table-column>
@@ -218,7 +217,7 @@
                         </el-table-column>
                         <el-table-column prop="customer_idcard" label="客户身份证号">
                         </el-table-column>
-                        <el-table-column prop="car_number" label="房间号" width="130">
+                        <el-table-column prop="room_id" label="房间号" width="130">
                         </el-table-column>
                         <el-table-column prop="return_date" label="退房日期">
                         </el-table-column>
@@ -374,8 +373,8 @@
                 returnFormVisible: false,
                 returnifo: {
                     customer_idcard: '',
-                    car_number: '',
-                    car_model: '',
+                    room_id: '',
+                    room_model: '',
                     return_date: '',
                     pick_id: '',
                     rent_type: ''
@@ -383,10 +382,10 @@
                 pickifo: {
                     customer_idcard: '',
                     customer_name: '',
-                    car_number: '',
+                    room_id: '',
                     pick_time: '',
                     return_time: '',
-                    car_model: '',
+                    room_model: '',
                     plan_rent: '',
                     deposit: '',
                     sub_id: '',
