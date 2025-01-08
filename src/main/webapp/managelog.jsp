@@ -23,75 +23,6 @@
 						<%} %>
 
 							<div id="app">
-								<!-- <el-dialog title="添加员工" :visible.sync="dialogFormVisible">
-				<el-form ref="form" :model="form" :rules="rules">
-					<el-form-item label="员工姓名" prop="name" :label-width="formLabelWidth">
-						<el-input v-model="form.name" autocomplete="off"></el-input>
-					</el-form-item>
-					<el-form-item label="员工账号" prop="account" :label-width="formLabelWidth">
-						<el-input v-model="form.account" autocomplete="off"></el-input>
-					</el-form-item>
-					<el-form-item label="员工身份证号" prop="idcard" :label-width="formLabelWidth">
-						<el-input v-model="form.idcard" autocomplete="off"></el-input>
-					</el-form-item>
-					<el-form-item label="员工性别" prop="gender" :label-width="formLabelWidth">
- 					   <el-radio-group v-model="form.gender">
- 					       <el-radio label="男">男</el-radio>
- 					       <el-radio label="女">女</el-radio>
- 					   </el-radio-group>
-					</el-form-item>
-					<el-form-item label="员工职务" prop="role" :label-width="formLabelWidth">
-						<el-select v-model="form.role" placeholder="请选择员工职务">
-							<el-option label="管理员" value="管理员"></el-option>
-							<el-option label="普通业务员" value="普通业务员"></el-option>
-							<el-option label="经理" value="经理"></el-option>
-						</el-select>
-					</el-form-item>
-				</el-form>
-				<div slot="footer" class="dialog-footer">
-					<el-button @click="cancel()">取 消</el-button>
-					<el-button type="primary" @click="submitForm('form')">确 定</el-button>
-				</div>
-			</el-dialog> -->
-
-
-								<!-- <el-dialog title="修改员工信息" :visible.sync="EditFormVisible">
-				<el-form ref="editform" :model="editform" :rules="rules">
-					<el-form-item label="员工编号" prop="id" :label-width="formLabelWidth">
-						<el-input :disabled="true" v-model="editform.id" autocomplete="off"></el-input>
-					</el-form-item>
-					<el-form-item label="员工姓名" prop="name" :label-width="formLabelWidth">
-						<el-input v-model="editform.name" autocomplete="off"></el-input>
-					</el-form-item>
-					<el-form-item label="员工账号" prop="account" :label-width="formLabelWidth">
-						<el-input v-model="editform.account" autocomplete="off"></el-input>
-					</el-form-item>
-					<el-form-item label="员工密码" prop="password" :label-width="formLabelWidth">
-						<el-input v-model="editform.password" autocomplete="off"></el-input>
-					</el-form-item>
-					<el-form-item label="员工身份证号" prop="idcard" :label-width="formLabelWidth1">
-						<el-input v-model="editform.idcard" autocomplete="off"></el-input>
-					</el-form-item>
-					<el-form-item label="员工性别" prop="gender" :label-width="formLabelWidth">
-					    <el-radio-group v-model="editform.gender">
-							<el-radio label="男">男</el-radio>
-					        <el-radio label="女">女</el-radio>
- 					   </el-radio-group>
-					</el-form-item>
-					<el-form-item label="员工职务" prop="role" :label-width="formLabelWidth">
-						<el-select v-model="editform.role" placeholder="请选择员工职务">
-							<el-option label="管理员" value="管理员"></el-option>
-							<el-option label="普通业务员" value="普通业务员"></el-option>
-							<el-option label="经理" value="经理"></el-option>
-						</el-select>
-					</el-form-item>
-				</el-form>
-				<div slot="footer" class="dialog-footer">
-					<el-button @click="editcancel()">取 消</el-button>
-					<el-button type="primary" @click="submitUpdate('editform')">确 定</el-button>
-				</div>
-			</el-dialog> -->
-
 								<div class="container">
 									<div class="row">
 										<div class="col-md-3">
@@ -99,9 +30,6 @@
 												<%=user.getName() %>
 											</h1>
 										</div>
-										<!-- <div class="col-md-7">
-						<el-button type="primary" @click="goToManageLog()" class="mt-5" round>查看历史员工</el-button>
-					</div> -->
 										<div class="col-md-2">
 											<el-button type="primary" @click="goToManager()" class="mt-5"
 												round>返回上页</el-button>
@@ -162,84 +90,48 @@
 							account: '',
 							password: ''
 						},
-						// rules: {
-						// 	name: [{
-						// 		required: true,
-						// 		message: '姓名不可为空',
-						// 		trigger: 'blur'
-						// 	}],
-						// 	account: [{
-						// 		required: true,
-						// 		message: '账号不可为空',
-						// 		trigger: 'blur'
-						// 	}],
-						// 	password: [{
-						// 		required: true,
-						// 		message: '密码不可为空',
-						// 		trigger: 'blur'
-						// 	}],
-						// 	idcard: [{
-						// 			required: true,
-						// 			message: '身份证号码不可为空',
-						// 			trigger: 'blur'
-						// 		},
-						// 		{
-						// 			min: 18,
-						// 			max: 18,
-						// 			message: '身份证号码必须为18位',
-						// 			trigger: 'blur'
-						// 		}
-						// 	],
-						// 	gender: [{
-						// 		required: true,
-						// 		message: '请选择性别',
-						// 		trigger: 'blur'
-						// 	}],
-						// 	role: [{
-						// 		required: true,
-						// 		message: '请选择角色',
-						// 		trigger: 'blur'
-						// 	}]
-						// },
 					}
 				},
 				methods: {
-					// 恢复员工
-					handleRecover(index, row) {
-						this.$confirm('此操作将恢复用户' + row.name + '的信息，是否继续？', '提示', {
-							confirmButtonText: '确定',
-							cancelButtonText: '取消',
-							type: 'warning'
-						}).then(() => {
-							var self = this;
-							$.ajax({
-								type: 'POST',
-								async: false,
-								url: serve_url + "recoveremployeelog",
-								data: JSON.stringify({
-									"id": row.id
-								}),
-								success: function (res) {
-									console.log(res);
-									if (res == "true") {
-										self.getEmployeelog();
-										self.$message({
-											message: '恢复成功',
-											type: 'success'
-										});
-									} else {
-										self.$message.error('恢复失败');
-									}
-									self.dialogFormVisible = false;
+				//恢复员工
+				handleRecover(index, row) {
+					console.log(row.id);
+
+					this.$confirm('是否将用户' + row.name + '恢复?', '提示', {
+						confirmButtonText: '确定',
+						cancelButtonText: '取消',
+						type: 'warning'
+					}).then(() => {
+						var self = this;
+						$.ajax({
+							type: 'POST',
+							async: false,
+							url: serve_url + "recover",
+							data: JSON.stringify({
+								"id": row.id
+							}),
+							success: function(res) {
+								console.log(res)
+								if (res == "true") {
+									self.getEmployeelog();
+									self.$message({
+										message: '操作成功',
+										type: 'success'
+									});
+								} else {
+									self.$message.error('操作失败');
 								}
-							});
-						}).catch(() => {
-							this.$message({
-								type: 'info',
-								message: '已取消恢复'
-							});
+								self.dialogFormVisible = false;
+							}
+						})
+					}).catch(() => {
+						this.$message({
+							type: 'info',
+							message: '已取消操作'
 						});
-					},
+					});
+				},
+
 					//删除用户
 					handleDelete(index, row) {
 						console.log(row.id);
@@ -307,38 +199,6 @@
 							}
 						})
 					},
-					//提交新用户信息
-					// submitForm(formName) {
-					// 	this.$refs[formName].validate((valid) => {
-					// 		if (valid) {
-					// 			var self = this;
-					// 			$.ajax({
-					// 				type: 'POST',
-					// 				async: false,
-					// 				url: serve_url + "adduser",
-					// 				data: JSON.stringify(this.form),
-					// 				success: function(res) {
-					// 					console.log(res)
-					// 					self.getUsers();
-					// 					if (res == "true") {
-					// 						self.$message({
-					// 							message: '添加成功',
-					// 							type: 'success'
-					// 						});
-					// 					} else {
-					// 						self.$message.error('添加失败');
-					// 					}
-
-					// 					self.resetForm('form');
-					// 					self.dialogFormVisible = false;
-					// 				}
-					// 			})
-					// 		} else {
-					// 			console.log('error submit!!');
-					// 			return false;
-					// 		}
-					// 	});
-					// },
 					//关闭弹出窗口
 					cancel() {
 						this.dialogFormVisible = false;
@@ -347,38 +207,6 @@
 					resetForm(formName) {
 						this.$refs[formName].resetFields();
 					},
-					//提交用户修改信息
-					// submitUpdate(formName){
-					// 	this.$refs[formName].validate((valid) => {
-					// 		if (valid) {
-					// 			var self = this;
-					// 			$.ajax({
-					// 				type: 'POST',
-					// 				async: false,
-					// 				url: serve_url + "updateuser",
-					// 				data: JSON.stringify(this.editform),
-					// 				success: function(res) {
-					// 					console.log(res)
-					// 					self.getUsers();
-					// 					if (res == "true") {
-					// 						self.$message({
-					// 							message: '修改成功',
-					// 							type: 'success'
-					// 						});
-					// 					} else {
-					// 						self.$message.error('修改失败');
-					// 					}
-
-					// 					self.resetForm('editform');
-					// 					self.EditFormVisible = false;
-					// 				}
-					// 			})
-					// 		} else {
-					// 			console.log('error submit!!');
-					// 			return false;
-					// 		}
-					// 	});
-					// },
 				},
 				created() {
 					this.getEmployeelog();

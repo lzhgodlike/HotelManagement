@@ -104,7 +104,7 @@
 						</h1>
 					</div>
 					<div class="col-md-7">
-						<el-button type="primary" @click="goToManageLog()" class="mt-5" round>查看历史员工</el-button>
+						<el-button type="primary" @click="goToManageLog()" class="mt-5" round>查看离职员工</el-button>
 					</div>
 					<div class="col-md-2">
 						<el-button type="primary" @click="addUser()" class="mt-5" round>添加员工</el-button>

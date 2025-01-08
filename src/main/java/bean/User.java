@@ -101,7 +101,14 @@ public class User {
 				return "pass";
 			}
 		}finally{
-			conn.close();
+			if (conn != null) {
+			    try {
+			        conn.close();
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			    }
+			}
+
 		}
 	}
 	public static List<User> getUsers() throws SQLException {
@@ -164,6 +171,24 @@ public class User {
 	    try {
 	        conn = DBConnection.getConnection();
 	        String sql = "UPDATE `user` SET flag_state = 0 WHERE user_id = ?";
+	        PreparedStatement ps = conn.prepareStatement(sql);
+	        ps.setInt(1, this.id);
+	        rs = ps.executeUpdate();
+	        System.out.println(rs);
+	        return rs == 1;
+	    } finally {
+	        if (conn != null) {
+	            conn.close();
+	        }
+	    }
+	}
+	
+	public boolean recoverUser() throws SQLException {
+	    Connection conn = null;
+	    int rs = 0;
+	    try {
+	        conn = DBConnection.getConnection();
+	        String sql = "UPDATE `user` SET flag_state = 1 WHERE user_id = ?";
 	        PreparedStatement ps = conn.prepareStatement(sql);
 	        ps.setInt(1, this.id);
 	        rs = ps.executeUpdate();
