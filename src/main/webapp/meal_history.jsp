@@ -136,6 +136,9 @@
 					<div class="flex justify-between items-center pt-4 border-t">
 						<span class="text-gray-600">共3件商品</span>
 						<div class="flex items-center gap-4">
+							<button  v-show="history.status == '待配送'" @click="completeOrder(history.serviceId)"
+								class="px-4 py-2 border border-green-500 text-green-500 hover:bg-green-50 !rounded-button whitespace-nowrap">标记完成</button>
+
 							<button v-show="history.status == '待配送'" @click="cancelOrder(history.serviceId)"
 								class="px-4 py-2 border border-red-500 text-red-500 hover:bg-red-50 !rounded-button whitespace-nowrap">取消订单</button>
 							<span class="font-bold">合计：¥ 136</span>
@@ -180,6 +183,10 @@
 			}
 		},
 		methods: {
+			// 点击完成订单
+			completeOrder(){
+
+			},
 			// 点击取消订单
 			cancelOrder(serviceId) {
 				console.log("点击取消", serviceId);
