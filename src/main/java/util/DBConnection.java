@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class DBConnection {
 	
 	private static final String driverName = "com.mysql.cj.jdbc.Driver";
-	private static final String url = "jdbc:mysql://localhost:3306/project?"
+	private static final String url = "jdbc:mysql://localhost:3306/testproject?"
 			+ "characterEncoding=utf8&useSSL=false&serverTimezone=UTC"
 			+ "&rewriteBatchedStatements=true";
 	private static final String user = "root";

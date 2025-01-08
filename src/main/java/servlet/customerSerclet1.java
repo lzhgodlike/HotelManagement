@@ -25,7 +25,7 @@ public class customerSerclet1 extends HttpServlet {
         String res = null;
         Gson gson = new Gson();
         try {
-            res = gson.toJson(customer1.listall());
+            res = gson.toJson(customer1.listAllCustomers());
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

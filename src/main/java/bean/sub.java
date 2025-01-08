@@ -115,6 +115,7 @@ public class sub {
 			}
 			//System.out.println(rs.next());
 		}finally{
+			
 			conn.close();
 		}
 		return allsubs;
@@ -150,6 +151,7 @@ public class sub {
 			}
 			//System.out.println(rs.next());
 		}finally{
+			
 			conn.close();
 		}
 	}

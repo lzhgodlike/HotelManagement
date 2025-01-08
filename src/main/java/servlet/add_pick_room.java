@@ -66,14 +66,14 @@ public class add_pick_room extends HttpServlet {
 		pick_room pick= gson.fromJson(json, pick_room.class);
 		System.out.println(pick.getCustomer_idcard());
 		try {
-			boolean res = pick.addPick();
+			boolean res = pick.addPick_room();
 			response.getWriter().append(String.valueOf(res));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//response.getWriter().append("true");
-		catch (ParseException e) {
+		catch (com.google.gson.JsonSyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

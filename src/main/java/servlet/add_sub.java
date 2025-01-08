@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 
 import bean.User;
 import bean.car_model;
-import bean.sub;
+import bean.sub1;
 
 /**
  * Servlet implementation class add_sub
@@ -41,7 +41,7 @@ public class add_sub extends HttpServlet {
 		String res = null;	// 存放JSON的字符串变量
 		Gson gson = new Gson();	// 创建转换器
 		try {
-			res = gson.toJson(sub.getSubs());
+			res = gson.toJson(sub1.getSubs());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,13 +63,13 @@ public class add_sub extends HttpServlet {
 		}
 		String json = new String(stringBuffer);
 		Gson gson = new Gson();
-		sub sub = gson.fromJson(json, sub.class);
+		sub1 sub = gson.fromJson(json, sub1.class);
 		try {
 			boolean res = sub.add();
 			response.getWriter().append(String.valueOf(res));
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ParseException e) {
+		} catch (com.google.gson.JsonSyntaxException e) {
 			e.printStackTrace();
 		}
 	}

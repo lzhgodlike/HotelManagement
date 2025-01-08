@@ -26,8 +26,8 @@
 %>
 <%} %>
 <div id="app">
-    <!--提车信息  -->
-    <el-dialog title="提车" :visible.sync="dialogFormVisible">
+    <!--入住信息  -->
+    <el-dialog title="入住" :visible.sync="dialogFormVisible">
         <el-form ref="pickifo" :model="pickifo" :rules="rules">
             <el-form-item label="预约编号" prop="sub_id" :label-width="formLabelWidth">
                 <el-input :disabled="true" v-model="pickifo.sub_id" autocomplete="off"></el-input>
@@ -38,22 +38,22 @@
             <el-form-item label="客户身份证号码" prop="customer_idcard" :label-width="formLabelWidth">
                 <el-input :disabled="true" v-model="pickifo.customer_idcard" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="车辆类型" prop="car_model" :label-width="formLabelWidth">
+            <el-form-item label="房间类型" prop="car_model" :label-width="formLabelWidth">
                 <el-input :disabled="true" v-model="pickifo.car_model" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="车牌号" prop="car_number" :label-width="formLabelWidth">
+            <el-form-item label="房间号" prop="car_number" :label-width="formLabelWidth">
                 <el-input :disabled="true" v-model="pickifo.car_number" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="租借类型" prop="rent_type" :label-width="formLabelWidth">
                 <el-input :disabled="true" v-model="pickifo.rent_type" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="提车时间" prop="pick_time" :label-width="formLabelWidth">
-                <el-date-picker v-model="pickifo.pick_time" type="date" value-format="yyyy-MM-dd" placeholder="选择提车日期">
+            <el-form-item label="入住时间" prop="pick_time" :label-width="formLabelWidth">
+                <el-date-picker v-model="pickifo.pick_time" type="date" value-format="yyyy-MM-dd" placeholder="选择入住日期">
                 </el-date-picker>
             </el-form-item>
-            <el-form-item label="还车时间" prop="return_time" :label-width="formLabelWidth">
+            <el-form-item label="退房时间" prop="return_time" :label-width="formLabelWidth">
                 <el-date-picker v-model="pickifo.return_time" type="date" value-format="yyyy-MM-dd"
-                                placeholder="选择提车日期">
+                                placeholder="选择退房日期">
                 </el-date-picker>
             </el-form-item>
             <el-form-item label="已交租金" prop="plan_rent" :label-width="formLabelWidth">
@@ -68,12 +68,12 @@
             <el-button type="primary" @click="submitForm('pickifo')">确 定</el-button>
         </div>
     </el-dialog>
-    <!--还车信息  -->
-    <el-dialog title="还车" :visible.sync="returnFormVisible">
+    <!--退房信息  -->
+    <el-dialog title="退房" :visible.sync="returnFormVisible">
         <el-form ref="returnifo" :model="returnifo" :rules="rules">
-            <el-form-item label="提车时间" prop="return_date" :label-width="formLabelWidth">
+            <el-form-item label="入住时间" prop="return_date" :label-width="formLabelWidth">
                 <el-date-picker v-model="returnifo.return_date" type="date" value-format="yyyy-MM-dd"
-                                placeholder="选择还车日期">
+                                placeholder="选择退房日期">
                 </el-date-picker>
             </el-form-item>
 
@@ -95,15 +95,15 @@
         <div class="row">
             <div class="row">
                 <el-card class="col-md-3" shadow="hover">
-                    <el-button type="primary" @click="changto(1)" style="width:100%" class="button mt-1">车辆预约
+                    <el-button type="primary" @click="changto(1)" style="width:100%" class="button mt-1">房间预约
                     </el-button>
                 </el-card>
                 <el-card class="col-md-3" shadow="hover">
-                    <el-button type="primary" @click="changto(2)" style="width:100%" class="button mt-1">提车管理
+                    <el-button type="primary" @click="changto(2)" style="width:100%" class="button mt-1">入住管理
                     </el-button>
                 </el-card>
                 <el-card class="col-md-3" shadow="hover">
-                    <el-button type="primary" @click="changto(3)" style="width:100%" class="button mt-1">还车管理
+                    <el-button type="primary" @click="changto(3)" style="width:100%" class="button mt-1">退房管理
                     </el-button>
                 </el-card>
                 <el-card class="col-md-3" shadow="hover">
@@ -132,9 +132,9 @@
                               style="width: 100%">
                         <el-table-column prop="sub_id" label="编号" width="60">
                         </el-table-column>
-                        <el-table-column prop="car_model" label="车型">
+                        <el-table-column prop="car_model" label="房型">
                         </el-table-column>
-                        <el-table-column prop="car_number" label="车牌号" width="130">
+                        <el-table-column prop="car_number" label="房间号" width="130">
                         </el-table-column>
                         <el-table-column prop="customer_name" label="客户姓名">
                         </el-table-column>
@@ -142,12 +142,12 @@
                         </el-table-column>
                         <el-table-column prop="sub_date" label="预约日期" width="130">
                         </el-table-column>
-                        <el-table-column prop="sub_get_date" label="预计提车" width="130">
+                        <el-table-column prop="sub_get_date" label="预计入住" width="130">
                         </el-table-column>
-                        <el-table-column prop="sub_return_date" label="预计还车" width="130">
+                        <el-table-column prop="sub_return_date" label="预计退房" width="130">
                         </el-table-column>
                         <el-table-column prop="sub_status" label="状态" width="100" column-key="sub_status"
-                                         :filters="[{text: '预约', value: '预约'}, {text: '已提车', value: '已提车'}, {text: '已结束', value: '已结束'}]"
+                                         :filters="[{text: '预约', value: '预约'}, {text: '已入住', value: '已入住'}, {text: '已结束', value: '已结束'}]"
                                          :filter-method="filterHandler">
                         </el-table-column>
                         <el-table-column align="center">
@@ -161,37 +161,37 @@
                                            @click="handleDelete(scope.$index, scope.row)">删除
                                 </el-button>
                                 <el-button :disabled="scope.row.sub_status!='预约'"
-                                           @click="handleEdit(scope.$index, scope.row)">提车
+                                           @click="handleEdit(scope.$index, scope.row)">入住
                                 </el-button>
                             </template>
                         </el-table-column>
                     </el-table>
                 </div>
-                <!--提车表  -->
+                <!--入住表  -->
                 <div v-show="box===2">
                     <el-table ref="picklist"
                               :data="picklist.filter(picklist => !search2 || picklist.customer_idcard.toLowerCase().includes(search2.toLowerCase()))"
                               style="width: 100%">
                         <el-table-column prop="pick_id" label="编号" width="60">
                         </el-table-column>
-                        <el-table-column prop="car_model" label="车型" width="60">
+                        <el-table-column prop="car_model" label="房型" width="60">
                         </el-table-column>
-                        <el-table-column prop="car_number" label="车牌号" width="130">
+                        <el-table-column prop="car_number" label="房间号" width="130">
                         </el-table-column>
                         <el-table-column prop="customer_name" label="客户姓名">
                         </el-table-column>
                         <el-table-column prop="customer_idcard" label="身份证号码">
                         </el-table-column>
-                        <el-table-column prop="pick_time" label="提车日期" width="120">
+                        <el-table-column prop="pick_time" label="入住日期" width="120">
                         </el-table-column>
-                        <el-table-column prop="return_time" label="预计还车" width="120">
+                        <el-table-column prop="return_time" label="预计退房日期" width="120">
                         </el-table-column>
                         <el-table-column prop="deposit" label="押金" width="80">
                         </el-table-column>
                         <el-table-column prop="rent_type" label="租借类型" width="110">
                         </el-table-column>
                         <el-table-column prop="pick_status" label="状态" width="120" column-key="pics_status"
-                                         :filters="[{text: '在租', value: '在租'}, {text: '已还车', value: '已还车'}]"
+                                         :filters="[{text: '在租', value: '在租'}, {text: '已退房', value: '已退房'}]"
                                          :filter-method="filterHandler">
                         </el-table-column>
                         <el-table-column align="center">
@@ -202,14 +202,14 @@
                             </template>
                             <template slot-scope="scope">
                                 <el-button :disabled="scope.row.pick_status!='在租'" size="big" type="danger"
-                                           @click="returncar(scope.$index, scope.row)">还车
+                                           @click="returncar(scope.$index, scope.row)">退房
                                 </el-button>
 
                             </template>
                         </el-table-column>
                     </el-table>
                 </div>
-                <!--还车表  -->
+                <!--退房表  -->
                 <div v-show="box===3">
                     <el-table ref="returnlist"
                               :data="returnlist.filter(returnlist => !search3 || returnlist.customer_idcard.toLowerCase().includes(search3.toLowerCase()))"
@@ -218,9 +218,9 @@
                         </el-table-column>
                         <el-table-column prop="customer_idcard" label="客户身份证号">
                         </el-table-column>
-                        <el-table-column prop="car_number" label="车牌号" width="130">
+                        <el-table-column prop="car_number" label="房间号" width="130">
                         </el-table-column>
-                        <el-table-column prop="return_date" label="还车日期">
+                        <el-table-column prop="return_date" label="退房日期">
                         </el-table-column>
                         <el-table-column prop="rent_type" label="租借方式">
                         </el-table-column>
@@ -443,7 +443,7 @@
                 $.ajax({
                     type: 'POST',
                     async: false,
-                    url: serve_url + "customer?avr=add",
+                    url: serve_url + "customer1?avr=add",
                     data:{
                         sfzhm:kehuxinxi.customer_idcard,
                         name:kehuxinxi.customer_name,
@@ -494,7 +494,7 @@
                 $.ajax({
                     type: 'POST',
                     async: false,
-                    url: serve_url + "customer?avr=update",
+                    url: serve_url + "customer1?avr=update",
                     data:{
                         id:kehu.customer_id,
                         sfzhm:kehu.customer_idcard,
@@ -526,7 +526,7 @@
                 $.ajax({
                     type: 'POST',
                     async: false,
-                    url: serve_url + "customer?avr=delete",
+                    url: serve_url + "customer1?avr=delete",
                     data:{
                         id:id
                     },
@@ -581,13 +581,13 @@
                 }
                 this.box = index;
             },
-            //获取还车信息
+            //获取退房信息
             returncar(index, row) {
                 console.log(row);
                 this.returnFormVisible = true;
                 this.returnifo = row;
             },
-            //还车
+            //退房
             upreturn(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
@@ -595,13 +595,13 @@
                         var rd = new Date(this.returnifo.return_date);
                         var pd = new Date(this.pickifo.return_time);
                         if (rd < pd) {
-                            alert("你不能在提车前还车");
+                            alert("你不能在入住前退房");
                             return;
                         }
                         $.ajax({
                             type: 'POST',
                             async: false,
-                            url: serve_url + "add_return",
+                            url: serve_url + "add_return1",
                             data: JSON.stringify(
                                 this.returnifo
                             ),
@@ -609,11 +609,11 @@
                                 if (res == "true") {
                                     self.getallpick();
                                     self.$message({
-                                        message: '还车成功',
+                                        message: '退房成功',
                                         type: 'success'
                                     });
                                 } else {
-                                    self.$message.error('还车失败');
+                                    self.$message.error('退房失败');
                                 }
                                 self.returnFormVisible = false;
                             }
@@ -630,7 +630,7 @@
                 $.ajax({
                     type: 'POST',
                     async: false,
-                    url: serve_url + "delete_sub",
+                    url: serve_url + "delete_sub1",
                     data: JSON.stringify({
                         "sub_id": row.sub_id
                     }),
@@ -668,7 +668,7 @@
                 const property = column['property'];
                 return row[property] === value;
             },
-            //打开提车信息窗口
+            //打开入住信息窗口
             handleEdit(index, row) {
                 console.log(row)
                 this.pickifo = row;
@@ -681,7 +681,7 @@
                     type: 'get',
                     async: false,
                     dataType: 'JSON',
-                    url: serve_url + "add_sub",
+                    url: serve_url + "add_sub1",
                     success: function (res) {
                         console.log("11231", res)
                         self.receive_subs(res);
@@ -705,12 +705,12 @@
                     }
                 }
             },
-            //提交提车信息
+            //提交入住信息
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         if (!this.chcekdate()) {
-                            alert("你不能先还车再提车");
+                            alert("你不能先退房再入住");
                             return;
                         }
                         console.log(this.pickifo);
@@ -718,18 +718,18 @@
                         $.ajax({
                             type: 'POST',
                             async: false,
-                            url: serve_url + "add_pick",
+                            url: serve_url + "add_pick_room",
                             data: JSON.stringify(this.pickifo),
                             success: function (res) {
                                 console.log(res)
                                 self.getallsub();
                                 if (res == "true") {
                                     self.$message({
-                                        message: '提车成功',
+                                        message: '入住成功',
                                         type: 'success'
                                     });
                                 } else {
-                                    self.$message.error('提车失败');
+                                    self.$message.error('入住失败');
                                 }
                                 self.dialogFormVisible = false;
                             }
@@ -745,32 +745,32 @@
                 this.dialogFormVisible = false;
                 this.returnFormVisible = false;
             },
-            //获取所有提车信息
+            //获取所有入住信息
             getallpick() {
                 var self = this;
                 $.ajax({
                     type: 'get',
                     async: false,
                     dataType: 'JSON',
-                    url: serve_url + "add_pick",
+                    url: serve_url + "add_pick_room",
                     success: function (res) {
                         self.receive_picks(res);
                     }
                 })
             },
-            //接收提车信息
+            //接收入住信息
             receive_picks(res) {
                 this.picklist = res;
                 console.log(res)
             },
-            //获取还车信息表
+            //获取退房信息表
             getAllreturn() {
                 var self = this;
                 $.ajax({
                     type: 'get',
                     async: false,
                     dataType: 'JSON',
-                    url: serve_url + "add_return",
+                    url: serve_url + "add_return1",
                     success: function (res) {
                         self.receive_returns(res);
                     }
@@ -784,7 +784,7 @@
                     type: 'get',
                     async: false,
                     dataType: 'JSON',
-                    url: serve_url + "customer",
+                    url: serve_url + "customer1",
                     success: function (res) {
                         console.log("客户表", res)
                         self.kuhu(res);
