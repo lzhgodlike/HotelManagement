@@ -9,15 +9,16 @@
 <script src="static/vue/vue-router.js"></script>
 <link rel="stylesheet" type="text/css" href="static/bootstrap/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="static/element-ui-2.14.0/index.css" />
-<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.14.0/index.js"></script>
+<script src="static/element-ui-2.14.0/index.js"></script>
 <script src="static/database.js" type="text/javascript"></script>
 <script src="static/jquery-3.5.1.min.js"></script>
 <title>欢迎登录预约管理系统</title>
 </head>
 <body>
-    <%@ page import="bean.User"%>
+    <%@ page import="bean.User,bean.room"%>
     <%
     User user = new User();
+    room r = new room();
     user = (User) request.getSession().getAttribute("user");
     %>
     <%
@@ -157,7 +158,7 @@
                                   :on-success="handleAvatarSuccess"
                                   :with-credentials="true"
                                   enctype="multipart/form-data">
-                                  <img v-if="addroomform.room_img" :src="imgPath(addroomform.room_img)" class="avatar">
+                                  <img v-if="addroomform.room_img" :src="imgPath(editroomform.room_img)" class="avatar">
                                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                 </el-upload>
                             </div>
