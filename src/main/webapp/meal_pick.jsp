@@ -108,7 +108,7 @@
 
               <div class="pt-4">
                 <button class="w-full bg-primary text-white py-3 !rounded-button whitespace-nowrap font-medium"
-                  type="button" @click="submitForm">提交订单</button>
+                  type="reset" @click="submitForm">提交订单</button>
               </div>
             </form>
           </div>
