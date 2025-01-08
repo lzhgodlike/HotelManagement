@@ -35,7 +35,7 @@ public class deleteuser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("get out! ");
+		response.getWriter().append("滚出去！");
 	}
 
 	/**

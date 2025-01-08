@@ -131,7 +131,7 @@
 						</template>
 						<template slot-scope="scope">
 							<el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-							<el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+							<el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">离职</el-button>
 						</template>
 					</el-table-column>
 				</el-table>
@@ -233,11 +233,11 @@
 								if (res == "true") {
 									self.getUsers();
 									self.$message({
-										message: '删除成功',
+										message: '操作成功',
 										type: 'success'
 									});
 								} else {
-									self.$message.error('删除失败');
+									self.$message.error('操作失败');
 								}
 								self.dialogFormVisible = false;
 							}
@@ -245,7 +245,7 @@
 					}).catch(() => {
 						this.$message({
 							type: 'info',
-							message: '已取消删除'
+							message: '已取消操作'
 						});
 					});
 				},
