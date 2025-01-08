@@ -17,8 +17,8 @@ public class return_room {
     private String room_id;
     private String customer_idcard;
     private String room_model;
-    private Date room_estimate_date;
-    private Date return_date;
+    private String room_estimate_date;
+    private String return_date;
     private int pick_id;
 
     // Getters and Setters
@@ -54,19 +54,19 @@ public class return_room {
         this.room_model = room_model;
     }
 
-    public Date getRoom_estimate_date() {
+    public String getRoom_estimate_date() {
         return room_estimate_date;
     }
 
-    public void setRoom_estimate_date(Date room_estimate_date) {
+    public void setRoom_estimate_date(String room_estimate_date) {
         this.room_estimate_date = room_estimate_date;
     }
 
-    public Date getReturn_date() {
+    public String getReturn_date() {
         return return_date;
     }
 
-    public void setReturn_date(Date return_date) {
+    public void setReturn_date(String return_date) {
         this.return_date = return_date;
     }
 
@@ -79,7 +79,7 @@ public class return_room {
     }
 
     // Constructors
-    public return_room(String customer_idcard, String room_id, String room_model, Date room_estimate_date, Date return_date, int pick_id) {
+    public return_room(String customer_idcard, String room_id, String room_model, String room_estimate_date, String return_date, int pick_id) {
         this.customer_idcard = customer_idcard;
         this.room_id = room_id;
         this.room_model = room_model;
@@ -88,7 +88,7 @@ public class return_room {
         this.pick_id = pick_id;
     }
 
-    public return_room(int return_id, String customer_idcard, String room_id, String room_model, Date room_estimate_date, Date return_date, int pick_id) {
+    public return_room(int return_id, String customer_idcard, String room_id, String room_model, String room_estimate_date, String return_date, int pick_id) {
         this.return_id = return_id;
         this.customer_idcard = customer_idcard;
         this.room_id = room_id;
@@ -117,8 +117,8 @@ public class return_room {
                         rs.getString("customer_idcard"),
                         rs.getString("room_id"),
                         rs.getString("room_model"),
-                        rs.getDate("room_estimate_date"),
-                        rs.getDate("return_date"),
+                        rs.getString("room_estimate_date"),
+                        rs.getString("return_date"),
                         rs.getInt("pick_id")
                 );
                 allReturnRooms.add(temp);
@@ -142,8 +142,8 @@ public class return_room {
             ps.setString(1, this.customer_idcard);
             ps.setString(2, this.room_id);
             ps.setString(3, this.room_model);
-            ps.setDate(4, new java.sql.Date(this.room_estimate_date.getTime()));
-            ps.setDate(5, new java.sql.Date(this.return_date.getTime()));
+            ps.setString(4,  this.room_estimate_date);
+            ps.setString(5, this.return_date);
             ps.setInt(6, this.pick_id);
             rs = ps.executeUpdate();
             return rs == 1;

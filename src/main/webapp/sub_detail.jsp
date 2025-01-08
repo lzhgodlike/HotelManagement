@@ -212,13 +212,13 @@
 	                }
 	            }
 	        },
-	        //提交入住信息
+	        //提交预约信息
 	        submitForm(formName) {
 	            var self = this;
 	            this.$refs[formName].validate((valid) => {
 	                if (valid) {
 	                    if (self.checkdate() == "gs") {
-	                        alert("你不能在过去入住");
+	                        alert("你不能在过去预约");
 	                        return
 	                    } else if (self.checkdate() == "rs") {
 	                        alert("你不能先入住后预约");

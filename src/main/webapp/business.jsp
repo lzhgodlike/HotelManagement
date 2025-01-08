@@ -134,7 +134,8 @@
                         </el-table-column>
                         <el-table-column prop="room_model" label="房型">
                         </el-table-column>
-                       
+                       <el-table-column prop="room_id" label="房间号" width="130">
+                        </el-table-column>
                         <el-table-column prop="customer_name" label="客户姓名">
                         </el-table-column>
                         <el-table-column prop="customer_idcard" label="身份证号码">
@@ -146,7 +147,7 @@
                         <el-table-column prop="sub_return_date" label="预计退房" width="130">
                         </el-table-column>
                         <el-table-column prop="sub_status" label="状态" width="100" column-key="sub_status"
-                                         :filters="[{text: '预约', value: '预约'}, {text: '已入住', value: '已入住'}, {text: '已结束', value: '已结束'}]"
+                                         :filters="[{text: '预约', value: '预约'}, {text: '入住', value: '入住'}, {text: '已结束', value: '已结束'}]"
                                          :filter-method="filterHandler">
                         </el-table-column>
                         <el-table-column align="center">

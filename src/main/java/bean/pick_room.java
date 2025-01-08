@@ -15,8 +15,8 @@ public class pick_room {
     private String room_id;
     private String customer_idcard;
     private String customer_name;
-    private Date pick_time;
-    private Date return_time;
+    private String pick_time;
+    private String return_time;
     private String room_model;
     private int plan_rent;
     private int sub_id;
@@ -55,19 +55,19 @@ public class pick_room {
         this.customer_name = customer_name;
     }
 
-    public Date getPick_time() {
+    public String getPick_time() {
         return pick_time;
     }
 
-    public void setPick_time(Date pick_time) {
+    public void setPick_time(String pick_time) {
         this.pick_time = pick_time;
     }
 
-    public Date getReturn_time() {
+    public String getReturn_time() {
         return return_time;
     }
 
-    public void setReturn_time(Date return_time) {
+    public void setReturn_time(String return_time) {
         this.return_time = return_time;
     }
 
@@ -104,8 +104,8 @@ public class pick_room {
     }
 
     // Constructor
-    public pick_room(int pick_id, String room_id, String customer_idcard, String customer_name, Date pick_time,
-                     Date return_time, String room_model, int plan_rent, int sub_id, String pick_status) {
+    public pick_room(int pick_id, String room_id, String customer_idcard, String customer_name, String pick_time,
+                     String return_time, String room_model, int plan_rent, int sub_id, String pick_status) {
         this.pick_id = pick_id;
         this.room_id = room_id;
         this.customer_idcard = customer_idcard;
@@ -134,12 +134,12 @@ public class pick_room {
             ps.setString(1, this.room_id);
             ps.setString(2, this.customer_idcard);
             ps.setString(3, this.customer_name);
-            ps.setDate(4, new java.sql.Date(this.pick_time.getTime()));
-            ps.setDate(5, new java.sql.Date(this.return_time.getTime()));
+            ps.setString(4, this.pick_time);
+            ps.setString(5, this.return_time);
             ps.setString(6, this.room_model);
             ps.setInt(7, this.plan_rent);
             ps.setInt(8, this.sub_id);
-            this.pick_status = "已入住"; // Default pick status
+            this.pick_status = "入住"; // Default pick status
             ps.setString(9, this.pick_status);
             rs = ps.executeUpdate();
             return rs == 1;
@@ -167,8 +167,8 @@ public class pick_room {
                         rs.getString("room_id"),
                         rs.getString("customer_idcard"),
                         rs.getString("customer_name"),
-                        rs.getDate("pick_time"),
-                        rs.getDate("return_time"),
+                        rs.getString("pick_time"),
+                        rs.getString("return_time"),
                         rs.getString("room_model"),
                         rs.getInt("plan_rent"),
                         rs.getInt("sub_id"),
