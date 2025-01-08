@@ -92,7 +92,7 @@ public class User {
 			ps.setString(2, this.password);
 			ps.setString(3, this.role);
 			rs = ps.executeQuery();
-			if(rs.next()==false){
+			if(!rs.next() || !rs.getBoolean("flag_state")){
 				return "error";
 			}else{
 				this.idcard = rs.getString("user_idcard");
