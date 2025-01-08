@@ -15,17 +15,17 @@
 	</head>
 	<body>
 		<div style="display:none">
-			<%@ page import="bean.car" %>
-			<%car tcar = (car)request.getAttribute("tcar"); %>
-			<input id="id" v-model="id" value="<%=tcar.getCar_id() %>" />
-			<input id="num" v-model="num" value="<%=tcar.getCar_number() %>" />
-			<input id="model" v-model="model" value="<%=tcar.getCar_model() %>" />
-			<input id="status" v-model="status" value="<%=tcar.getCurrent_status() %>" />
-			<input id="bought" v-model="bought" value="<%=tcar.getBought_time() %>" />
-			<input id="img" v-model="img" value="<%=tcar.getCar_img() %>" />
+			<%@ page import="bean.room" %>
+			<%room troom = (room)request.getAttribute("troom"); %>
+			<input id="room_id" v-model="room_id" value="<%=troom.getRoom_id() %>" />
+			<%-- <input id="num" v-model="num" value="<%=tcar.getCar_number() %>" /> --%>
+			<input id="room_model" v-model="room_model" value="<%=troom.getRoom_model() %>" />
+			<input id="current_status" v-model="current_status" value="<%=troom.getCurrent_status() %>" />
+			<%-- <input id="bought" v-model="bought" value="<%=tcar.getBought_time() %>" /> --%>
+			 <input id="room_img" v-model="room_img" value="<%=troom.getRoom_img() %>" /> 
 		</div>
 		<div id="app">	
-			<el-dialog title="预约新车" :visible.sync="dialogFormVisible">
+			<el-dialog title="预约房间" :visible.sync="dialogFormVisible">
 				<el-form ref="form" :model="form" :rules="rules">
 					<el-form-item label="姓名" prop="name" :label-width="formLabelWidth">
 						<el-input v-model="form.name" autocomplete="off"></el-input>
@@ -45,12 +45,12 @@
 							<el-option label="日租" value="日租"></el-option>
 						</el-select>
 					</el-form-item>
-					<el-form-item label="提车时间" prop="getdate" :label-width="formLabelWidth">
-						<el-date-picker v-model="form.getdate" type="date" value-format="yyyy-MM-dd" placeholder="选择提车日期">
+					<el-form-item label="入住时间" prop="getdate" :label-width="formLabelWidth">
+						<el-date-picker v-model="form.getdate" type="date" value-format="yyyy-MM-dd" placeholder="选择入住日期">
 						</el-date-picker>
 					</el-form-item>
-					<el-form-item label="还车时间" prop="returndate" :label-width="formLabelWidth">
-						<el-date-picker v-model="form.returndate" type="date" value-format="yyyy-MM-dd" placeholder="选择还车日期">
+					<el-form-item label="退房时间" prop="returndate" :label-width="formLabelWidth">
+						<el-date-picker v-model="form.returndate" type="date" value-format="yyyy-MM-dd" placeholder="选择退房日期">
 						</el-date-picker>
 					</el-form-item>
 				</el-form>
@@ -63,21 +63,21 @@
 				
 				<div class="row">
 					<div class="col-md-6 left">
-						<div class="pic"><img style="max-height:200px;" :src="img" /></div>
+						<!-- <div class="pic"><img style="max-height:200px;" :src="img" /></div> -->
 						<el-descriptions class="margin-top" :column="3" border>
 						    <el-descriptions-item>
 						      <template slot="label">
 						        <i class="el-icon-user"></i>
-						        车牌号
+						        房间号
 						      </template>
-						      {{num}}
+						      {{room_id}}
 						    </el-descriptions-item>
 						    <el-descriptions-item>
 						      <template slot="label">
 						        <i class="el-icon-info"></i>
-						        车型
+						        房型
 						      </template>
-						      {{model}}
+						      {{room_model}}
 						    </el-descriptions-item>
 						    <el-descriptions-item>
 						      <template slot="label">
@@ -86,26 +86,26 @@
 						      </template>
 						     <el-tag size="small">{{status}}</el-tag>
 						    </el-descriptions-item>
-						    <el-descriptions-item>
+						    <!-- <el-descriptions-item>
 						      <template slot="label">
 						        <i class="el-icon-time"></i>
 						        出厂时间
 						      </template>
 						      {{bought}}
-						    </el-descriptions-item>
+						    </el-descriptions-item> -->
 						    <el-descriptions-item>
 						      <template slot="label">
 						        <i class="el-icon-money"></i>
 						        日租金
 						      </template>
-						      {{rent_day}}
+						      {{one_night_rent}}
 						    </el-descriptions-item>
 						    <el-descriptions-item>
 						      <template slot="label">
 						        <i class="el-icon-coin"></i>
 						        月租金
 						      </template>
-						      {{rent_month}}
+						      {{one_month_rent}}
 						    </el-descriptions-item>
 						  </el-descriptions>
 					</div>
@@ -117,215 +117,220 @@
 		</div>
 	</body>
 	<script>
-		new Vue({
-			el: "#app",
-			data() {
-				return {
-					id: '',
-					num: '',
-					model: '',
-					status: '',
-					bought: '',
-					img: '',
-					rent_day: '',
-					rent_month: '',
-					ispass: '正在出租',
-					is: true,
-					dialogFormVisible: false,
-					formLabelWidth: '120px',
-					allright: false,
-					form: {
-						name: '',
-						idcard: '',
-						type: '日租',
-						job: '',
-						phone: '',
-						getdate: '',
-						returndate: ''
-					},
-					rules: {
-						name: [{
-							required: true,
-							message: '姓名不可为空',
-							trigger: 'blur'
-						}],
-						job: [{
-							required: true,
-							message: '工作不可为空',
-							trigger: 'blur'
-						}],
-						returndate: [{
-							required: true,
-							message: '日期不可为空',
-							trigger: 'blur'
-						}],
-						getdate: [{
-							required: true,
-							message: '日期不可为空',
-							trigger: 'blur'
-						}],
-						phone: [{
-							required: true,
-							message: '号码不可为空',
-							trigger: 'blur'
-						}, {
-							min: 11,
-							max: 11,
-							message: '电话号码必须为11位',
-							trigger: 'blur'
-						}],
-						idcard: [{
-								required: true,
-								message: '身份证号码不可为空',
-								trigger: 'blur'
-							},
-							{
-								min: 18,
-								max: 18,
-								message: '身份证号码必须为18位',
-								trigger: 'blur'
-							}
-						],
-						type: [{
-							required: true,
-							message: '请选择方式',
-							trigger: 'blur'
-						}]
-					},
-				}
-			},
-			methods: {
-				//检查日期是否合理
-				checkdate() {
-					if (this.form.getdate != "" && this.form.returndate != "") {
-						var getd = new Date(this.form.getdate);
-						var retn = new Date(this.form.returndate);
-						var today = new Date();
-						if (getd < today) {
-							return "gs"
-						} else if (retn < getd) {
-							return "rs"
-						}
-					}
-				},
-				//提交提车信息
-				submitForm(formName) {
-					var self = this;
-					this.$refs[formName].validate((valid) => {
-						if (valid) {
-							if (self.checkdate() == "gs") {
-								alert("你不能在过去提车");
-								return
-							} else if (self.checkdate() == "rs") {
-								alert("你不能先提车后预约");
-								return
-							} else {
-								var sub_ifo = {
-									"customer_name": this.form.name,
-									"customer_idcard": this.form.idcard,
-									"car_model": this.model,
-									"sub_date": new Date(),
-									"sub_get_date": this.form.getdate,
-									"sub_return_date": this.form.returndate,
-									"sub_status": "预约",
-									"car_number": this.num,
-									"rent_type": this.form.type
-								}
-								var customer_ifo = {
-									"customer_name": this.form.name,
-									"customer_idcard": this.form.idcard,
-									"customer_unit": this.form.job,
-									"customer_phone": this.form.phone,
-									"regin_date": new Date()
-								}
-								//var self = this;
-								$.ajax({
-									type: 'POST',
-									async: false,
-									url: serve_url + "add_customer",
-									data: JSON.stringify(customer_ifo),
-									success: function(res) {
-										self.addSub(sub_ifo);
-									}
-								})
-							}
-						}
-					})
-				},
-				//新增提车信息
-				addSub(subifo) {
-					var self = this;
-					console.log(subifo)
-					$.ajax({
-						type: 'POST',
-						async: false,
-						url: serve_url + "add_sub",
-						data: JSON.stringify(subifo),
-						success: function(res) {
-							if(res=="true"){
-								alert("预约成功");
-								self.changestatus();
-							}else{
-								alert("预约失败,预约信息有误");
-							}
-						}
-					})
-				},
-				//刷新页面
-				changestatus(){
-					this.is = false;
-					this.dialogFormVisible = false;
-					this.dialogFormVisible = false;
-					console.log(this.is)
-					location.reload();
-				},
-				//获取车辆价格
-				findprice(res) {
-					for (let i = 0; i < res.length; i++) {
-						if (res[i].car_model == this.model) {
-							this.rent_day = res[i].rent_day;
-							this.rent_month = res[i].rent_month;
-						}
-					}
-				},
-				//获得所有价格
-				getPrice() {
-					var self = this;
-					$.ajax({
-						type: 'get',
-						async: false,
-						dataType: 'JSON',
-						url: serve_url + "get_car_model",
-						success: function(res) {
-							self.findprice(res);
-						}
-					})
-				},
-				showbox() {
-					this.dialogFormVisible = true;
-				},
-				cancel() {
-					this.dialogFormVisible = false;
-					this.resetForm('form');
-				},
-				resetForm(formName) {
-					this.$refs[formName].resetFields();
-				},
-			},
-			mounted() {
-				this.id = document.getElementById("id").value;
-				this.num = document.getElementById("num").value;
-				this.model = document.getElementById("model").value;
-				this.status = document.getElementById("status").value;
-				this.bought = document.getElementById("bought").value;
-				if (this.status == "空闲") {
-					this.is = false;
-					this.ispass = "预约"
-				}
-				this.img = document.getElementById("img").value;
-				this.getPrice();
-			}
-		})
+	
+	
+	new Vue({
+	    el: "#app",
+	    data() {
+	        return {
+	            room_id: '',
+	            room_model: '',
+	            status: '',
+	            room_img: '',
+	            one_night_rent: '',
+	            one_month_rent: '',
+	            ispass: '正在出租',
+	            is: true,
+	            dialogFormVisible: false,
+	            formLabelWidth: '120px',
+	            allright: false,
+	            form: {
+	                name: '',
+	                idcard: '',
+	                type: '日租',
+	                job: '',
+	                phone: '',
+	                getdate: '',
+	                returndate: ''
+	            },
+	            rules: {
+	                name: [{
+	                    required: true,
+	                    message: '姓名不可为空',
+	                    trigger: 'blur'
+	                }],
+	                job: [{
+	                    required: true,
+	                    message: '工作不可为空',
+	                    trigger: 'blur'
+	                }],
+	                returndate: [{
+	                    required: true,
+	                    message: '日期不可为空',
+	                    trigger: 'blur'
+	                }],
+	                getdate: [{
+	                    required: true,
+	                    message: '日期不可为空',
+	                    trigger: 'blur'
+	                }],
+	                phone: [{
+	                    required: true,
+	                    message: '号码不可为空',
+	                    trigger: 'blur'
+	                }, {
+	                    min: 11,
+	                    max: 11,
+	                    message: '电话号码必须为11位',
+	                    trigger: 'blur'
+	                }],
+	                idcard: [{
+	                        required: true,
+	                        message: '身份证号码不可为空',
+	                        trigger: 'blur'
+	                    },
+	                    {
+	                        min: 18,
+	                        max: 18,
+	                        message: '身份证号码必须为18位',
+	                        trigger: 'blur'
+	                    }
+	                ],
+	                type: [{
+	                    required: true,
+	                    message: '请选择方式',
+	                    trigger: 'blur'
+	                }]
+	            },
+	        }
+	    },
+	    methods: {
+	        getElementValue(id) {
+	            const element = document.getElementById(id);
+	            return element ? element.value : '';
+	        },
+	        //检查日期是否合理
+	        checkdate() {
+	            if (this.form.getdate != "" && this.form.returndate != "") {
+	                var getd = new Date(this.form.getdate);
+	                var retn = new Date(this.form.returndate);
+	                var today = new Date();
+	                if (getd < today) {
+	                    return "gs"
+	                } else if (retn < getd) {
+	                    return "rs"
+	                }
+	            }
+	        },
+	        //提交预约信息
+	        submitForm(formName) {
+	            var self = this;
+	            this.$refs[formName].validate((valid) => {
+	                if (valid) {
+	                    if (self.checkdate() == "gs") {
+	                        alert("你不能在过去预约");
+	                        return
+	                    } else if (self.checkdate() == "rs") {
+	                        alert("你不能先入住后预约");
+	                        return
+	                    } else {
+	                    	var sub_ifo = {
+	                    		    "customer_name": this.form.name,
+	                    		    "customer_idcard": this.form.idcard,
+	                    		    "room_model": this.room_model,
+	                    		    "sub_date": new Date(),
+	                    		    "sub_get_date": new Date(this.form.getdate), // 使用 Date 对象解析日期
+	                    		    "sub_return_date": new Date(this.form.returndate), // 使用 Date 对象解析日期
+	                    		    "sub_status": "预约",
+	                    		    "room_id": this.room_id,
+	                    		    
+	                    		}
+	                        var customer_ifo = {
+	                            "customer_name": this.form.name,
+	                            "customer_idcard": this.form.idcard,
+	                            "customer_unit": this.form.job,
+	                            "customer_phone": this.form.phone,
+	                            "regin_date": new Date()
+	                        }
+	                        //var self = this;
+	                        $.ajax({
+	                            type: 'POST',
+	                            async: false,
+	                            url: serve_url + "add_customer1",
+	                            data: JSON.stringify(customer_ifo),
+	                            success: function(res) {
+	                            self.addSub(sub_ifo); 
+	                           console.log(sub_ifo);
+	                            }
+	                        })
+	                    }
+	                }
+	            })
+	        },
+	        //新增入住信息
+	        addSub(subifo) {
+	            var self = this;
+	            console.log(subifo)
+	            $.ajax({
+	                type: 'POST',
+	                async: false,
+	                url: serve_url + "add_sub1",
+	                data: JSON.stringify(subifo),
+	                success: function(res) {
+	                    if(res=="true"){
+	                        alert("预约成功");
+	                        self.changestatus();
+	                    }else{
+	                        alert("预约失败,预约信息有误");
+	                    }
+	                }
+	            })
+	        },
+	        //刷新页面
+	        changestatus(){
+	            this.is = false;
+	            this.dialogFormVisible = false;
+	            this.dialogFormVisible = false;
+	            console.log(this.is)
+	            location.reload();
+	        },
+	        //获取车辆价格
+	        findprice(res) {
+	            for (let i = 0; i < res.length; i++) {
+	                if (res[i].car_model == this.model) {
+	                    this.rent_day = res[i].rent_day;
+	                    this.rent_month = res[i].rent_month;
+	                }
+	            }
+	        },
+	        //获得所有价格
+	        getPrice() {
+	            var self = this;
+	            $.ajax({
+	                type: 'get',
+	                async: false,
+	                dataType: 'JSON',
+	                url: serve_url + "get_room_type",
+	                success: function(res) {
+	                    self.findprice(res);
+	                }
+	            })
+	        },
+	        showbox() {
+	            this.dialogFormVisible = true;
+	        },
+	        cancel() {
+	            this.dialogFormVisible = false;
+	            this.resetForm('form');
+	        },
+	        resetForm(formName) {
+	            this.$refs[formName].resetFields();
+	        },
+	    },
+	    mounted() {
+	        this.room_id = this.getElementValue("room_id");
+	        this.room_model = this.getElementValue("room_model");
+	        this.status = this.getElementValue("current_status");
+	        if (this.status == "空闲") {
+	            this.is = false;
+	            this.ispass = "预约"
+	        }
+	        this.room_img = this.getElementValue("room_img");
+	        this.one_night_rent = this.getElementValue("one_night_rent");
+	        this.one_month_rent = this.getElementValue("one_month_rent");
+	        this.getPrice();
+	    }
+	})
 	</script>
 	<style>
 		body{

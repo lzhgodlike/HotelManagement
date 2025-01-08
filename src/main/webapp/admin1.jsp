@@ -9,15 +9,16 @@
 <script src="static/vue/vue-router.js"></script>
 <link rel="stylesheet" type="text/css" href="static/bootstrap/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="static/element-ui-2.14.0/index.css" />
-<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.14.0/index.js"></script>
+<script src="static/element-ui-2.14.0/index.js"></script>
 <script src="static/database.js" type="text/javascript"></script>
 <script src="static/jquery-3.5.1.min.js"></script>
 <title>欢迎登录预约管理系统</title>
 </head>
 <body>
-    <%@ page import="bean.User"%>
+    <%@ page import="bean.User,bean.room"%>
     <%
     User user = new User();
+    room r = new room();
     user = (User) request.getSession().getAttribute("user");
     %>
     <%
@@ -176,24 +177,24 @@
                         </div>
                         </el-dialog>
                         
-                        <!-- 这里是修改房间信息的页面 -->
-                        <el-dialog title="修改房间信息" :visible.sync="EditroomFormVisible">
-                        <el-form ref="editroomform" :model="editroomform"> 
+                        <!-- 这里是查看房间信息的页面 -->
+                        <el-dialog title="查看房间信息" :visible.sync="ViewroomFormVisible">
+                        <el-form ref="viewroomform" :model="viewroomform"> 
                         
                             <el-form-item label="房间号码" prop="room_id" :label-width="formLabelWidth">
-                                <el-input v-model="editroomform.room_id" autocomplete="off"></el-input>
+                                <el-input v-model="viewroomform.room_id" autocomplete="off"></el-input>
                             </el-form-item> 
                             
                             <el-form-item label="房间类型" prop="room_model" :label-width="formLabelWidth"> 
-                                <el-input v-model="editroomform.room_model" autocomplete="off"></el-input> 
+                                <el-input v-model="viewroomform.room_model" autocomplete="off"></el-input> 
                             </el-form-item>
                             
                             <el-form-item label="房间总数量" prop="Room_total_number" :label-width="formLabelWidth">
-                                <el-input type="number" v-model="editroomform.Room_total_number" autocomplete="off"></el-input>
+                                <el-input type="number" v-model="viewroomform.Room_total_number" autocomplete="off"></el-input>
                             </el-form-item>
                             
                             <el-form-item label="房间剩余数量" prop="Room_s_number" :label-width="formLabelWidth">
-                                <el-input type="number" v-model="editroomform.Room_s_number" autocomplete="off"></el-input>
+                                <el-input type="number" v-model="viewroomform.Room_s_number" autocomplete="off"></el-input>
                             </el-form-item>
                             
                             <el-form-item label="照片" :label-width="formLabelWidth">
@@ -205,23 +206,20 @@
                                   :on-success="handleAvatarSuccess"
                                   :with-credentials="true"
                                   enctype="multipart/form-data">
-                                  <img v-if="editroomform.room_img" :src="imgPath(editroomform.room_img)" class="avatar">
+                                  <img v-if="viewroomform.room_img" :src="imgPath(viewroomform.room_img)" class="avatar">
                                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                 </el-upload>
                             </div>
                             </el-form-item> 
                             <el-form-item label="目前状态" prop="current_status"
                                 :label-width="formLabelWidth"> 
-                                <el-select v-model="editroomform.current_status" placeholder="请选择目前状态">
-                                <el-option value="在租"></el-option> 
+                                <el-select v-model="viewroomform.current_status" placeholder="请选择目前状态">
+                                <el-option value="已预约"></el-option>
+                                <el-option value="已入住"></el-option> 
                                 <el-option value="空闲"></el-option>
                                 </el-select> 
                             </el-form-item> 
                         </el-form>
-                        <div slot="footer" class="dialog-footer">
-                            <el-button @click="cancel()">取 消</el-button>
-                            <el-button type="primary" @click="addnewroom">确 定</el-button>
-                        </div>
                         </el-dialog>
 
                         <!-- 这里是页面中显示列表属性的部分 -->
@@ -236,7 +234,7 @@
                             		<el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
                         		</template>
                         		<template slot-scope="scope">
-                        			<el-button :disabled="scope.row.current_status!='空闲'" size="mini" type="danger" @click="EditRoom(scope.$index, scope.row)">编辑</el-button>
+                        			<el-button size="mini" type="danger" @click="ViewRoom(scope.$index, scope.row)">查看</el-button>
                             		<el-button :disabled="scope.row.current_status!='空闲'" size="mini" type="danger" @click="deleteroom(scope.$index, scope.row)">删除</el-button>
                         		</template>
                         	</el-table-column> 
@@ -284,7 +282,7 @@
                         current_status:'',
                         room_img:''
                     },
-                    editroomform:{
+                    viewroomform:{
                         room_id:'',
                         room_model:'',
                         Room_total_number: 0,
@@ -295,7 +293,7 @@
                     dialogFormVisible: false,
                     EditFormVisible: false,
                     roomFormVisible:false,
-                    EditroomFormVisible:false,
+                    ViewroomFormVisible:false,
                     form: [],
                     addform: {
                         room_model: '',
@@ -383,10 +381,10 @@
                     this.editform = row;
                     
                 },
-                EditRoom(index, row) {
+                ViewRoom(index, row) {
                 	console.log(row);
-                	this.EditroomFormVisible = true;
-                	this.editroomform = row;
+                	this.ViewroomFormVisible = true;
+                	this.viewroomform = row;
                 },
                 //关闭所有的窗口
                 cancel() {
@@ -468,8 +466,8 @@
                 						self.$message.error('修改失败');
                 					}
                 					
-                					self.resetForm('editroomform');
-                					self.EditroomFormVisible = false;
+                					self.resetForm('viewroomform');
+                					self.ViewroomFormVisible = false;
                 				}
                 			})
                 		} else {

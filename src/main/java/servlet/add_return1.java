@@ -41,7 +41,7 @@ public class add_return1 extends HttpServlet {
 		Gson gson = new Gson();	// 创建转换器
 		try {
 			// 将学生数组转换为JSON
-			res = gson.toJson(return_room.getReturns());
+			res = gson.toJson(return_room.getReturnRooms());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,7 +68,7 @@ public class add_return1 extends HttpServlet {
 		return_room rcar = gson.fromJson(json, return_room.class);
 		
 		try {
-			boolean res = rcar.addReturn();
+			boolean res = rcar.addReturnRoom();
 			response.getWriter().append(String.valueOf(res));
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -109,6 +109,7 @@ public class room_type {
     		rs = ps.executeQuery();
     		while (rs.next()) {
     			troom.setRoom_id(rs.getString("room_id"));
+    			troom.setRoom_model(rs.getString("Room_model"));
 				troom.setRoom_total_number(rs.getInt("Room_total_number"));
 				troom.setRoom_s_number(rs.getInt("Room_s_number"));
 				troom.setCurrent_status(rs.getString("current_status"));

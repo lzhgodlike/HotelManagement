@@ -48,11 +48,12 @@ public class car_model {
 	public static List<car_model> getModels() throws SQLException{
 		Connection conn = null;
 		ResultSet rs = null;
+		PreparedStatement ps = null;
 		List<car_model> allmodels = new ArrayList<car_model>();
 		try{
 			conn = DBConnection.getConnection();
 			String sql = "select * from `car_model_rent`";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			 ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while(rs.next()){
 				car_model temp = new car_model(rs.getString("car_model"),rs.getFloat("rent_day"),rs.getFloat("rent_month"));
@@ -60,6 +61,8 @@ public class car_model {
 			}
 			//System.out.println(rs.next());
 		}finally{
+			ps.close();
+			rs.close();
 			conn.close();
 		}
 		return allmodels;
@@ -68,11 +71,12 @@ public class car_model {
 	public static List<car> getCars(String mode)throws SQLException{
 		Connection conn = null;
 		ResultSet rs = null;
+		PreparedStatement ps  = null;
 		List<car> allcars = new ArrayList<car>();
 		try{
 			conn = DBConnection.getConnection();
 			String sql = "select * from `car` where `car_model` = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			 ps = conn.prepareStatement(sql);
 			ps.setString(1, mode);
 			rs = ps.executeQuery();
 			while(rs.next()){
@@ -83,6 +87,8 @@ public class car_model {
 			}
 			//System.out.println(rs.next());
 		}finally{
+			ps.close();
+			rs.close();
 			conn.close();
 		}
 		return allcars;
@@ -91,11 +97,12 @@ public class car_model {
 	public static car getCar(String num)throws SQLException{
 		Connection conn = null;
 		ResultSet rs = null;
+		PreparedStatement ps  = null;
 		car tcar = new car();
 		try{
 			conn = DBConnection.getConnection();
 			String sql = "select * from `car` where `car_number` = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			 ps = conn.prepareStatement(sql);
 			ps.setString(1, num);
 			rs = ps.executeQuery();
 			while(rs.next()){
@@ -111,6 +118,8 @@ public class car_model {
 			}
 			//System.out.println(rs.next());
 		}finally{
+			ps.close();
+			rs.close();
 			conn.close();
 		}
 		return tcar;
@@ -153,6 +162,7 @@ public class car_model {
 			}else{
 				return false;
 			}
+			
 			//System.out.println(rs.next());
 		}finally{
 			conn.close();

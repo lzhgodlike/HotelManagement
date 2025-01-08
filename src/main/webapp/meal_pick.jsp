@@ -57,58 +57,58 @@
             <form class="space-y-6" action="mealOrder" method="post">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">姓名</label>
-                <input type="text"
+                <input type="text" v-model="form.name"
                   class="w-full px-4 py-2 border border-gray-300 !rounded-button focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
                   placeholder="请输入姓名" name="name" />
               </div>
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">房间号</label>
-                <input type="text"
+                <input type="text" v-model="form.deliveryAddress"
                   class="w-full px-4 py-2 border border-gray-300 !rounded-button focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
                   placeholder="请输入房间号" name="deliveryAddress" />
               </div>
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">手机号码</label>
-                <input type="tel"
+                <input type="tel" v-model="form.phoneNumber"
                   class="w-full px-4 py-2 border border-gray-300 !rounded-button focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
                   placeholder="请输入手机号码" name="phoneNumber" />
               </div>
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">送餐时间</label>
-                <input type="datetime-local" class="form-control" id="deliveryTime" name="deliveryTime" required>
+                <input v-model="form.deliveryTime" type="datetime-local" class="form-control" id="deliveryTime" name="deliveryTime" required>
               </div>
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">备注</label>
-                <textarea
+                <textarea v-model="form.remarks"
                   class="w-full px-4 py-2 border border-gray-300 !rounded-button focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
                   rows="3" placeholder="如有特殊要求请备注" name="remarks"></textarea>
               </div>
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">选定套餐</label>
-                <input type="text"
+                <input type="text" v-model="form.selectedMealName"
                   class="w-full px-4 py-2 border border-gray-300 !rounded-button focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
                   placeholder="选定套餐" name="selectedMealName" id="selectedMealName" readonly />
               </div>
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">套餐价格</label>
-                <input type="text"
+                <input type="text" v-model="form.selectedMealPrice"
                   class="w-full px-4 py-2 border border-gray-300 !rounded-button focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
                   placeholder="套餐价格" name="selectedMealPrice" id="selectedMealPrice" readonly />
               </div>
 
               <div>
-                <input type="hidden" id="packageId" name="packageId" value="" />
+                <input type="hidden" id="packageId" name="packageId" value="" v-model="form.packageId"/>
               </div>
 
               <div class="pt-4">
                 <button class="w-full bg-primary text-white py-3 !rounded-button whitespace-nowrap font-medium"
-                  type="submit">提交订单</button>
+                  type="button" @click="submitForm">提交订单</button>
               </div>
             </form>
           </div>
@@ -122,10 +122,42 @@
       data() {
         return {
           meals: [],
+          form: {
+            name: '',
+            deliveryAddress: '',
+            phoneNumber: '',
+            deliveryTime: '',
+            selectedMealName: '',
+            selectedMealPrice: '',
+            packageId: '',
+            remarks: ''
+          },
           search: '123',
         }
       },
       methods: {
+        submitForm() {
+          var self = this;
+          const formInfo = self.form;
+          console.log('Form Data:', formInfo); // 打印表单数据
+          $.ajax({
+            type: 'POST',
+            url: serve_url + "mealOrder",
+            data: JSON.stringify(formInfo),
+            contentType: 'application/json', // 设置请求头
+            success: function(res) {
+              console.log('Server Response:', res); // 打印服务器响应
+              if(res.status === "success"){
+                alert(res.message);
+              } else {
+                alert("预约失败,预约信息有误");
+              }
+            },
+            error: function(xhr, status, error) {
+              console.error('Error:', error); // 打印错误信息
+            }
+          });
+        },
 
         receive_packages(msg) {
           this.meals = msg;

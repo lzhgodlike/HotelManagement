@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import bean.User;
 import bean.car;
 import bean.car_model;
-import bean.sub;
+import bean.sub1;
 
 /**
  * Servlet implementation class delete_sub
@@ -69,7 +69,7 @@ public class delete_sub extends HttpServlet {
 		String json = new String(stringBuffer);
 		System.out.println(json);
 		Gson gson = new Gson();
-		sub sub = gson.fromJson(json, sub.class);
+		sub1 sub = gson.fromJson(json, sub1.class);
 		System.out.println(sub.getSub_id());
 		try {
 			boolean res = sub.deleteSub();
