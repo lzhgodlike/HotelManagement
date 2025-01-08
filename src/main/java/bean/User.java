@@ -91,7 +91,7 @@ public class User {
 			ps.setString(1, this.account);
 			ps.setString(2, this.password);
 			ps.setString(3, this.role);
-			rs = ps.executeQuery();
+			rs = ps.executeQuery(); //查询数据库结果存到rs里
 			if(!rs.next() || !rs.getBoolean("flag_state")){
 				return "error";
 			}else{
