@@ -26,7 +26,11 @@
     <body>
         <div class="min-h-[1024px] w-[1440px] mx-auto">
             <header class="h-16 flex items-center px-8 border-b">
-                <h1 class="text-2xl font-bold text-gray-800">中国旅游出行服务</h1>
+            	<button class="mr-12 text-gray-600 hover:text-gray-900 !rounded-button whitespace-nowrap"
+		          onclick="window.history.back()">
+		          <i class="fas fa-arrow-left mr-2"></i>返回
+		        </button>
+                <h1 class="text-2xl font-bold text-gray-800">酒店出行服务</h1>
                 <nav class="ml-12">
                     <ul class="flex gap-8">
                         <li><a href="#" class="text-gray-600 hover:text-primary">首页</a></li>

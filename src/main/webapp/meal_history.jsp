@@ -184,12 +184,28 @@
 		},
 		methods: {
 			// 点击完成订单
-			completeOrder(){
-
+			completeOrder(serviceId){
+				console.log("点击标记完成");
+				this.$confirm('确定完成该订单吗?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					// 用户点击确认
+					this.sendOrderStatusToBackend(serviceId, '已完成');
+					// 重新获取订单列表
+					this.getMealHistories();
+				}).catch(() => {
+					// 用户点击取消
+					this.$message({
+						type: 'info',
+						message: '已取消完成'
+					});
+				});
 			},
 			// 点击取消订单
 			cancelOrder(serviceId) {
-				console.log("点击取消", serviceId);
+				console.log("点击取消订单", serviceId);
 				
 				this.$confirm('确定要取消该订单吗?', '提示', {
 					confirmButtonText: '确定',
@@ -197,7 +213,9 @@
 					type: 'warning'
 				}).then(() => {
 					// 用户点击确认
-					this.updateOrderStatus(serviceId, '已取消');
+					this.sendOrderStatusToBackend(serviceId, '已取消');
+					// 重新获取订单列表
+					this.getMealHistories();
 				}).catch(() => {
 					// 用户点击取消
 					this.$message({
@@ -205,16 +223,6 @@
 						message: '已取消删除'
 					});
 				});
-			},
-			//更新订单状态
-			updateOrderStatus(serviceId, newStatus) {
-				// 找到对应的订单并更新状态
-				const order = this.histories.find(history => history.serviceId === serviceId);
-				if (order) {
-					order.status = newStatus;
-					// 发送请求到后端
-					this.sendOrderStatusToBackend(serviceId, newStatus);
-				}
 			},
 			// 发送订单状态到后端，同步到数据库
 			sendOrderStatusToBackend(serviceId, newStatus) {
