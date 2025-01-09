@@ -31,8 +31,8 @@ public class get_room_type extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("model");//获取要查询的车辆型号
-		if(name==null){//如果没有指明model则返回所有的车辆型号信息
+		String name = request.getParameter("model");//获取要查询的房间型号
+		if(name==null){//如果没有指明model则返回所有的房间型号信息
 			String res = null;	// 存放JSON的字符串变量
 			Gson gson = new Gson();	// 创建转换器
 			try {

@@ -31,7 +31,8 @@
                 <div class="col-md-9">
                     <div class="row">
                         <el-card class="col-md-4 roombox" v-for="(item,index) in allrooms" shadow="hover">
-                            <img @click="sub(item.room_id)" class="roomimg" :src="item.room_img" />
+                           <!--  <img @click="sub(item.room_id)" class="roomimg" :src="imgPath(item.room_img)" />  -->
+                            <img @click="sub(item.room_id)" class="roomimg" :src="item.room_img" /> 
                             <p>房间号：{{item.room_id}}</p>
                             <p>状态：{{item.current_status}}</p>
                         </el-card>
@@ -46,11 +47,14 @@
         el: '#app',
         data() {
             return {
+            	
+            	
                 allmodels: [],
                 allrooms: []
             }
         },
         methods: {
+        	
             //获取房型
             getmodels() {
                 var self = this;

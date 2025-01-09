@@ -21,8 +21,12 @@ public class pick_room {
     private int plan_rent;
     private int sub_id;
     private String pick_status;
+    private int deposit;
+   
 
     // Getters and Setters
+    
+    
     public int getPick_id() {
         return pick_id;
     }
@@ -31,6 +35,14 @@ public class pick_room {
         this.pick_id = pick_id;
     }
 
+    public int Deposit() {
+        return deposit;
+    }
+
+    public void Deposit(int deposit) {
+        this.deposit = deposit;
+    }
+    
     public String getRoom_id() {
         return room_id;
     }
@@ -105,8 +117,9 @@ public class pick_room {
 
     // Constructor
     public pick_room(int pick_id, String room_id, String customer_idcard, String customer_name, String pick_time,
-                     String return_time, String room_model, int plan_rent, int sub_id, String pick_status) {
-        this.pick_id = pick_id;
+                     String return_time, String room_model, int plan_rent, int sub_id, String pick_status,int deposit) {
+       
+    	this.pick_id = pick_id;
         this.room_id = room_id;
         this.customer_idcard = customer_idcard;
         this.customer_name = customer_name;
@@ -116,6 +129,8 @@ public class pick_room {
         this.plan_rent = plan_rent;
         this.sub_id = sub_id;
         this.pick_status = pick_status;
+        this.deposit = deposit;
+        
     }
 
     // Default constructor
@@ -129,7 +144,7 @@ public class pick_room {
         int rs = 0;
         try {
             conn = DBConnection.getConnection();
-            String sql = "INSERT INTO pick_room (room_id, customer_idcard, customer_name, pick_time, return_time, room_model, plan_rent, sub_id, pick_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO pick_room (room_id, customer_idcard, customer_name, pick_time, return_time, room_model, plan_rent, sub_id, pick_status,deposit) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
              ps = conn.prepareStatement(sql);
             ps.setString(1, this.room_id);
             ps.setString(2, this.customer_idcard);
@@ -139,8 +154,10 @@ public class pick_room {
             ps.setString(6, this.room_model);
             ps.setInt(7, this.plan_rent);
             ps.setInt(8, this.sub_id);
-            this.pick_status = "入住"; // Default pick status
+            this.pick_status = "已入住"; // Default pick status
             ps.setString(9, this.pick_status);
+            ps.setInt(10,this.deposit);
+          
             rs = ps.executeUpdate();
             return rs == 1;
         } finally {
@@ -163,6 +180,7 @@ public class pick_room {
             rs = ps.executeQuery();
             while (rs.next()) {
                 pick_room temp = new pick_room(
+                	
                         rs.getInt("pick_id"),
                         rs.getString("room_id"),
                         rs.getString("customer_idcard"),
@@ -172,7 +190,10 @@ public class pick_room {
                         rs.getString("room_model"),
                         rs.getInt("plan_rent"),
                         rs.getInt("sub_id"),
-                        rs.getString("pick_status")
+                        rs.getString("pick_status"),
+                        rs.getInt("deposit")
+                        
+                        
                 );
                 allPickRooms.add(temp);
             }

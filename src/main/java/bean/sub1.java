@@ -19,10 +19,13 @@ public class sub1 {
     private String sub_return_date;
     private String sub_status;
     private int room_id;
+    
+   
     public sub1() {}
 
     public sub1(int room_id,int sub_id, String customer_idcard, String customer_name, String room_model, String sub_date, String sub_get_date, String sub_return_date, String sub_status) {
-        this.sub_id = sub_id;
+        
+    	this.sub_id = sub_id;
         this.room_id = room_id;
         this.customer_idcard = customer_idcard;
         this.customer_name = customer_name;
@@ -33,6 +36,8 @@ public class sub1 {
         this.sub_status = sub_status;
     }
 
+    
+    
     public int getSub_id() { return sub_id; }
     
     public void setSub_id(int sub_id) { this.sub_id = sub_id; }
@@ -73,6 +78,7 @@ public class sub1 {
             rs = ps.executeQuery();
             while (rs.next()) {
                 sub1 temp = new sub1(
+                
                 	rs.getInt("room_id"),
                     rs.getInt("sub_id"),
                     rs.getString("customer_idcard"),
@@ -81,8 +87,8 @@ public class sub1 {
                     rs.getString("sub_date"),
                     rs.getString("sub_get_date"),
                     rs.getString("sub_return_date"),
-                    
                     rs.getString("sub_status")
+                    
                 );
                 allsubs.add(temp);
             }
@@ -107,6 +113,7 @@ public class sub1 {
             ps.setString(6, this.sub_return_date);
             ps.setString(7, this.sub_status);
             ps.setInt(8, this.room_id);
+           
             rs = ps.executeUpdate();
         } finally {
             if (conn != null) conn.close();

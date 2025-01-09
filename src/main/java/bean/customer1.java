@@ -10,7 +10,7 @@ import java.util.List;
 import util.DBConnection;
 
 public class customer1 {
-    private String customer_id;
+    private int customer_id;
     private String customer_idcard;
     private String customer_name;
     private String customer_unit;
@@ -18,7 +18,7 @@ public class customer1 {
 
     public customer1() {}
 
-    public customer1(String customer_id, String customer_idcard, String customer_name, String customer_unit, String customer_phone) {
+    public customer1(int customer_id, String customer_idcard, String customer_name, String customer_unit, String customer_phone) {
         this.customer_id = customer_id;
         this.customer_idcard = customer_idcard;
         this.customer_name = customer_name;
@@ -26,8 +26,8 @@ public class customer1 {
         this.customer_phone = customer_phone;
     }
 
-    public String getCustomer_id() { return customer_id; }
-    public void setCustomer_id(String customer_id) { this.customer_id = customer_id; }
+    public int getCustomer_id() { return customer_id; }
+    public void setCustomer_id(int customer_id) { this.customer_id = customer_id; }
 
     public String getCustomer_idcard() { return customer_idcard; }
     public void setCustomer_idcard(String customer_idcard) { this.customer_idcard = customer_idcard; }
@@ -94,7 +94,7 @@ public class customer1 {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 customer1 customer = new customer1();
-                customer.customer_id = rs.getString("customer_id");
+                customer.customer_id = rs.getInt("customer_id");
                 customer.customer_idcard = rs.getString("customer_idcard");
                 customer.customer_name = rs.getString("customer_name");
                 customer.customer_unit = rs.getString("customer_unit");
@@ -141,7 +141,7 @@ public class customer1 {
       
         try {
             conn = DBConnection.getConnection();
-            String sql = " update customer set customer_idcard =?, customer_name=?,customer_unit=?,customer_phone=?,where customer_id=?";
+            String sql = " update customer set customer_idcard =?, customer_name=?,customer_unit=?,customer_phone=?  where customer_id=?";
 
             ps = conn.prepareStatement(sql);
 
@@ -150,7 +150,7 @@ public class customer1 {
             ps.setString(3, customer.getCustomer_unit());
             ps.setString(4, customer.getCustomer_phone());
             
-            ps.setString(5, customer.getCustomer_id());
+            ps.setInt(5, customer.getCustomer_id());
             i = ps.executeUpdate();
 
         } catch (SQLException throwables) {
@@ -161,7 +161,7 @@ public class customer1 {
     }
 
     /*删除*/
-    public int DeleteByid(String id) {
+    public int DeleteByid(int id) {
         int i = 0;
         Connection conn = null;
         PreparedStatement ps = null;
@@ -171,7 +171,7 @@ public class customer1 {
             String sql = " delete from customer where customer_id=?";
 
             ps = conn.prepareStatement(sql);
-            ps.setString(1, id);
+            ps.setInt(1, id);
             i = ps.executeUpdate();
 
         } catch (SQLException throwables) {

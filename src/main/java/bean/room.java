@@ -19,6 +19,12 @@ public class room {
 	private String room_model;         //房间类型
 	private String current_status;       //房间状态
 	private String room_img;            //房间照片
+	
+	
+
+    
+   
+	
 	public String getRoom_id() {
 		return room_id;
 	}

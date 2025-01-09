@@ -9,7 +9,8 @@
     <script src="static/vue/vue-router.js"></script>
     <link rel="stylesheet" type="text/css" href="static/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="static/element-ui-2.14.0/index.css"/>
-    <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.14/index.js"></script>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.14/index.js"></script> -->
+     <script src="static/element-ui-2.14.0/index.js"></script>
     <script src="static/database.js" type="text/javascript"></script>
     <script src="static/jquery-3.5.1.min.js"></script>
     <title>欢迎登录预约管理系统</title>
@@ -44,9 +45,9 @@
             <el-form-item label="房间号" prop="car_number" :label-width="formLabelWidth">
                 <el-input :disabled="true" v-model="pickifo.room_id" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="租借类型" prop="rent_type" :label-width="formLabelWidth">
+          <!--   <el-form-item label="租借类型" prop="rent_type" :label-width="formLabelWidth">
                 <el-input :disabled="true" v-model="pickifo.rent_type" autocomplete="off"></el-input>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="入住时间" prop="pick_time" :label-width="formLabelWidth">
                 <el-date-picker v-model="pickifo.pick_time" type="date" value-format="yyyy-MM-dd" placeholder="选择入住日期">
                 </el-date-picker>
@@ -56,9 +57,9 @@
                                 placeholder="选择退房日期">
                 </el-date-picker>
             </el-form-item>
-            <el-form-item label="已交租金" prop="plan_rent" :label-width="formLabelWidth">
+           <!--  <el-form-item label="已交租金" prop="plan_rent" :label-width="formLabelWidth">
                 <el-input type="number" v-model="pickifo.plan_rent" autocomplete="off"></el-input>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="押金" prop="deposit" :label-width="formLabelWidth">
                 <el-input type="number" v-model="pickifo.deposit" autocomplete="off"></el-input>
             </el-form-item>
@@ -147,7 +148,7 @@
                         <el-table-column prop="sub_return_date" label="预计退房" width="130">
                         </el-table-column>
                         <el-table-column prop="sub_status" label="状态" width="100" column-key="sub_status"
-                                         :filters="[{text: '预约', value: '预约'}, {text: '入住', value: '入住'}, {text: '已结束', value: '已结束'}]"
+                                         :filters="[{text: '已预约', value: '已预约'}, {text: '已入住', value: '已入住'}, {text: '已结束', value: '已结束'}]"
                                          :filter-method="filterHandler">
                         </el-table-column>
                         <el-table-column align="center">
@@ -157,10 +158,10 @@
                             <template slot-scope="scope">
                             </template>
                             <template slot-scope="scope">
-                                <el-button :disabled="scope.row.sub_status!='预约'" type="danger"
+                                <el-button :disabled="scope.row.sub_status!='已预约'" type="danger"
                                            @click="handleDelete(scope.$index, scope.row)">删除
                                 </el-button>
-                                <el-button :disabled="scope.row.sub_status!='预约'"
+                                <el-button :disabled="scope.row.sub_status!='已预约'"
                                            @click="handleEdit(scope.$index, scope.row)">入住
                                 </el-button>
                             </template>
@@ -188,10 +189,10 @@
                         </el-table-column>
                         <el-table-column prop="deposit" label="押金" width="80">
                         </el-table-column>
-                        <el-table-column prop="rent_type" label="租借类型" width="110">
-                        </el-table-column>
+                       <!-- 	<el-table-column prop="rent_type" label="租借类型" width="110">
+                        </el-table-column>  -->
                         <el-table-column prop="pick_status" label="状态" width="120" column-key="pics_status"
-                                         :filters="[{text: '在租', value: '在租'}, {text: '已退房', value: '已退房'}]"
+                                         :filters="[{text: '已入住', value: '已入住'}, {text: '已退房', value: '已退房'}]"
                                          :filter-method="filterHandler">
                         </el-table-column>
                         <el-table-column align="center">
@@ -201,8 +202,8 @@
                             <template slot-scope="scope">
                             </template>
                             <template slot-scope="scope">
-                                <el-button :disabled="scope.row.pick_status!='在租'" size="big" type="danger"
-                                           @click="returncar(scope.$index, scope.row)">退房
+                                <el-button :disabled="scope.row.pick_status!='已入住'" size="big" type="danger"
+                                           @click="returnroom(scope.$index, scope.row)">退房
                                 </el-button>
 
                             </template>
@@ -222,8 +223,8 @@
                         </el-table-column>
                         <el-table-column prop="return_date" label="退房日期">
                         </el-table-column>
-                        <el-table-column prop="rent_type" label="租借方式">
-                        </el-table-column>
+                       <!--  <el-table-column prop="rent_type" label="租借方式">
+                        </el-table-column> -->
                     </el-table>
                 </div>
                 <!--客户表  -->
@@ -235,7 +236,7 @@
                         <el-table-column prop="customer_name" label="用户名" width="130"></el-table-column>
                         <el-table-column prop="customer_unit" label="工作单位" width="130"></el-table-column>
                         <el-table-column prop="customer_phone" label="用户电话"></el-table-column>
-                        <el-table-column prop="rgin_date" label="时间">
+                        <!-- <el-table-column prop="rgin_date" label="时间"> -->
 
 
                         </el-table-column>
@@ -289,12 +290,12 @@
                     <el-input v-model="customer.customer_phone" placeholder="请输入内容" style="width: 200px"></el-input>
                 </label>
             </div>
-            <div style="margin-bottom: 20px;">
+            <!-- <div style="margin-bottom: 20px;">
                 <label>
                     <label> 注册时间:</label>
                     <el-input v-model="customer.rgin_date" placeholder="请输入内容" style="width: 200px" readonly="readonly"></el-input>
                 </label>
-            </div>
+            </div> -->
 
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -484,9 +485,6 @@
                 }if (kehu.customer_phone==""){
                     self.$message.error('请认真填写数据');
                     return false;
-                }if (kehu.rgin_date==""){
-                    self.$message.error('请认真填写数据');
-                    return false;
                 }
                 console.log("kehu",kehu.customer_id)
                 console.log("kehu",kehu)
@@ -501,7 +499,7 @@
                         name:kehu.customer_name,
                         unit:kehu.customer_unit,
                         phone:kehu.customer_phone,
-                       date:kehu.rgin_date
+                       
                     },
                     success: function (res) {
                         if (res>0) {
@@ -582,7 +580,7 @@
                 this.box = index;
             },
             //获取退房信息
-            returncar(index, row) {
+            returnroom(index, row) {
                 console.log(row);
                 this.returnFormVisible = true;
                 this.returnifo = row;
@@ -615,6 +613,7 @@
                                 } else {
                                     self.$message.error('退房失败');
                                 }
+                                console.log(res);
                                 self.returnFormVisible = false;
                             }
                         })

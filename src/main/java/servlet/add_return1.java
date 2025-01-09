@@ -65,10 +65,10 @@ public class add_return1 extends HttpServlet {
 		String json = new String(stringBuffer);
 		
 		Gson gson = new Gson();
-		return_room rcar = gson.fromJson(json, return_room.class);
+		return_room troom = gson.fromJson(json, return_room.class);
 		
 		try {
-			boolean res = rcar.addReturnRoom();
+			boolean res = troom.addReturnRoom();
 			response.getWriter().append(String.valueOf(res));
 		} catch (SQLException e) {
 			e.printStackTrace();

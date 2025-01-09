@@ -8,7 +8,8 @@
 		<script src="static/vue/vue-router.js"></script>
 		<link rel="stylesheet" type="text/css" href="static/bootstrap/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="static/element-ui-2.14.0/index.css" />
-		<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.14/index.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.14/index.js"></script> 
+		<!-- <script src="static/element-ui-2.14.0/index.js"></script> -->
 		<script src="static/database.js" type="text/javascript"></script>
 		<script src="static/jquery-3.5.1.min.js"></script>
 		<title>欢迎进入预约管理系统</title>
@@ -23,6 +24,9 @@
 			<input id="current_status" v-model="current_status" value="<%=troom.getCurrent_status() %>" />
 			<%-- <input id="bought" v-model="bought" value="<%=tcar.getBought_time() %>" /> --%>
 			 <input id="room_img" v-model="room_img" value="<%=troom.getRoom_img() %>" /> 
+			  <%-- <input id="one_night_rent" v-model="one_night_rent" value="<%= troom.getOne_night_rent() %>" />
+        <input id="one_month_rent" v-model="one_month_rent" value="<%= troom.getOne_month_rent() %>" /> --%>
+    </div>
 		</div>
 		<div id="app">	
 			<el-dialog title="预约房间" :visible.sync="dialogFormVisible">
@@ -39,12 +43,12 @@
 					<el-form-item label="电话号码" prop="phone" :label-width="formLabelWidth">
 						<el-input v-model="form.phone" autocomplete="off"></el-input>
 					</el-form-item>
-					<el-form-item label="租借方式" prop="type" :label-width="formLabelWidth">
+					<!-- <el-form-item label="租借方式" prop="type" :label-width="formLabelWidth">
 						<el-select v-model="form.type" placeholder="请选择租借方式">
 							<el-option label="月租" value="月租"></el-option>
 							<el-option label="日租" value="日租"></el-option>
 						</el-select>
-					</el-form-item>
+					</el-form-item> -->
 					<el-form-item label="入住时间" prop="getdate" :label-width="formLabelWidth">
 						<el-date-picker v-model="form.getdate" type="date" value-format="yyyy-MM-dd" placeholder="选择入住日期">
 						</el-date-picker>
@@ -63,12 +67,13 @@
 				
 				<div class="row">
 					<div class="col-md-6 left">
-						<!-- <div class="pic"><img style="max-height:200px;" :src="img" /></div> -->
+						<div class="pic"><img style="max-height:200px;" :src="room_img" /></div>
 						<el-descriptions class="margin-top" :column="3" border>
 						    <el-descriptions-item>
 						      <template slot="label">
 						        <i class="el-icon-user"></i>
 						        房间号
+						        <br>
 						      </template>
 						      {{room_id}}
 						    </el-descriptions-item>
@@ -93,7 +98,7 @@
 						      </template>
 						      {{bought}}
 						    </el-descriptions-item> -->
-						    <el-descriptions-item>
+						   <!--  <el-descriptions-item>
 						      <template slot="label">
 						        <i class="el-icon-money"></i>
 						        日租金
@@ -107,7 +112,7 @@
 						      </template>
 						      {{one_month_rent}}
 						    </el-descriptions-item>
-						  </el-descriptions>
+						  </el-descriptions> -->
 					</div>
 					<div class="col-md-6">
 						<el-button @click="showbox" :disabled="is" style="width:100%;margin-top:40px;height:150px" type="success">{{ispass}}</el-button>
@@ -231,7 +236,7 @@
 	                    		    "sub_date": new Date(),
 	                    		    "sub_get_date": new Date(this.form.getdate), // 使用 Date 对象解析日期
 	                    		    "sub_return_date": new Date(this.form.returndate), // 使用 Date 对象解析日期
-	                    		    "sub_status": "预约",
+	                    		    "sub_status": "已预约",
 	                    		    "room_id": this.room_id,
 	                    		    
 	                    		}
@@ -347,7 +352,7 @@
 					align-items: center;
 					margin: 50px 0;
 					.pic{
-						margin-bottom: 40px;
+						margin-bottom: 30px;
 					}
 				}
 			}

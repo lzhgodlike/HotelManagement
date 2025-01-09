@@ -43,7 +43,7 @@ public class customerSerclet1 extends HttpServlet {
 
         if (avr.equals("update")) {
             customer1 customer = new customer1();
-            String i = request.getParameter("id");
+            int i = Integer.parseInt(request.getParameter("id"));
             
             String sfzhm = request.getParameter("sfzhm");
             String name = request.getParameter("name");
@@ -64,7 +64,7 @@ public class customerSerclet1 extends HttpServlet {
 
         } else if (avr.equals("delete")) {
 
-            String i = request.getParameter("id");
+        	 int i = Integer.parseInt(request.getParameter("id"));
 
             customer1 customer = new customer1();
             int res = customer.DeleteByid(i);

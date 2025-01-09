@@ -17,11 +17,13 @@ public class return_room {
     private String room_id;
     private String customer_idcard;
     private String room_model;
-    private String room_estimate_date;
+    
     private String return_date;
     private int pick_id;
-
+   
     // Getters and Setters
+    
+    
     public int getReturn_id() {
         return return_id;
     }
@@ -54,13 +56,7 @@ public class return_room {
         this.room_model = room_model;
     }
 
-    public String getRoom_estimate_date() {
-        return room_estimate_date;
-    }
-
-    public void setRoom_estimate_date(String room_estimate_date) {
-        this.room_estimate_date = room_estimate_date;
-    }
+   
 
     public String getReturn_date() {
         return return_date;
@@ -79,21 +75,21 @@ public class return_room {
     }
 
     // Constructors
-    public return_room(String customer_idcard, String room_id, String room_model, String room_estimate_date, String return_date, int pick_id) {
+    public return_room(String customer_idcard, String room_id, String room_model, String return_date, int pick_id) {
         this.customer_idcard = customer_idcard;
         this.room_id = room_id;
         this.room_model = room_model;
-        this.room_estimate_date = room_estimate_date;
+       
         this.return_date = return_date;
         this.pick_id = pick_id;
     }
 
-    public return_room(int return_id, String customer_idcard, String room_id, String room_model, String room_estimate_date, String return_date, int pick_id) {
+    public return_room(int return_id, String customer_idcard, String room_id, String room_model,  String return_date, int pick_id) {
         this.return_id = return_id;
         this.customer_idcard = customer_idcard;
         this.room_id = room_id;
         this.room_model = room_model;
-        this.room_estimate_date = room_estimate_date;
+        
         this.return_date = return_date;
         this.pick_id = pick_id;
     }
@@ -113,11 +109,12 @@ public class return_room {
             rs = ps.executeQuery();
             while (rs.next()) {
                 return_room temp = new return_room(
+                		
                         rs.getInt("return_id"),
                         rs.getString("customer_idcard"),
                         rs.getString("room_id"),
                         rs.getString("room_model"),
-                        rs.getString("room_estimate_date"),
+                       
                         rs.getString("return_date"),
                         rs.getInt("pick_id")
                 );
@@ -137,14 +134,15 @@ public class return_room {
         int rs = 0;
         try {
             conn = DBConnection.getConnection();
-            String sql = "INSERT INTO return_room (customer_idcard, room_id, room_model, room_estimate_date, return_date, pick_id) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "{CALL AddReturnRoom(?, ?, ?, ?, ?)}";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, this.customer_idcard);
             ps.setString(2, this.room_id);
             ps.setString(3, this.room_model);
-            ps.setString(4,  this.room_estimate_date);
-            ps.setString(5, this.return_date);
-            ps.setInt(6, this.pick_id);
+          
+            ps.setString(4, this.return_date);
+            ps.setInt(5, this.pick_id);
+            
             rs = ps.executeUpdate();
             return rs == 1;
         } finally {

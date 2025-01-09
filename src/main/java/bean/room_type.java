@@ -123,6 +123,9 @@ public class room_type {
     	return troom;
     }
     
+    
+    
+    
     //新增房间类型
     public boolean addRoom_model() throws SQLException {
     	Connection conn = null;
