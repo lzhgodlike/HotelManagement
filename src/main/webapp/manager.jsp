@@ -253,7 +253,7 @@
 					this.tableData = msg;
 					console.log(this.tableData);
 				},
-				//进入历史员工界面
+				//进入已离职员工界面
 				goToManageLog() {
 					window.location.href = '<%=request.getContextPath()%>/managelog.jsp'; 
 				},
@@ -261,7 +261,7 @@
 				addUser() {
 					this.dialogFormVisible = true;
 				},
-				//获取所有用户
+				//获取所有员工
 				getUsers() {
 					var self = this;
 					$.ajax({

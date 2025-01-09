@@ -12,7 +12,7 @@
 			<script src="static/element-ui-2.14.0/index.js"></script>
 			<script src="static/database.js" type="text/javascript"></script>
 			<script src="static/jquery-3.5.1.min.js"></script>
-			<title>历史员工</title>
+			<title>已离职员工</title>
 		</head>
 
 		<body>
@@ -132,7 +132,7 @@
 					});
 				},
 
-					//删除用户
+					//删除员工
 					handleDelete(index, row) {
 						console.log(row.id);
 
@@ -174,19 +174,11 @@
 						this.tableData = msg;
 						console.log(this.tableData);
 					},
-					//进入历史员工界面
-					goToManageLog() {
-						window.location.href = '<%=request.getContextPath()%>/managelog.jsp';
-					},
 					//进入管理员界面
 					goToManager() {
 						window.location.href = '<%=request.getContextPath()%>/manager.jsp';
 					},
-					//打开增加用户窗口
-					addUser() {
-						this.dialogFormVisible = true;
-					},
-					//获取所有用户
+					//获取已离职员工
 					getEmployeelog() {
 						var self = this;
 						$.ajax({
