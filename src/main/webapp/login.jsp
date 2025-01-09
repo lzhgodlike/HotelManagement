@@ -14,12 +14,12 @@
 		<script src="static/jquery-3.5.1.min.js"></script>
 		
 		
-<title>欢迎登录预约管理系统</title>
+<title>欢迎登录酒店信息管理系统</title>
 </head>
 <body>
 <div id="app">
     <el-form ref="loginForm" :model="form" :rules="rules" label-width="80px" class="login-box">
-      <h3 class="login-title">欢迎登录租车管理系统</h3>
+      <h3 class="login-title">欢迎登录酒店信息管理系统</h3>
       <el-form-item label="账号" prop="username">
         <el-input type="text" placeholder="请输入账号" v-model="form.username"/>
       </el-form-item>
