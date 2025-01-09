@@ -230,12 +230,12 @@
 						</div>
 						<div class="space-y-2 mb-4">
 							<div class="flex justify-between">
-								<span>香煎三文鱼配时蔬 × 2</span>
-								<span>¥ 256</span>
+								<span class="text-xl">套餐名称：{{ history.packageName }}</span>
+								<!-- <span>¥ 256</span> -->
 							</div>
 							<div class="flex justify-between">
-								<span>法式洋葱汤 × 1</span>
-								<span>¥ 68</span>
+								<span>{{ history.description }}</span>
+								<!-- <span>¥ 68</span> -->
 							</div>
 						</div>
 						<div class="flex justify-between items-center pt-4 border-t">
@@ -246,13 +246,13 @@
 
 								<button v-show="history.status == '待配送'" @click="cancelOrder(history.serviceId)"
 									class="px-4 py-2 border border-red-500 text-red-500 hover:bg-red-50 !rounded-button whitespace-nowrap">取消订单</button>
-								<span class="font-bold">合计：¥ 136</span>
+								<span class="font-bold">合计：¥ {{ history.price }}</span>
 							</div>
 						</div>
 					</div>
 				</div>
 			</main>
-			<footer class="fixed bottom-0 left-0 right-0 bg-white border-t px-8 py-4">
+			<!-- <footer class="fixed bottom-0 left-0 right-0 bg-white border-t px-8 py-4">
 				<div class="max-w-[1440px] mx-auto flex justify-between items-center">
 					<div class="flex space-x-4">
 						<button
@@ -273,7 +273,7 @@
 						</button>
 					</div>
 				</div>
-			</footer>
+			</footer> -->
 		</div>
 	</body>
 	<script src="//unpkg.com/vue@2/dist/vue.js"></script>
