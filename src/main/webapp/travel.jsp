@@ -301,8 +301,8 @@
                     body: JSON.stringify(data)
                 })
                     .then(response => response.text())
-                    .then(message => {
-                        alert(message);
+                    .then(msg => {
+                        alert(msg);
                         closeModal();
                         travelForm.reset();
                         selectedDestination.textContent = '请选择终点站';
