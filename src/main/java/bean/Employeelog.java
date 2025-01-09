@@ -16,7 +16,6 @@ public class Employeelog {
 	private String name;
 	private String gender;
 	private String idcard;
-	private String logtime;
 	
 	public int getId() {
 		return id;
@@ -60,12 +59,6 @@ public class Employeelog {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getLogtime() {
-		return logtime;
-	}
-	public void setLogtime() {
-		this.logtime = logtime;
-	}
 	public Employeelog() {
 
 	}
@@ -78,35 +71,11 @@ public class Employeelog {
 		this.name = name;
 		this.idcard = idcard;
 		this.gender = gender;
-		this.logtime = logtime;
 	}
 	public Employeelog(String account,String password,String role){
 		this.account = account;
 		this.password = password;
 		this.role = role;
-	}
-	public String check()throws SQLException{
-		Connection conn = null;
-		ResultSet rs = null;
-		try{
-			conn = DBConnection.getConnection();
-			String sql = "select * from `user` where `user_account` = ? and `password` = ? and `role` = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, this.account);
-			ps.setString(2, this.password);
-			ps.setString(3, this.role);
-			rs = ps.executeQuery();
-			if(rs.next()==false){
-				return "error";
-			}else{
-				this.idcard = rs.getString("user_idcard");
-				this.name = rs.getString("username");
-				this.id = rs.getInt("user_id");
-				return "pass";
-			}
-		}finally{
-			conn.close();
-		}
 	}
 	public static List<Employeelog> getEmployeelog() throws SQLException{
 		Connection conn = null;
@@ -142,58 +111,8 @@ public class Employeelog {
 			}else{
 				return false;
 			}
-			//System.out.println(rs.next());
 		}finally{
 			conn.close();
-		}
-	}
-	public boolean recoverEmployeelog()throws SQLException{
-		Connection conn = null;
-		ResultSet rs = null;
-		try{
-			conn = DBConnection.getConnection();
-			String sql = "select * from `employeelog` where `user_id` = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, this.id);
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				//获取数据
-				//注释
-				int user_id = rs.getInt("user_id");
-				String user_idcard = rs.getString("user_idcard");
-				String username = rs.getString("username");
-				String gender = rs.getString("gender");
-				String user_account = rs.getString("user_account");
-				String password = rs.getString("password");
-				String role = rs.getString("role");
-				//将数据插入到user表中
-				String insertSql = "insert into `user` (user_id, user_account, password, role, username, user_idcard, gender) VALUES (?, ?, ?, ?, ?, ?, ?)";
-				PreparedStatement insertPs = conn.prepareStatement(insertSql);
-				insertPs.setInt(1, user_id);
-				insertPs.setString(2, user_idcard);
-				insertPs.setString(3, username);
-				insertPs.setString(4, gender);
-				insertPs.setString(5, user_account);
-				insertPs.setString(6, password);
-				insertPs.setString(7, role);
-				insertPs.executeUpdate();
-				//删除employeelog表中对应数据
-				String deleteSql = "delete from `employeelog` where `user_id` = ?";
-				PreparedStatement deletePs = conn.prepareStatement(deleteSql);
-				deletePs.setInt(1, user_id);
-				deletePs.executeUpdate();
-				return true;
-			}
-			else {
-				return false;
-			}
-		}finally{
-			if (rs != null) {
-				rs.close();
-			}
-			if (conn != null) {
-				conn.close();
-			}
 		}
 	}
 }

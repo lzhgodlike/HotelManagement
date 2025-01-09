@@ -34,17 +34,15 @@ public class listall_user extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String res = null;	// 存放JSON的字符串变量
 		Gson gson = new Gson();	// 创建转换器
 		try {
-			// 将学生数组转换为JSON
+			// 将用户数组转换为JSON
 			res = gson.toJson(User.getUsers());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		
 		// 将JSON数据返回
 		response.getWriter().append(res);
 	}

@@ -86,7 +86,6 @@ public class login_check extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// response.getWriter().append(res);
 	}
 
 }

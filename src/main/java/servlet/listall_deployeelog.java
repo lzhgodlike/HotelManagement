@@ -38,7 +38,7 @@ public class listall_deployeelog extends HttpServlet {
 		String res = null;	// 存放JSON的字符串变量
 		Gson gson = new Gson();	// 创建转换器
 		try {
-			// 将学生数组转换为JSON
+			// 将已离职员工数组转换为JSON
 			res = gson.toJson(Employeelog.getEmployeelog());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
