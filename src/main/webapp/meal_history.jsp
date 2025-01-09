@@ -330,7 +330,7 @@
 				applyFilters() {
 					var self = this;
 					self.toggleFilterDropdown();
-					self.resetFilters();
+					
 					var statusFilters = [];
 					document.querySelectorAll('input[name="status"]:checked').forEach(function (checkbox) {
 						statusFilters.push(self.statusAsParam(checkbox.value));
@@ -338,7 +338,7 @@
 					var timeRangeCheckbox = document.querySelector('input[name="timeRange"]:checked');
 					var timeRange = timeRangeCheckbox == null ? null : timeRangeCheckbox.value;
 					console.log(statusFilters);
-
+					self.resetFilters();
 					// 调用后端接口获取符合筛选条件的订单列表
 
 					$.ajax({
