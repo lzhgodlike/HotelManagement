@@ -167,7 +167,6 @@
                 '香港特别行政区': ['中西区', '湾仔区', '东区', '南区', '油尖旺区', '深水埗区', '九龙城区', '黄大仙区', '观塘区', '荃湾区', '屯门区', '元朗区', '北区', '大埔区', '西贡区', '沙田区', '葵青区', '离岛区'],
                 '澳门特别行政区': ['花地玛堂区', '圣安多尼堂区', '大堂区', '望德堂区', '风顺堂区', '嘉模堂区', '圣方济各堂区']
             };
-            // let province = "";
             // 出行方式按钮点击效果的js实现
             transportModes.forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -185,12 +184,6 @@
             function updateDestinationList(province) {
                 const cities = cityData[province] || [];
                 console.log("cities", cities);
-
-                //             destinationList.innerHTML = cities.map(city => `
-                //     <div class="px-3 py-2 hover:bg-gray-100 cursor-pointer destination-item">
-                //         ${city}
-                //     </div>
-                // `).join('');
                 destinationList.innerHTML = cities.map(function (city) {
                     return '<div class="px-3 py-2 hover:bg-gray-100 cursor-pointer destination-item">' +
                         city +
@@ -308,8 +301,8 @@
                     body: JSON.stringify(data)
                 })
                     .then(response => response.text())
-                    .then(message => {
-                        alert(message);
+                    .then(msg => {
+                        alert(msg);
                         closeModal();
                         travelForm.reset();
                         selectedDestination.textContent = '请选择终点站';
@@ -319,14 +312,7 @@
                         console.error('Error:', error);
                         alert('记录出行信息失败');
                     });
-                const message = `
-行程信息已记录：
-姓名：`+ data.name + `
-联系电话：`+ data.phone + `
-出发日期：`+ data.date + `
-出行方式：`+ data.transportMode == 'train' ? '火车' : data.transportMode == 'plane' ? '飞机' : '客运' + `
-终点站：`+ data.destination;
-                alert(message);
+                alert("行程信息已记录!");
                 closeModal();
                 travelForm.reset();
                 selectedDestination.textContent = '请选择终点站';

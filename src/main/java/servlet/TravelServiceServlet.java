@@ -54,9 +54,9 @@ public class TravelServiceServlet extends HttpServlet {
 
             // 响应客户端
             if (success) {
-                response.getWriter().write("{\"status\":\"success\", \"message\":\"出行信息已成功记录\"}");
+                response.getWriter().append("出行信息已成功记录");
             } else {
-                response.getWriter().write("{\"status\":\"error\", \"message\":\"记录出行信息失败\"}");
+                response.getWriter().write("记录出行信息失败");
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
