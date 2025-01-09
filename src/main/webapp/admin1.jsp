@@ -711,6 +711,7 @@
     	padding: 10px 10px;
     	margin-left: 100px;
   	  }
+  	  
   	  .export-button:hover {
     	background-color: #66b1ff;
       }
