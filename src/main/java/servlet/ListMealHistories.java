@@ -58,7 +58,7 @@ public class ListMealHistories extends HttpServlet {
             String statuses = request.getParameter("statuses");
             String timeRange = request.getParameter("timeRange");
             // 调用 Service 层方法获取筛选后的订单记录
-            List<MealService> filteredHistories = MealHistory.getFilteredMealHistories(statuses, timeRange);
+            List<MealHistory> filteredHistories = MealHistory.getFilteredMealHistories(statuses, timeRange);
 
             // 设置响应内容类型
             response.setContentType("application/json;charset=UTF-8");

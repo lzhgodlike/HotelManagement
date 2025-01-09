@@ -230,7 +230,7 @@
 						</div>
 						<div class="space-y-2 mb-4">
 							<div class="flex justify-between">
-								<span>套餐名称：{{ history.packageName }}</span>
+								<span class="text-xl">套餐名称：{{ history.packageName }}</span>
 								<!-- <span>¥ 256</span> -->
 							</div>
 							<div class="flex justify-between">
