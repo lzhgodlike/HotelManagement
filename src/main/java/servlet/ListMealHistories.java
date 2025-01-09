@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
+import bean.MealHistory;
 import bean.MealPackage;
 import bean.MealService;
 
@@ -38,7 +39,7 @@ public class ListMealHistories extends HttpServlet {
 		Gson gson = new Gson();	// 创建转换器
 		try {
 			// 将套餐数组转换为JSON
-			res = gson.toJson(MealService.getAllMealHistories());
+			res = gson.toJson(MealHistory.getAllMealHistories());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,7 +58,7 @@ public class ListMealHistories extends HttpServlet {
             String statuses = request.getParameter("statuses");
             String timeRange = request.getParameter("timeRange");
             // 调用 Service 层方法获取筛选后的订单记录
-            List<MealService> filteredHistories = MealService.getFilteredMealHistories(statuses, timeRange);
+            List<MealService> filteredHistories = MealHistory.getFilteredMealHistories(statuses, timeRange);
 
             // 设置响应内容类型
             response.setContentType("application/json;charset=UTF-8");

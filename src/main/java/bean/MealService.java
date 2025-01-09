@@ -88,44 +88,7 @@ public class MealService {
             DBConnection.close(null, pstmt, conn);
         }
 	}
-	public static List<MealService> getAllMealHistories() {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		List<MealService> mealHistories = new ArrayList<>();
-		try {
-			conn = DBConnection.getConnection();
-			String sql = "select * from meal_service";
-			ps = conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			while(rs.next()) {
-				int serviceId = rs.getInt("service_id");
-				int customerId = rs.getInt("customer_id");
-				int packageId = rs.getInt("package_id");
-				String deliveryTime = rs.getString("delivery_time");
-				String deliveryAddress = rs.getString("delivery_address");
-				String status = rs.getString("status");
-				String createTime = rs.getString("create_time");
-				MealService mealService = new MealService();
-				mealService.setServiceId(serviceId);
-				mealService.setCustomerId(customerId);
-				mealService.setPackageId(packageId);
-				mealService.setDeliveryTime(deliveryTime);
-				mealService.setDeliveryAddress(deliveryAddress);
-				mealService.setCreateTime(createTime);
-				mealService.setStatus(status);
-				mealHistories.add(mealService);
-			}
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			DBConnection.close(rs, null, conn);
-		}
-		return mealHistories;
-	}
+	
 	public boolean updateMealServiceStatus(int serviceId, String newStatus) {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -143,78 +106,5 @@ public class MealService {
 			return false;
 		}
 	}
-	public static List<MealService> getFilteredMealHistories(String statuses, String timeRange) {
-		Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        List<MealService> mealHistories = new ArrayList<>();
-        try {
-            conn = DBConnection.getConnection();
-            StringBuilder sql = new StringBuilder("select * from meal_service where 1=1");
-            // 根据订单状态筛选
-            if (statuses != null && !statuses.isEmpty()) {
-                String[] statusArray = statuses.split(",");
-                sql.append(" and status in (");
-                for (int i = 0; i < statusArray.length; i++) {
-                    if (i > 0) {
-                        sql.append(", ");
-                    }
-                    sql.append("?");
-                }
-                sql.append(")");
-            }
-
-            // 根据订单时间筛选
-            if (timeRange != null && !timeRange.isEmpty()) {
-                sql.append(" and create_time >= ?");
-                if ("today".equals(timeRange)) {
-                    sql.append(" and create_time < date_add(curdate(), interval 1 day)");
-                } else if ("week".equals(timeRange)) {
-                    sql.append(" and create_time < date_add(curdate(), interval 7 day)");
-                } else if ("month".equals(timeRange)) {
-                    sql.append(" and create_time < date_add(curdate(), interval 30 day)");
-                }
-            }
-
-            ps = conn.prepareStatement(sql.toString());
-
-            // 设置参数
-            int paramIndex = 1;
-            if (statuses != null && !statuses.isEmpty()) {
-                String[] statusArray = statuses.split(",");
-                for (String status : statusArray) {
-                    ps.setString(paramIndex++, status);
-                }
-            }
-
-            if (timeRange != null && !timeRange.isEmpty()) {
-                ps.setString(paramIndex++, LocalDate.now().toString());
-            }
-
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                int serviceId = rs.getInt("service_id");
-                int customerId = rs.getInt("customer_id");
-                int packageId = rs.getInt("package_id");
-                String deliveryTime = rs.getString("delivery_time");
-                String deliveryAddress = rs.getString("delivery_address");
-                String status = rs.getString("status");
-                String createTime = rs.getString("create_time");
-                MealService mealService = new MealService();
-                mealService.setServiceId(serviceId);
-                mealService.setCustomerId(customerId);
-                mealService.setPackageId(packageId);
-                mealService.setDeliveryTime(deliveryTime);
-                mealService.setDeliveryAddress(deliveryAddress);
-                mealService.setCreateTime(createTime);
-                mealService.setStatus(status);
-                mealHistories.add(mealService);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DBConnection.close(rs, ps, conn);
-        }
-        return mealHistories;
-	}
+	
 }
