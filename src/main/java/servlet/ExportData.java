@@ -49,17 +49,17 @@ public class ExportData extends HttpServlet {
         XSSFRow firstRow = sheet.createRow(0); //在"RentCase Data"中创建表头行
 
         //在表头行中创建列并设置值
-        firstRow.createCell(0).setCellValue("Case ID");
-        firstRow.createCell(1).setCellValue("Customer ID");
-        firstRow.createCell(2).setCellValue("Customer ID Card");
-        firstRow.createCell(3).setCellValue("Customer Name");
-        firstRow.createCell(4).setCellValue("Customer Unit");
-        firstRow.createCell(5).setCellValue("Customer Phone");
-        firstRow.createCell(6).setCellValue("Pick Status");
-        firstRow.createCell(7).setCellValue("Deposit");
-        firstRow.createCell(8).setCellValue("Food Services");
-        firstRow.createCell(9).setCellValue("Mobility Services");
-        firstRow.createCell(10).setCellValue("Amount Spent");
+        firstRow.createCell(0).setCellValue("消费编号");
+        firstRow.createCell(1).setCellValue("客户编号");
+        firstRow.createCell(2).setCellValue("客户身份证号");
+        firstRow.createCell(3).setCellValue("客户姓名");
+        firstRow.createCell(4).setCellValue("工作单位");
+        firstRow.createCell(5).setCellValue("客户电话");
+        firstRow.createCell(6).setCellValue("入住状态");
+        firstRow.createCell(7).setCellValue("押金");
+        firstRow.createCell(8).setCellValue("餐饮服务");
+        firstRow.createCell(9).setCellValue("出行服务");
+        firstRow.createCell(10).setCellValue("消费金额");
 
         //循环往Excel文件中写入数据
         for (int i = 0; i < data.size(); i++) {

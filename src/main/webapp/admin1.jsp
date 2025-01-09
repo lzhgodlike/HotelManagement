@@ -32,9 +32,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h1 class="mt-3">
-                        欢迎你
+                    <h1 class="mt-3" style="width:150%">
+                        欢迎你，
                         <%=user.getName()%>
+                        经理
                     </h1>
                 </div>
                 <div class="col-md-7"></div>
@@ -648,7 +649,7 @@
 	    overflow: hidden;
 	  }
 	  .avatar-uploader .el-upload:hover {
-	    border-color: #409EFF;
+	    border-color: #9933FA;
 	  }
 	  .avatar-uploader-icon {
 	    font-size: 28px;
@@ -701,7 +702,7 @@
         text-align: right;
       }
       .export-button {
-    	background-color: #409EFF;
+    	background-color: #8A2BE2;
     	color: white;
     	border: none;
     	border-radius: 5px;
@@ -713,10 +714,17 @@
   	  }
   	  
   	  .export-button:hover {
-    	background-color: #66b1ff;
+    	background-color: #DDA0DD;
       }
       .export-button:active {
-        background-color: #3a8ee6;
+        background-color: #A020F0;
       }
+      .button {
+        background-color: #8A2BE2;
+	  }
+
+	  .button:hover {
+    	background-color: #DDA0DD;
+	  }
 </style>
 </html>
