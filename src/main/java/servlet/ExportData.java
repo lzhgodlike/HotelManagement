@@ -98,7 +98,7 @@ public class ExportData extends HttpServlet {
         resp.setHeader("Content-Disposition", "attachment;filename=" + fileName);  //设置响应头,告诉浏览器返回的文件名
         ServletOutputStream out = resp.getOutputStream();  //创建一个文件输出流
         excel.write(out);  //将Excel表格对象写入到Excel文件中
-
+//注释
         //4、关闭资源
         out.flush();  //刷新输出流
         out.close();  //关闭输出流
