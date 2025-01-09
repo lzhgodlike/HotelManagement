@@ -252,7 +252,7 @@
 					</div>
 				</div>
 			</main>
-			<footer class="fixed bottom-0 left-0 right-0 bg-white border-t px-8 py-4">
+			<!-- <footer class="fixed bottom-0 left-0 right-0 bg-white border-t px-8 py-4">
 				<div class="max-w-[1440px] mx-auto flex justify-between items-center">
 					<div class="flex space-x-4">
 						<button
@@ -273,7 +273,7 @@
 						</button>
 					</div>
 				</div>
-			</footer>
+			</footer> -->
 		</div>
 	</body>
 	<script src="//unpkg.com/vue@2/dist/vue.js"></script>
