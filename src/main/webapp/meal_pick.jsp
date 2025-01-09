@@ -52,33 +52,34 @@
         </div>
 
         <div class="w-1/3">
-          <div class="bg-white rounded shadow-sm p-8">
+          <div class="bg-white rounded shadow-sm p-8 sticky">
             <h2 class="text-2xl font-bold mb-6">订餐信息</h2>
-            <form class="space-y-6" action="mealOrder" method="post">
+            <form class="space-y-6" @submit.prevent="submitForm">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">姓名</label>
-                <input type="text" v-model="form.name"
+                <input required type="text" v-model="form.name"
                   class="w-full px-4 py-2 border border-gray-300 !rounded-button focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                  placeholder="请输入姓名" name="name" />
+                  placeholder="请输入姓名" name="name">
+
               </div>
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">房间号</label>
-                <input type="text" v-model="form.deliveryAddress"
+                <input required type="text" v-model="form.deliveryAddress"
                   class="w-full px-4 py-2 border border-gray-300 !rounded-button focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                  placeholder="请输入房间号" name="deliveryAddress" />
+                  placeholder="请输入房间号" name="deliveryAddress"/>
               </div>
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">手机号码</label>
-                <input type="tel" v-model="form.phoneNumber"
+                <input required type="tel" v-model="form.phoneNumber"
                   class="w-full px-4 py-2 border border-gray-300 !rounded-button focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                  placeholder="请输入手机号码" name="phoneNumber" />
+                  placeholder="请输入手机号码" name="phoneNumber"/>
               </div>
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">送餐时间</label>
-                <input v-model="form.deliveryTime" type="datetime-local" class="form-control" id="deliveryTime" name="deliveryTime" required>
+                <input required v-model="form.deliveryTime" type="datetime-local" class="form-control" id="deliveryTime" name="deliveryTime">
               </div>
 
 <!--               <div> -->
@@ -90,14 +91,16 @@
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">选定套餐</label>
-                <input type="text"
+                <input required type="text"
                   class="w-full px-4 py-2 border border-gray-300 !rounded-button focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
                   placeholder="选定套餐" name="selectedMealName" id="selectedMealName" readonly />
-              </div>
+                  <span v-if="errors.packageId" class="text-red-500 text-sm mt-1">{{ errors.packageId }}</span>
+
+                </div>
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">套餐价格</label>
-                <input type="text"
+                <input required type="text"
                   class="w-full px-4 py-2 border border-gray-300 !rounded-button focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
                   placeholder="套餐价格" name="selectedMealPrice" id="selectedMealPrice" readonly />
               </div>
@@ -108,7 +111,7 @@
 
               <div class="pt-4">
                 <button class="w-full bg-primary text-white py-3 !rounded-button whitespace-nowrap font-medium"
-                  type="reset" @click="submitForm">提交订单</button>
+                  type="submit" @click="submitForm">提交订单</button>
               </div>
             </form>
           </div>
@@ -130,12 +133,23 @@
             packageId: '',
             remarks: ''
           },
-          search: '123',
+          errors: {}
         }
       },
       methods: {
     	// 使用Ajax提交表单信息到路径为mealOrder的Servlet，并弹窗返回信息
         submitForm() {
+          // 每次提交前清空错误信息，再检查错误信息
+          this.errors = {};
+          if (!this.form.packageId || this.form.packageId.trim() === '') {
+          this.errors.packageId = '请选择套餐';
+        }
+
+        // 如果字段未填写完整，阻止表单提交
+        if (Object.keys(this.errors).length > 0) {
+          return; // 不提交表单
+        }
+          // 如果没有错误，提交表单
           var self = this;
           const formInfo = self.form;
           console.log('Form Data:', formInfo); // 打印表单数据
