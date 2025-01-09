@@ -83,7 +83,7 @@ public class ExportData extends HttpServlet {
         //创建Excel文件对象
         String fileName = "RentCaseData.xlsx";  //设置导出Excel时的文件名
 //        File file = new File("D:\\JavaProject\\hotel-management\\src\\main\\webapp\\Excel\\" + fileName);  //创建Excel文件对象
-        File file = new File("E:\\大三上\\课程设计\\project3" + fileName);
+        File file = new File("\\project3" + fileName);
         
         //创建一个文件输出流
         FileOutputStream fileOutputStream = new FileOutputStream(file);

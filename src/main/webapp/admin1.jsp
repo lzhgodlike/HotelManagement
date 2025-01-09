@@ -22,7 +22,7 @@
     user = (User) request.getSession().getAttribute("user");
     %>
     <%
-    if ((!user.getRole().equals("管理员")) || user.getRole() == null) {
+    if ((!user.getRole().equals("经理")) || user.getRole() == null) {
         response.sendRedirect("/z-index/power_error.jsp");
     %>
     <%
