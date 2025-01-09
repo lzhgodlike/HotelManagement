@@ -12,7 +12,7 @@
 <script src="static/element-ui-2.14.0/index.js"></script>
 <script src="static/database.js" type="text/javascript"></script>
 <script src="static/jquery-3.5.1.min.js"></script>
-<title>欢迎登录预约管理系统</title>
+<title>欢迎登录酒店信息管理系统</title>
 </head>
 <body>
     <%@ page import="bean.User,bean.room"%>
@@ -38,12 +38,6 @@
                     </h1>
                 </div>
                 <div class="col-md-7"></div>
-                <div class="col-md-2">
-                    <el-button v-show="box===1" type="primary" @click="addRoom_model()"
-                        class="mt-5" round>添加房间类型</el-button>
-                    <el-button v-show="box===2" type="primary" @click="addRoom()"
-                        class="mt-5" round>添加房间信息</el-button>
-                </div>
             </div>
             <div class="row">
                 <div class="col-md-3 mt-3">
@@ -57,6 +51,12 @@
                         @click="changto(3)" style="width:100%" class="button mt-1">客户消费统计</el-button>
                     </el-card>
 					<input  type="button" value="导出数据">
+					<div class="col-md-2">
+                    	<el-button v-show="box===1" type="primary" @click="addRoom_model()"
+                        	class="mt-5" round>添加房间类型</el-button>
+                    	<el-button v-show="box===2" type="primary" @click="addRoom()"
+                        	class="mt-5" round>添加房间信息</el-button>
+                	</div>
                 </div>
                 
                 <div class="col-md-9">
@@ -663,5 +663,42 @@
 	    height: 178px;
 	    display: block;
 	  }
+	  body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .row {
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        color: #333333;
+      }
+
+      .el-button {
+        margin-top: 10px;
+      }
+
+      .el-card {
+        margin-bottom: 10px;
+      }
+
+      .el-table {
+        margin-top: 20px;
+      }
+
+      .dialog-footer {
+        text-align: right;
+      }
 </style>
 </html>
