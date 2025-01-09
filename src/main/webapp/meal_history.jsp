@@ -134,17 +134,17 @@
 									<div class="space-y-2">
 										<label class="flex items-center">
 											<input type="checkbox" class="form-checkbox h-4 w-4 text-primary"
-												value="completed" name="status">
+												value="completed" name="status" v-model="selectedStatusFilters">
 											<span class="ml-2 text-sm text-gray-600">已完成</span>
 										</label>
 										<label class="flex items-center">
 											<input type="checkbox" class="form-checkbox h-4 w-4 text-primary"
-												value="processing" name="status">
+												value="processing" name="status" v-model="selectedStatusFilters">
 											<span class="ml-2 text-sm text-gray-600">待配送</span>
 										</label>
 										<label class="flex items-center">
 											<input type="checkbox" class="form-checkbox h-4 w-4 text-primary"
-												value="cancelled" name="status">
+												value="cancelled" name="status" v-model="selectedStatusFilters">
 											<span class="ml-2 text-sm text-gray-600">已取消</span>
 										</label>
 									</div>
@@ -295,6 +295,26 @@
 				return {
 					histories: [],
 					dialogVisible: false,
+					selectedStatusFilters: [],
+            		selectedTimeFilter: null,
+					statusOptions: [
+						{ label: '已完成', value: 'completed' },
+						{ label: '待配送', value: 'processing' },
+						{ label: '已取消', value: 'cancelled' }
+					],
+					timeOptions: [
+						{ label: '今天', value: 'today' },
+						{ label: '最近7天', value: 'week' },
+						{ label: '最近30天', value: 'month' }
+					],
+				}
+			},
+			computed: {
+				activeStatusFilters() {
+					return this.statusOptions.filter(status => this.selectedStatusFilters.includes(status.value));
+				},
+				activeTimeFilter() {
+					return this.timeOptions.find(time => time.value === this.selectedTimeFilter);
 				}
 			},
 			methods: {
@@ -330,14 +350,12 @@
 				applyFilters() {
 					var self = this;
 					self.toggleFilterDropdown();
-					
 					var statusFilters = [];
 					document.querySelectorAll('input[name="status"]:checked').forEach(function (checkbox) {
 						statusFilters.push(self.statusAsParam(checkbox.value));
 					});
 					var timeRangeCheckbox = document.querySelector('input[name="timeRange"]:checked');
 					var timeRange = timeRangeCheckbox == null ? null : timeRangeCheckbox.value;
-					console.log(statusFilters);
 					self.resetFilters();
 					// 调用后端接口获取符合筛选条件的订单列表
 
@@ -354,6 +372,14 @@
 							self.receive_histories(res);
 						}
 					});
+				},
+				// 移除状态筛选
+				removeStatusFilter(value) {
+					this.selectedStatusFilters = this.selectedStatusFilters.filter(filter => filter !== value);
+				},
+				// 移除时间筛选
+				removeTimeFilter() {
+					this.selectedTimeFilter = null;
 				},
 				// 点击完成订单
 				completeOrder(serviceId) {
