@@ -112,98 +112,111 @@
 				</span>
 			</div>
 		</header> -->
-		<header class="px-8 py-6 border-b">
-			<div class="flex items-center mb-6">
-				<button  onclick="window.history.back()"
-					class="text-gray-600 hover:text-gray-900 !rounded-button whitespace-nowrap">
-					<i class="fas fa-arrow-left mr-2"></i>返回
-				</button>
-				<h1 class="text-2xl font-bold ml-4">餐饮订单记录</h1>
-			</div>
-			<div class="flex justify-between items-center mb-4">
-				<div class="flex space-x-4">
-					<div class="relative">
-						<button id="filterButton" @click="toggleFilterDropdown"
-							class="px-4 py-2 bg-primary text-white flex items-center !rounded-button whitespace-nowrap">
-							<i class="fas fa-filter mr-2"></i>筛选
-						</button>
-						<div id="filterDropdown"
-							class="hidden absolute left-0 top-12 w-64 bg-white border rounded-lg shadow-lg z-50 p-4">
-							<div class="mb-4">
-								<label class="block text-sm font-medium text-gray-700 mb-2">订单状态</label>
-								<div class="space-y-2">
-									<label class="flex items-center">
-										<input type="checkbox" class="form-checkbox h-4 w-4 text-primary"
-											value="completed" name="status">
-										<span class="ml-2 text-sm text-gray-600">已完成</span>
-									</label>
-									<label class="flex items-center">
-										<input type="checkbox" class="form-checkbox h-4 w-4 text-primary"
-											value="processing" name="status">
-										<span class="ml-2 text-sm text-gray-600">待配送</span>
-									</label>
-									<label class="flex items-center">
-										<input type="checkbox" class="form-checkbox h-4 w-4 text-primary"
-											value="cancelled" name="status">
-										<span class="ml-2 text-sm text-gray-600">已取消</span>
-									</label>
+			<header class="px-8 py-6 border-b">
+				<div class="flex items-center mb-6">
+					<button onclick="window.history.back()"
+						class="text-gray-600 hover:text-gray-900 !rounded-button whitespace-nowrap">
+						<i class="fas fa-arrow-left mr-2"></i>返回
+					</button>
+					<h1 class="text-2xl font-bold ml-4">餐饮订单记录</h1>
+				</div>
+				<div class="flex justify-between items-center mb-4">
+					<div class="flex space-x-4">
+						<div class="relative">
+							<button id="filterButton" @click="toggleFilterDropdown"
+								class="px-4 py-2 bg-primary text-white flex items-center !rounded-button whitespace-nowrap">
+								<i class="fas fa-filter mr-2"></i>筛选
+							</button>
+							<div id="filterDropdown"
+								class="hidden absolute left-0 top-12 w-64 bg-white border rounded-lg shadow-lg z-50 p-4">
+								<div class="mb-4">
+									<label class="block text-sm font-medium text-gray-700 mb-2">订单状态</label>
+									<div class="space-y-2">
+										<label class="flex items-center">
+											<input type="checkbox" class="form-checkbox h-4 w-4 text-primary"
+												value="completed" name="status">
+											<span class="ml-2 text-sm text-gray-600">已完成</span>
+										</label>
+										<label class="flex items-center">
+											<input type="checkbox" class="form-checkbox h-4 w-4 text-primary"
+												value="processing" name="status">
+											<span class="ml-2 text-sm text-gray-600">待配送</span>
+										</label>
+										<label class="flex items-center">
+											<input type="checkbox" class="form-checkbox h-4 w-4 text-primary"
+												value="cancelled" name="status">
+											<span class="ml-2 text-sm text-gray-600">已取消</span>
+										</label>
+									</div>
 								</div>
-							</div>
-							<div class="mb-4">
-								<label class="block text-sm font-medium text-gray-700 mb-2">订单时间</label>
-								<div class="space-y-2">
-									<label class="flex items-center">
-										<input type="radio" name="timeRange" class="form-radio h-4 w-4 text-primary"
-											value="today">
-										<span class="ml-2 text-sm text-gray-600">今天</span>
-									</label>
-									<label class="flex items-center">
-										<input type="radio" name="timeRange" class="form-radio h-4 w-4 text-primary"
-											value="week">
-										<span class="ml-2 text-sm text-gray-600">最近7天</span>
-									</label>
-									<label class="flex items-center">
-										<input type="radio" name="timeRange" class="form-radio h-4 w-4 text-primary"
-											value="month">
-										<span class="ml-2 text-sm text-gray-600">最近30天</span>
-									</label>
+								<div class="mb-4">
+									<label class="block text-sm font-medium text-gray-700 mb-2">订单时间</label>
+									<div class="space-y-2">
+										<label class="flex items-center">
+											<input type="radio" name="timeRange" class="form-radio h-4 w-4 text-primary"
+												value="today">
+											<span class="ml-2 text-sm text-gray-600">今天</span>
+										</label>
+										<label class="flex items-center">
+											<input type="radio" name="timeRange" class="form-radio h-4 w-4 text-primary"
+												value="week">
+											<span class="ml-2 text-sm text-gray-600">最近7天</span>
+										</label>
+										<label class="flex items-center">
+											<input type="radio" name="timeRange" class="form-radio h-4 w-4 text-primary"
+												value="month">
+											<span class="ml-2 text-sm text-gray-600">最近30天</span>
+										</label>
+									</div>
 								</div>
-							</div>
-							<div class="flex justify-end space-x-2">
-								<button
-									class="px-3 py-1 border border-gray-300 text-gray-700 text-sm !rounded-button whitespace-nowrap"
-									onclick="resetFilters()">重置</button>
-								<button
-									class="px-3 py-1 bg-primary text-white text-sm !rounded-button whitespace-nowrap"
-									@click="applyFilters">确定</button>
+								<div class="flex justify-end space-x-2">
+									<button
+										class="px-3 py-1 border border-gray-300 text-gray-700 text-sm !rounded-button whitespace-nowrap"
+										@click="resetFilters">重置</button>
+									<button
+										class="px-3 py-1 bg-primary text-white text-sm !rounded-button whitespace-nowrap"
+										@click="applyFilters">确定</button>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="relative">
-						<button id="sortButton"
-							class="px-4 py-2 bg-white border border-gray-300 flex items-center !rounded-button whitespace-nowrap">
-							<span>排序方式</span>
-							<i class="fas fa-chevron-down ml-2"></i>
-						</button>
-						<div id="sortDropdown"
-							class="hidden absolute left-0 top-12 w-48 bg-white border rounded-lg shadow-lg z-50">
-							<div class="py-1">
-								<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
-									onclick="sortOrders('time-desc')">时间降序</button>
-								<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
-									onclick="sortOrders('time-asc')">时间升序</button>
-								<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
-									onclick="sortOrders('amount-desc')">金额降序</button>
-								<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
-									onclick="sortOrders('amount-asc')">金额升序</button>
+						<div class="relative">
+							<button id="sortButton"
+								class="px-4 py-2 bg-white border border-gray-300 flex items-center !rounded-button whitespace-nowrap">
+								<span>排序方式</span>
+								<i class="fas fa-chevron-down ml-2"></i>
+							</button>
+							<div id="sortDropdown"
+								class="hidden absolute left-0 top-12 w-48 bg-white border rounded-lg shadow-lg z-50">
+								<div class="py-1">
+									<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+										onclick="sortOrders('time-desc')">时间降序</button>
+									<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+										onclick="sortOrders('time-asc')">时间升序</button>
+									<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+										onclick="sortOrders('amount-desc')">金额降序</button>
+									<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+										onclick="sortOrders('amount-asc')">金额升序</button>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div id="filterTags" class="flex flex-wrap gap-2">
-			</div>
-		</header>
+				<!-- <div id="filterTags" class="flex flex-wrap gap-2">
+				
+			</div> -->
+				<div class="flex flex-wrap gap-2">
+					<span v-for="(status, index) in activeStatusFilters" :key="'status-'+index"
+						class="filter-tag px-3 py-1 rounded-full flex items-center text-sm">
+						状态: {{ status.label }}
+						<button class="ml-2" @click="removeStatusFilter(status.value)"><i
+								class="fas fa-times"></i></button>
+					</span>
+					<span v-if="activeTimeFilter" class="filter-tag px-3 py-1 rounded-full flex items-center text-sm">
+						时间: {{ activeTimeFilter.label }}
+						<button class="ml-2" @click="removeTimeFilter"><i class="fas fa-times"></i></button>
+					</span>
+				</div>
+			</header>
 			<main class="p-8">
 				<div class="space-y-4">
 					<div class="order-card bg-white p-6 rounded-lg border" v-for="(history, index) in histories">
@@ -266,6 +279,16 @@
 	<script src="//unpkg.com/vue@2/dist/vue.js"></script>
 	<script src="//unpkg.com/element-ui@2.15.14/lib/index.js"></script>
 	<script>
+		document.addEventListener('click', function(event) {
+			if (!filterDropdown.contains(event.target) && !filterButton.contains(event.target)) {
+				filterDropdown.classList.add('hidden');
+				isFilterOpen = false;
+			}
+			if (!sortDropdown.contains(event.target) && !sortButton.contains(event.target)) {
+				sortDropdown.classList.add('hidden');
+				isSortOpen = false;
+			}
+		});
 		new Vue({
 			el: '#app',
 			data() {
@@ -275,6 +298,14 @@
 				}
 			},
 			methods: {
+				// 重置筛选条件
+				resetFilters(){
+					const dropdown = document.getElementById('filterDropdown');
+					const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
+					const radios = dropdown.querySelectorAll('input[type="radio"]');
+					checkboxes.forEach(cb => cb.checked = false);
+					radios.forEach(radio => radio.checked = false);
+				},
 				// 切换筛选下拉菜单
 				toggleFilterDropdown() {
 					var dropdown = document.getElementById('filterDropdown');
@@ -284,8 +315,8 @@
 						dropdown.classList.add('hidden');
 					}
 				},
-				
-				statusAsParam(status){
+
+				statusAsParam(status) {
 					switch (status) {
 						case 'processing':
 							return '待配送';
@@ -299,16 +330,17 @@
 				applyFilters() {
 					var self = this;
 					self.toggleFilterDropdown();
+					self.resetFilters();
 					var statusFilters = [];
-					document.querySelectorAll('input[name="status"]:checked').forEach(function(checkbox) {
+					document.querySelectorAll('input[name="status"]:checked').forEach(function (checkbox) {
 						statusFilters.push(self.statusAsParam(checkbox.value));
 					});
 					var timeRangeCheckbox = document.querySelector('input[name="timeRange"]:checked');
 					var timeRange = timeRangeCheckbox == null ? null : timeRangeCheckbox.value;
 					console.log(statusFilters);
-					
+
 					// 调用后端接口获取符合筛选条件的订单列表
-					
+
 					$.ajax({
 						type: 'post',
 						async: false,
