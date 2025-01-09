@@ -243,7 +243,7 @@
                     
                     
                     <div v-show="box===3">
-						<el-table :data="rentCase.filter(data => !search || data.constomer_id.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">
+						<el-table :data="rentCase.filter(data => !search)" style="width: 100%">
 							<el-table-column label="消费编号" prop="case_id"> </el-table-column>
 							<el-table-column label="客户编号" prop="customer_id"> </el-table-column>
 							<el-table-column label="客户身份证号" prop="customer_idcard"> </el-table-column>
@@ -263,11 +263,6 @@
     							</template>
 							</el-table-column>
 							<el-table-column label="消费金额" prop="amount_spent"> </el-table-column>
-							<el-table-column align="right">
-								<template slot="header" slot-scope="scope">
-                            		<el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
-                        		</template>
-                        	</el-table-column>
 						</el-table>
                     </div>
                 </div>
