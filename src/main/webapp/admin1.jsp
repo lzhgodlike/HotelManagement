@@ -56,6 +56,7 @@
                     <el-card shadow="hover"> <el-button type="primary"
                         @click="changto(3)" style="width:100%" class="button mt-1">客户消费统计</el-button>
                     </el-card>
+					<input  type="button" value="导出数据">
                 </div>
                 
                 <div class="col-md-9">
@@ -624,12 +625,19 @@
                 	console.log("Received rent_case data:", res);
                 	this.rentCase = res;
                 	console.log("rentCase:", this.rentCase);
-                }                
+                }
 			},
 			mounted() {
 				this.getallModels();
 			}
-		})
+		});
+        $(document).ready(function() {
+            $("input[value='导出数据']").click(function () {
+                if (confirm("是否确认导出数据?")) {
+                    window.location.href = "/z-index/ExportData";
+                }
+            });
+        });
 	</script>
 	<style>
 	  .avatar-uploader .el-upload {
