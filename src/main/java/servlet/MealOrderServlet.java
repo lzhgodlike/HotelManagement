@@ -52,7 +52,7 @@ public class MealOrderServlet extends HttpServlet {
             // 获取其他参数
             String deliveryTime = data.get("deliveryTime");
             String deliveryAddress = data.get("deliveryAddress");
-
+            System.out.println("customerId "+customerId);
             // 调用Service层方法
             MealService mealService = new MealService();
             boolean orderSuccess = mealService.addMealOrder(customerId, packageId, deliveryTime, deliveryAddress);

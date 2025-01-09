@@ -20,6 +20,13 @@ public class MealHistory {
 	private String description;
 	private String price;
 	private String packageName;
+	private String createTime;
+	public String getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
 	public int getServiceId() {
 		return serviceId;
 	}
@@ -82,7 +89,7 @@ public class MealHistory {
 		List<MealHistory> mealHistories = new ArrayList<>();
 		try {
 			conn = DBConnection.getConnection();
-			String sql = "SELECT ms.service_id, ms.customer_id, ms.package_id, ms.delivery_time, ms.delivery_address, ms.status, mp.description, mp.price, mp.package_name " +
+			String sql = "SELECT ms.service_id, ms.customer_id, ms.package_id, ms.delivery_time, ms.delivery_address, ms.status, ms.create_time, mp.description, mp.price, mp.package_name " +
 						"FROM meal_service ms " +
 						"JOIN meal_packages mp ON ms.package_id = mp.package_id";
 			ps = conn.prepareStatement(sql);
@@ -97,6 +104,7 @@ public class MealHistory {
 				String description = rs.getString("description");
 				String price = rs.getString("price");
 				String packageName = rs.getString("package_name");
+				String createTime = rs.getString("create_time");
 				MealHistory mealHistory = new MealHistory();
 				mealHistory.setServiceId(serviceId);
 				mealHistory.setCustomerId(customerId);
@@ -107,6 +115,7 @@ public class MealHistory {
 				mealHistory.setDescription(description);
 				mealHistory.setPrice(price);
 				mealHistory.setPackageName(packageName);
+				mealHistory.setCreateTime(createTime);
 				mealHistories.add(mealHistory);
 			}
 		} catch (SQLException e) {
@@ -124,7 +133,7 @@ public class MealHistory {
 		List<MealHistory> mealHistories = new ArrayList<>();
 		try {
 			conn = DBConnection.getConnection();
-			StringBuilder sql = new StringBuilder("SELECT ms.service_id, ms.customer_id, ms.package_id, ms.delivery_time, ms.delivery_address, ms.status, mp.description, mp.price, mp.package_name " +
+			StringBuilder sql = new StringBuilder("SELECT ms.service_id, ms.customer_id, ms.package_id, ms.delivery_time, ms.delivery_address, ms.status, ms.create_time, mp.description, mp.price, mp.package_name " +
 												"FROM meal_service ms " +
 												"JOIN meal_packages mp ON ms.package_id = mp.package_id " +
 												"WHERE 1=1");
@@ -179,6 +188,7 @@ public class MealHistory {
 				String description = rs.getString("description");
 				String price = rs.getString("price");
 				String packageName = rs.getString("package_name");
+				String createTime = rs.getString("create_time");
 				MealHistory mealHistory = new MealHistory();
 				mealHistory.setServiceId(serviceId);
 				mealHistory.setCustomerId(customerId);
@@ -189,6 +199,7 @@ public class MealHistory {
 				mealHistory.setDescription(description);
 				mealHistory.setPrice(price);
 				mealHistory.setPackageName(packageName);
+				mealHistory.setCreateTime(createTime);
 				mealHistories.add(mealHistory);
 			}
 		} catch (SQLException e) {

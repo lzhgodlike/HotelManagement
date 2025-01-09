@@ -79,17 +79,17 @@
                             <div class="grid grid-cols-3 gap-4">
                                 <button type="button"
                                     class="px-4 py-2 border !rounded-button hover:border-primary hover:text-primary text-gray-600 whitespace-nowrap transport-mode"
-                                    data-mode="train">
+                                    data-mode="火车">
                                     <i class="fas fa-train mr-2"></i>火车
                                 </button>
                                 <button type="button"
                                     class="px-4 py-2 border !rounded-button hover:border-primary hover:text-primary text-gray-600 whitespace-nowrap transport-mode"
-                                    data-mode="plane">
+                                    data-mode="飞机">
                                     <i class="fas fa-plane mr-2"></i>飞机
                                 </button>
                                 <button type="button"
                                     class="px-4 py-2 border !rounded-button hover:border-primary hover:text-primary text-gray-600 whitespace-nowrap transport-mode"
-                                    data-mode="bus">
+                                    data-mode="大巴">
                                     <i class="fas fa-bus mr-2"></i>客运
                                 </button>
                             </div>
