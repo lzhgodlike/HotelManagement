@@ -50,8 +50,8 @@
                     <el-card shadow="hover"> <el-button type="primary"
                         @click="changto(3)" style="width:100%" class="button mt-1">客户消费统计</el-button>
                     </el-card>
-					<input  type="button" value="导出数据">
-					<div class="col-md-2">
+					<input  type="button" value="导出数据" class="export-button">
+					<div class="col-md-2" style="margin-left: 75px">
                     	<el-button v-show="box===1" type="primary" @click="addRoom_model()"
                         	class="mt-5" round>添加房间类型</el-button>
                     	<el-button v-show="box===2" type="primary" @click="addRoom()"
@@ -699,6 +699,23 @@
 
       .dialog-footer {
         text-align: right;
+      }
+      .export-button {
+    	background-color: #409EFF;
+    	color: white;
+    	border: none;
+    	border-radius: 5px;
+    	cursor: pointer;
+    	font-size: 16px;
+    	transition: background-color 0.3s ease;
+    	padding: 10px 10px;
+    	margin-left: 100px;
+  	  }
+  	  .export-button:hover {
+    	background-color: #66b1ff;
+      }
+      .export-button:active {
+        background-color: #3a8ee6;
       }
 </style>
 </html>
