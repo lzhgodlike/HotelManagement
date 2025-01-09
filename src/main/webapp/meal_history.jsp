@@ -79,39 +79,6 @@
 
 	<body>
 		<div class="max-w-[1440px] mx-auto bg-white min-h-screen" id="app">
-			<!-- <header class="px-8 py-6 border-b">
-			<div class="flex items-center mb-6">
-				<button class="text-gray-600 hover:text-gray-900 !rounded-button whitespace-nowrap" onclick="window.history.back()">
-					<i class="fas fa-arrow-left mr-2"></i>返回
-				</button>
-				<h1 class="text-2xl font-bold ml-4">餐饮订单记录</h1>
-			</div>
-			<div class="flex justify-between items-center mb-4">
-				<div class="flex space-x-4">
-					<button
-						class="px-4 py-2 bg-primary text-white flex items-center !rounded-button whitespace-nowrap">
-						<i class="fas fa-filter mr-2"></i>筛选
-					</button>
-					<div class="relative">
-						<button
-							class="px-4 py-2 bg-white border border-gray-300 flex items-center !rounded-button whitespace-nowrap">
-							<span>排序方式</span>
-							<i class="fas fa-chevron-down ml-2"></i>
-						</button>
-					</div>
-				</div>
-			</div>
-			<div class="flex flex-wrap gap-2">
-				<span class="filter-tag px-3 py-1 rounded-full flex items-center text-sm">
-					时间: 最近7天
-					<button class="ml-2"><i class="fas fa-times"></i></button>
-				</span>
-				<span class="filter-tag px-3 py-1 rounded-full flex items-center text-sm">
-					状态: 已完成
-					<button class="ml-2"><i class="fas fa-times"></i></button>
-				</span>
-			</div>
-		</header> -->
 			<header class="px-8 py-6 border-b">
 				<div class="flex items-center mb-6">
 					<button onclick="window.history.back()"
@@ -201,9 +168,6 @@
 						</div>
 					</div>
 				</div>
-				<!-- <div id="filterTags" class="flex flex-wrap gap-2">
-				
-			</div> -->
 				<div class="flex flex-wrap gap-2">
 					<span v-for="(status, index) in activeStatusFilters" :key="'status-'+index"
 						class="filter-tag px-3 py-1 rounded-full flex items-center text-sm">
@@ -251,29 +215,7 @@
 						</div>
 					</div>
 				</div>
-			</main>
-			<!-- <footer class="fixed bottom-0 left-0 right-0 bg-white border-t px-8 py-4">
-				<div class="max-w-[1440px] mx-auto flex justify-between items-center">
-					<div class="flex space-x-4">
-						<button
-							class="px-4 py-2 bg-gray-100 text-gray-700 !rounded-button whitespace-nowrap">今天</button>
-						<button
-							class="px-4 py-2 bg-gray-100 text-gray-700 !rounded-button whitespace-nowrap">本周</button>
-						<button
-							class="px-4 py-2 bg-gray-100 text-gray-700 !rounded-button whitespace-nowrap">本月</button>
-					</div>
-					<div class="flex space-x-4">
-						<button
-							class="px-4 py-2 border border-gray-300 text-gray-700 flex items-center !rounded-button whitespace-nowrap">
-							<i class="fas fa-download mr-2"></i>导出记录
-						</button>
-						<button
-							class="px-4 py-2 bg-primary text-white flex items-center !rounded-button whitespace-nowrap">
-							<i class="fas fa-headset mr-2"></i>联系客服
-						</button>
-					</div>
-				</div>
-			</footer> -->
+			</main>			
 		</div>
 	</body>
 	<script src="//unpkg.com/vue@2/dist/vue.js"></script>
@@ -383,44 +325,33 @@
 				},
 				// 点击完成订单
 				completeOrder(serviceId) {
-					console.log("点击标记完成");
-					this.$confirm('确定完成该订单吗?', '提示', {
-						confirmButtonText: '确定',
-						cancelButtonText: '取消',
-						type: 'warning'
-					}).then(() => {
+					if(confirm("确定完成该订单吗？")){
 						// 用户点击确认
-						this.sendOrderStatusToBackend(serviceId, '已完成');
+						this.sendOrderStatusToBackend(serviceId, "已完成");
 						// 重新获取订单列表
 						this.getMealHistories();
-					}).catch(() => {
-						// 用户点击取消
-						this.$message({
-							type: 'info',
-							message: '已取消完成'
-						});
-					});
+					} else {
+						console.log("取消操作");
+					}
+					console.log("点击标记完成");
+					
 				},
 				// 点击取消订单
 				cancelOrder(serviceId) {
 					console.log("点击取消订单", serviceId);
 
-					this.$confirm('确定要取消该订单吗?', '提示', {
-						confirmButtonText: '确定',
-						cancelButtonText: '取消',
-						type: 'warning'
-					}).then(() => {
+					if(confirm('确定要取消该订单吗?')) {
 						// 用户点击确认
 						this.sendOrderStatusToBackend(serviceId, '已取消');
 						// 重新获取订单列表
 						this.getMealHistories();
-					}).catch(() => {
+					} else {
 						// 用户点击取消
 						this.$message({
 							type: 'info',
 							message: '已取消删除'
 						});
-					});
+					}
 				},
 				// 发送订单状态到后端，同步到数据库
 				sendOrderStatusToBackend(serviceId, newStatus) {
