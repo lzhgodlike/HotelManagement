@@ -1,12 +1,15 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import bean.MealPackage;
@@ -49,8 +52,25 @@ public class ListMealHistories extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		try {
+            // 获取请求参数
+            String statuses = request.getParameter("statuses");
+            String timeRange = request.getParameter("timeRange");
+            // 调用 Service 层方法获取筛选后的订单记录
+            List<MealService> filteredHistories = MealService.getFilteredMealHistories(statuses, timeRange);
+
+            // 设置响应内容类型
+            response.setContentType("application/json;charset=UTF-8");
+
+            // 使用 Jackson 将订单记录转换为 JSON 格式并返回
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonResponse = objectMapper.writeValueAsString(filteredHistories);
+            response.getWriter().write(jsonResponse);
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("{\"status\":\"error\", \"message\":\"服务器内部错误\"}");
+            e.printStackTrace();
+        }
 	}
 
 }
