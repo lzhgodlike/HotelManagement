@@ -111,7 +111,7 @@
 
               <div class="pt-4">
                 <button class="w-full bg-primary text-white py-3 !rounded-button whitespace-nowrap font-medium"
-                  type="submit" @click="submitForm">提交订单</button>
+                  type="submit">提交订单</button>
               </div>
             </form>
           </div>
@@ -142,13 +142,9 @@
           // 每次提交前清空错误信息，再检查错误信息
           this.errors = {};
           if (!this.form.packageId || this.form.packageId.trim() === '') {
-          this.errors.packageId = '请选择套餐';
-        }
-
-        // 如果字段未填写完整，阻止表单提交
-        if (Object.keys(this.errors).length > 0) {
-          return; // 不提交表单
-        }
+            this.errors.packageId = '请选择套餐';
+            return; // 不提交表单
+          }
           // 如果没有错误，提交表单
           var self = this;
           const formInfo = self.form;
@@ -162,6 +158,15 @@
               console.log('Server Response:', res); // 打印服务器响应
               if(res.status == "success"){
                 alert(res.message);
+                // 清空表单字段
+                self.form.name = '';
+                self.form.deliveryAddress = '';
+                self.form.phoneNumber = '';
+                self.form.deliveryTime = '';
+                self.form.packageId = '';
+                self.form.remarks = '';
+                document.getElementById('selectedMealName').value = '';
+                document.getElementById('selectedMealPrice').value = '';
               } else {
                 alert("预约失败,预约信息有误");
               }
@@ -170,6 +175,7 @@
               console.error('Error:', error); // 打印错误信息
             }
           });
+
         },
 		// 接收套餐信息，同步到meals数组中
         receive_packages(msg) {
