@@ -388,6 +388,7 @@
 					if(confirm("确定完成该订单吗？")){
 						// 用户点击确认
 						this.sendOrderStatusToBackend(serviceId, "已完成");
+
 						// 重新获取订单列表
 						this.getMealHistories();
 					} else {
@@ -428,15 +429,9 @@
 						},
 						success: function (res) {
 							if (res.success) {
-								self.$message({
-									type: 'success',
-									message: '订单状态更新成功'
-								});
+								alert('订单状态更新成功');
 							} else {
-								self.$message({
-									type: 'error',
-									message: '订单状态更新失败'
-								});
+								alert('订单状态更新失败');
 							}
 						}
 					});
