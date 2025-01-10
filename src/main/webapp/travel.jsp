@@ -276,6 +276,7 @@
                         console.log("params", params);
                         province.value = params.name;
                         modalTitle.textContent = params.name + ` 行程规划`;
+                        // 显示模态框
                         modal.classList.remove('hidden');
                         updateDestinationList(params.name);
                     });
