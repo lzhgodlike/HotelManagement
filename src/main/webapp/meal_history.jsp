@@ -22,7 +22,7 @@
 				theme: {
 					extend: {
 						colors: {
-							primary: '#4F46E5'
+							primary: '#409eff'
 						},
 						borderRadius: {
 							'none': '0px',
@@ -72,7 +72,7 @@
 
 			.filter-tag {
 				background-color: #EEF2FF;
-				color: #4F46E5;
+				color: rgb(64, 158, 255);
 			}
 		</style>
 	</head>
