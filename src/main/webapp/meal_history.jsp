@@ -203,7 +203,7 @@
 							</div>
 						</div>
 						<div class="flex justify-between items-center pt-4 border-t">
-<!-- 							<span class="text-gray-600">共3件商品</span> -->
+							<span class="text-gray-600">送餐时间：{{ history.deliveryTime }}</span>
 							<div class="flex items-center gap-4">
 								<button v-show="history.status == '待配送'" @click="completeOrder(history.serviceId)"
 									class="px-4 py-2 border border-green-500 text-green-500 hover:bg-green-50 !rounded-button whitespace-nowrap">标记完成</button>
