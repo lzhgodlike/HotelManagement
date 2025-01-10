@@ -462,7 +462,7 @@
                 		if(valid) {
                 			var self = this;
                 			$.ajax({
-                				type: 'POST',
+                				type: 'POST', //Http请求类型
                 				async: false,
                 				url: serve_url + "updateroom",
                 				data: JSON.stringify(this.editform),
@@ -542,24 +542,7 @@
                 receive_models(res) {
                     this.form = res;
                 },
-                //计算租金
-                onSum() {
-                    this.allrent = []
-                    var self = this;
-                    $.ajax({
-                        type: 'post',
-                        async: false,
-                        dataType:'JSON',
-                        url: serve_url +"sumservlet",
-                        data: JSON.stringify({
-                            d1: this.d1, //发送到服务器的数据，Object或String类型的参数，如果已经不是字符串，将自动转换为字符串格式。
-                            d2: this.d2,
-                        }),
-                        success: function(res) {
-                            self.receive_rent(res)
-                        }
-                    })
-                },
+                
             
                 receive_rent(res){
                     res.forEach( item => {
