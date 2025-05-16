@@ -1,1 +1,25 @@
+# 编译输出
 build/
+/bin/
+/target/
+
+# IDE配置文件（保留Eclipse配置文件以便导入项目）
+.idea/
+*.iml
+.vscode/
+# .settings/
+# .classpath
+# .project
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 日志文件
+*.log
+
+# 临时文件
+*.tmp
+*.bak
+*.swp
+*~.nib

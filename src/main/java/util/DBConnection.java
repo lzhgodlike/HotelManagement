@@ -8,11 +8,30 @@ import java.sql.Statement;
 
 public class DBConnection {
 	
+	/**
+	 * 数据库驱动名称 - 使用MySQL 8.0以上的驱动
+	 */
 	private static final String driverName = "com.mysql.cj.jdbc.Driver";
-	private static final String url = "jdbc:mysql://localhost:3306/testproject?"
+	
+	/**
+	 * 数据库连接URL
+	 * - 默认端口: 3306
+	 * - 默认数据库名: hotel
+	 * - 字符编码: UTF-8
+	 * - 时区: UTC
+	 */
+	private static final String url = "jdbc:mysql://localhost:3306/hotel?"
 			+ "characterEncoding=utf8&useSSL=false&serverTimezone=UTC"
 			+ "&rewriteBatchedStatements=true";
+	
+	/**
+	 * 数据库用户名 - 根据您的MySQL设置修改
+	 */
 	private static final String user = "root";
+	
+	/**
+	 * 数据库密码 - 根据您的MySQL设置修改
+	 */
 	private static final String password = "123456";
 
 	private DBConnection() {
