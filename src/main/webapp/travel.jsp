@@ -15,7 +15,7 @@
                 theme: {
                     extend: {
                         colors: {
-                            primary: '#4F46E5'
+                            primary: '#409eff'
                         }
                     }
                 }
@@ -246,8 +246,8 @@
                             },
                             emphasis: {
                                 itemStyle: {
-                                    areaColor: '#4F46E5',
-                                    borderColor: '#4338ca',
+                                    areaColor: '#409eff',
+                                    borderColor: '#26b1f3',
                                     borderWidth: 1,
                                     shadowColor: 'rgba(79, 70, 229, 0.3)',
                                     shadowBlur: 20,
@@ -260,8 +260,8 @@
                             },
                             select: {
                                 itemStyle: {
-                                    areaColor: '#4F46E5',
-                                    borderColor: '#4338ca'
+                                    areaColor: '#409eff',
+                                    borderColor: '#26b1f3'
                                 },
                                 label: {
                                     color: '#fff',
@@ -276,6 +276,7 @@
                         console.log("params", params);
                         province.value = params.name;
                         modalTitle.textContent = params.name + ` 行程规划`;
+                        // 显示模态框
                         modal.classList.remove('hidden');
                         updateDestinationList(params.name);
                     });

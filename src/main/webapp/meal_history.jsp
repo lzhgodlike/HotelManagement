@@ -22,7 +22,7 @@
 				theme: {
 					extend: {
 						colors: {
-							primary: '#4F46E5'
+							primary: '#409eff'
 						},
 						borderRadius: {
 							'none': '0px',
@@ -72,7 +72,7 @@
 
 			.filter-tag {
 				background-color: #EEF2FF;
-				color: #4F46E5;
+				color: rgb(64, 158, 255);
 			}
 		</style>
 	</head>
@@ -91,7 +91,7 @@
 					<div class="flex space-x-4">
 						<div class="relative">
 							<button id="filterButton" @click="toggleFilterDropdown"
-								class="px-4 py-2 bg-primary text-white flex items-center !rounded-button whitespace-nowrap">
+								class="px-4 py-2 bg-primary text-white flex items-center hover:bg-blue-600 !rounded-button whitespace-nowrap">
 								<i class="fas fa-filter mr-2"></i>筛选
 							</button>
 							<div id="filterDropdown"
@@ -200,10 +200,15 @@
 							<div class="flex justify-between">
 								<span>{{ history.description }}</span>
 								<!-- <span>¥ 68</span> -->
+								<button @click="showModal(index)"
+									class="px-4 py-2 bg-primary text-white rounded-button hover:bg-blue-600 whitespace-nowrap">
+									<i class="fas fa-file-alt mr-2"></i>
+									查看详情
+									</button>
 							</div>
 						</div>
 						<div class="flex justify-between items-center pt-4 border-t">
-<!-- 							<span class="text-gray-600">共3件商品</span> -->
+							<span class="text-gray-600">送餐时间：{{ history.deliveryTime }}</span>
 							<div class="flex items-center gap-4">
 								<button v-show="history.status == '待配送'" @click="completeOrder(history.serviceId)"
 									class="px-4 py-2 border border-green-500 text-green-500 hover:bg-green-50 !rounded-button whitespace-nowrap">标记完成</button>
@@ -215,7 +220,49 @@
 						</div>
 					</div>
 				</div>
-			</main>			
+			</main>	
+			<div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                <div class="bg-white rounded-lg w-[600px] p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-semibold" id="modalTitle">订单详情</h3>
+                        <button @click="closeModal" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <form id="travelForm" class="space-y-4" method="post" action="travelService">
+						<div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">订单号</label>
+                            <input type="tel" name="passagerPhone" v-model="detail.serviceId"
+                                class="w-full px-3 py-2 border rounded-button focus:outline-none focus:ring-2 focus:ring-primary"
+                                readonly>
+                        </div>
+						<div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">客户ID</label>
+                            <input type="tel" name="passagerPhone" v-model="detail.customerId"
+                                class="w-full px-3 py-2 border rounded-button focus:outline-none focus:ring-2 focus:ring-primary"
+                                readonly>
+                        </div>
+						<div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">送餐时间</label>
+                            <input type="tel" name="passagerPhone" v-model="detail.deliveryTime"
+                                class="w-full px-3 py-2 border rounded-button focus:outline-none focus:ring-2 focus:ring-primary"
+                                readonly>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">送餐房间号</label>
+                            <input type="text" name="passagerName" v-model="detail.deliveryAddress"
+                                class="w-full px-3 py-2 border rounded-button focus:outline-none focus:ring-2 focus:ring-primary"
+                                readonly>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">订单创建时间</label>
+                            <input type="text" name="passagerName" v-model="detail.createTime"
+                                class="w-full px-3 py-2 border rounded-button focus:outline-none focus:ring-2 focus:ring-primary"
+                                readonly>
+                        </div>
+                    </form>
+                </div>
+            </div>		
 		</div>
 	</body>
 	<script src="//unpkg.com/vue@2/dist/vue.js"></script>
@@ -249,6 +296,7 @@
 						{ label: '最近7天', value: 'week' },
 						{ label: '最近30天', value: 'month' }
 					],
+					detail:{},
 				}
 			},
 			computed: {
@@ -260,6 +308,18 @@
 				}
 			},
 			methods: {
+				showModal(index) {
+					var self = this;
+					const modal = document.getElementById('modal');
+					// 显示模态框
+					modal.classList.remove('hidden');
+					self.detail = self.histories[index];
+
+				},
+				closeModal() {
+					const modal = document.getElementById('modal');
+					modal.classList.add('hidden');
+				},
 				// 重置筛选条件
 				resetFilters(){
 					const dropdown = document.getElementById('filterDropdown');
@@ -328,6 +388,7 @@
 					if(confirm("确定完成该订单吗？")){
 						// 用户点击确认
 						this.sendOrderStatusToBackend(serviceId, "已完成");
+
 						// 重新获取订单列表
 						this.getMealHistories();
 					} else {
@@ -368,15 +429,9 @@
 						},
 						success: function (res) {
 							if (res.success) {
-								self.$message({
-									type: 'success',
-									message: '订单状态更新成功'
-								});
+								alert('订单状态更新成功');
 							} else {
-								self.$message({
-									type: 'error',
-									message: '订单状态更新失败'
-								});
+								alert('订单状态更新失败');
 							}
 						}
 					});

@@ -10,7 +10,7 @@
     <script
       src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
     <script>
-      tailwind.config = { theme: { extend: { colors: { primary: '#4A90E2' }, borderRadius: { 'none': '0px', 'sm': '2px', DEFAULT: '4px', 'md': '8px', 'lg': '12px', 'xl': '16px', '2xl': '20px', '3xl': '24px', 'full': '9999px', 'button': '4px' } } } }
+      tailwind.config = { theme: { extend: { colors: { primary: '#409eff' }, borderRadius: { 'none': '0px', 'sm': '2px', DEFAULT: '4px', 'md': '8px', 'lg': '12px', 'xl': '16px', '2xl': '20px', '3xl': '24px', 'full': '9999px', 'button': '4px' } } } }
     </script>
     <script src="static/vue/vue.js"></script>
     <script src="static/vue/vue-router.js"></script>

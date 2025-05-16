@@ -462,7 +462,7 @@
                 		if(valid) {
                 			var self = this;
                 			$.ajax({
-                				type: 'POST',
+                				type: 'POST', //Http请求类型
                 				async: false,
                 				url: serve_url + "updateroom",
                 				data: JSON.stringify(this.editform),
@@ -491,6 +491,7 @@
                 
               //提交新房间类型信息
                 submitForm(formName) {
+                	//表单验证
                     this.$refs[formName].validate((valid) => {
                         if (valid) {
                             var self = this;
@@ -541,24 +542,8 @@
                 receive_models(res) {
                     this.form = res;
                 },
-                //计算租金
-                onSum() {
-                    this.allrent = []
-                    var self = this;
-                    $.ajax({
-                        type: 'post',
-                        async: false,
-                        dataType:'JSON',
-                        url: serve_url +"sumservlet",
-                        data: JSON.stringify({
-                            d1: this.d1, //发送到服务器的数据，Object或String类型的参数，如果已经不是字符串，将自动转换为字符串格式。
-                            d2: this.d2,
-                        }),
-                        success: function(res) {
-                            self.receive_rent(res)
-                        }
-                    })
-                },
+                
+            
                 receive_rent(res){
                     res.forEach( item => {
                         if(item.room_model != "total") this.allrent.push(item);
@@ -580,6 +565,7 @@
                         }
                     })
                 },
+                //保存至roomData
                 receive_rooms(res){
                     console.log("Received rooms data:", res); // 添加日志
                     this.roomData = res;
@@ -603,6 +589,7 @@
                                             message: '删除成功',
                                             type: 'success'
                                         });
+                            //再次调用重新获取
                             self.getallRooms();
                         }
                     })
@@ -610,6 +597,7 @@
                 searchModel(){
                     this.form = this.form.filter((e) => e.room_model.startWith(search))
                 },
+                //获取客户消费统计表
                 getRentCase() {
                 	var self = this;
                 	$.ajax({
@@ -622,6 +610,7 @@
                 		}
                 	})
                 },
+                //刷新rentCase的状态
                 receive_case(res) {
                 	console.log("Received rent_case data:", res);
                 	this.rentCase = res;
@@ -632,6 +621,7 @@
 				this.getallModels();
 			}
 		});
+        //DOM加载完成后
         $(document).ready(function() {
             $("input[value='导出数据']").click(function () {
                 if (confirm("是否确认导出数据?")) {
